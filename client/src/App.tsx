@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-// Me reconoce pages directamente por la configuracion de las rutas abosolutas
-import Home from 'pages/Home'
+import Home from 'pages/Home';
 
-const App: React.FC = () => <Home/>
+const App: React.FC = () => <Home />;
 
-export default App
+export default App;
