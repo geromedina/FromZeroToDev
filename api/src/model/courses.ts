@@ -1,32 +1,34 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
+import { ICourse } from "../utils/types"
 
-const coursesSchema = new Schema({
+const coursesSchema = new Schema<ICourse>({
     name: {
         type: String,
-        require: true
+        required: true
     },
     description: {
         type: String,
-        require: true
+        required: true
     },
     user_id: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User",
-        require: true
+        required: true
     },
     image: {
         type: String,
-        require: true
+        required: true
     },
     difficulty: {
         type: String,
-         enum: ['Easy', 'Medium', 'Advanced'],
-         require: true
-    },
+        enum: ['Easy', 'Medium', 'Advanced'],
+        required: true
+      },
+      
     duration: {
         type: Number,
-        require: true
+        required: true
     },
     price: {
         type: Number, 
@@ -34,13 +36,9 @@ const coursesSchema = new Schema({
         min: 0,
         max: 1000 
        },
-       course_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Purchases'
-    },
     video: {
         type: String,
-        require: true
+        required: true
     },
     created_at: {
         type: Date, 
@@ -53,5 +51,4 @@ const coursesSchema = new Schema({
     }
 )
 
-const Course = mongoose.model('Course', coursesSchema);
-module.exports = Course
+export const Course = mongoose.model<ICourse>('Course', coursesSchema);
