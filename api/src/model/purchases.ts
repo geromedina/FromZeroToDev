@@ -13,6 +13,10 @@ const purchasesSchema = new Schema  ({
          min: 0,
          max: 1000 
         },
+    course_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course'
+    },
     discount: {
         type: Number, 
         required: true,
