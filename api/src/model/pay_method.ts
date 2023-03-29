@@ -8,5 +8,5 @@ const payMethodSchema = new Schema({
     }
 })
 
-const PayMethod = mongoose.model('paymethod', payMethodSchema);
+const PayMethod = mongoose.model('Paymethod', payMethodSchema);
 module.exports = PayMethod

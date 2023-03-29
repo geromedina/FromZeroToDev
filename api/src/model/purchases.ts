@@ -3,7 +3,8 @@ import { Schema } from "mongoose";
 
 const purchasesSchema = new Schema  ({
     user_id: {
-        type: Number,
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
         require: true
     },
     price: {

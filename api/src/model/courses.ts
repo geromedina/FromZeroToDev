@@ -11,16 +11,18 @@ const coursesSchema = new Schema({
         require: true
     },
     user_id: {
-        type: Number,
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
         require: true
     },
     image: {
         type: String,
         require: true
     },
-    difficulty_id: {
+    difficulty: {
         type: String,
-        require: true
+         enum: ['Fácil', 'Intermedio', 'Avanzado'],
+         require: true
     },
     duration: {
         type: Number,
@@ -46,3 +48,6 @@ const coursesSchema = new Schema({
     }
     }
 )
+
+const Course = mongoose.model('Course', coursesSchema);
+module.exports = Course

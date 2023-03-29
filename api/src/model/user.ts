@@ -30,6 +30,10 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
+    favourites: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Course"
+    },
     created_at: {
          type: Date, 
          default: Date.now
