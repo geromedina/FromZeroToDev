@@ -21,7 +21,7 @@ const coursesSchema = new Schema({
     },
     difficulty: {
         type: String,
-         enum: ['Fácil', 'Intermedio', 'Avanzado'],
+         enum: ['Easy', 'Medium', 'Advanced'],
          require: true
     },
     duration: {
@@ -34,6 +34,10 @@ const coursesSchema = new Schema({
         min: 0,
         max: 1000 
        },
+       course_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Purchases'
+    },
     video: {
         type: String,
         require: true
