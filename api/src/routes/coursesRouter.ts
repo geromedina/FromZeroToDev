@@ -1,13 +1,12 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response } from "express";
+import getCoursesHandler from "../handlers/coursesHandlers";
 
-const router = Router();
-
-import getCoursesHandler from '../handlers/coursesHandlers';
+const coursesRouter = Router();
 
 interface ICoursesHandler {
   (req: Request, res: Response): void;
 }
 
-router.get('/', getCoursesHandler as ICoursesHandler);
+coursesRouter.get("/", getCoursesHandler as ICoursesHandler);
 
-export default router;
+export default coursesRouter;
