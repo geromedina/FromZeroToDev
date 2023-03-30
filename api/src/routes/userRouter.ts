@@ -8,5 +8,8 @@ interface IUsersHandler {
 }
 
 usersRouter.get("/", getUsersHandler as IUsersHandler);
-
+// usersRouter.post("/", async (req: Request, res:Response) => {
+//     const newUser = req.body
+//     await
+// } )
 export default usersRouter;
