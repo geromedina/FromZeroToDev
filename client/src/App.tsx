@@ -1,7 +1,12 @@
-import React from 'react';
+import React from 'react'
+import Home from './pages/Home/Home'
 
-import Home from 'pages/Home';
+const App: React.FC = (): JSX.Element => {
+    return (
+        <div className='bg-blue-600'>
+            <Home/>
+        </div>
+    )
+}
 
-const App: React.FC = () => <Home />;
-
-export default App;
+export default App
