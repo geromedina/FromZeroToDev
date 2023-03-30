@@ -1,12 +1,8 @@
 import React from 'react'
-import Card from '../../components/Card/Card'
-import { currentCard } from '../../ejemplo'
+import CardsContainer from '../../components/CardsContainer/CardsContainer'
 
 const Home: React.FC = (): JSX.Element => {
-    return <Card 
-    name={currentCard.name} 
-    difficults={currentCard.difficulty} 
-    id={currentCard._id.$oid} />
+    return <CardsContainer />
 }
 
 export default Home
