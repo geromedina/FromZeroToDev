@@ -1,9 +1,12 @@
-// import React from 'react'
+import React from 'react'
+import Footer from '../../components/Footer/Footer'
 
-// const Landing = () => {
-//   return (
-//     <div>Landing</div>
-//   )
-// }
+const Landing: React.FC = (): JSX.Element => {
+  return (
+    <>
+       <Footer/>
+    </>
+  )
+}
 
-// export default Landing
+export default Landing
