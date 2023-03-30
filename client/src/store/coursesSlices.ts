@@ -37,8 +37,9 @@ export const coursesSlice = createSlice({
 export const getCourses = (): AppThunk => {
   return async (dispatch) => {
     const rawData = await axios.get("http://localhost:3001/courses");
+    console.log(rawData);
     const response = rawData.data;
-    console.log(response);
+
     dispatch(fetchCourses(response));
   };
 };
