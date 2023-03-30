@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+/* import { NavLink } from "react-router-dom"; */
 import img from "../../assets/pictures/img.jpeg"
 
 interface CardProps {
