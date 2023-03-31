@@ -6,12 +6,17 @@ import Landing from './pages/Landing/Landing';
 import './index.css'
 
 const App: React.FC = (): JSX.Element => {
+
+  let location = useLocation();
+
     return (
         <div>
-        {location.pathname !== "/" && <NavBar />}
+          {location.pathname !== "/" && <NavBar />}
         <Routes>
+          <Route exact path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Landing />} />
+          {/* <Route exact path="/courses" element={<Courses />} />
+          <Route exact path="/create" element={<Form />} /> */}
         </Routes>
       </div>
     )

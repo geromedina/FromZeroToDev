@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
-import { ICourse } from "../Utils/types";
+import { ICourse } from "../utils/types";
 
 const coursesSchema = new Schema<ICourse>(
   {
