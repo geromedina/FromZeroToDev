@@ -3,7 +3,7 @@ import {
   getUsersController,
   createUser,
 } from "../controllers/usersControllers";
-import { IUser } from "../utils/types";
+import { IUser } from "../Utils/types";
 
 export const getUsersHandler = async (
   req: Request,
@@ -23,7 +23,7 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
     const user = req.body as IUser;
     const createdUser = await createUser(user);
     res.status(200).json(createdUser);
-  } catch(error) {
+  } catch (error) {
     res.status(400).json({ error });
   }
 };
