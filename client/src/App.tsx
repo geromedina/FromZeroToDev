@@ -13,7 +13,7 @@ const App: React.FC = (): JSX.Element => {
         <div>
           {location.pathname !== "/" && <NavBar />}
         <Routes>
-          <Route exact path="/" element={<Landing />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
         </Routes>
       </div>
