@@ -7,16 +7,18 @@ import Form from "./pages/Form/Form";
 import "./index.css";
 
 const App: React.FC = (): JSX.Element => {
-  return (
-    <div>
-      {/* {location.pathname !== "/" && <NavBar />} */}
-      <Routes>
-        <Route path="/create" element={<Form />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Landing />} />
-      </Routes>
-    </div>
-  );
-};
 
-export default App;
+  let location = useLocation();
+
+    return (
+        <div>
+          {location.pathname !== "/" && <NavBar />}
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </div>
+    )
+}
+
+export default App
