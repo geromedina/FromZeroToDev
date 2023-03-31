@@ -1,24 +1,26 @@
-import React from "react";
+import React from 'react'
 import { Route, Routes, useLocation } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import NavBar from "./components/NavBar";
-import Landing from "./pages/Landing/Landing";
-import Form from "./pages/Form/Form";
-import "./index.css";
+import Home from './pages/Home/Home'
+import Courses from './pages/Courses/Courses';
+import NavBar from './components/NavBar';
+import Landing from './pages/Landing/Landing';
+import './index.css'
 
 const App: React.FC = (): JSX.Element => {
-
-  let location = useLocation();
-
+  
+  const location = useLocation();
     return (
-        <div>
-          {location.pathname !== "/" && <NavBar />}
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-      </div>
-    )
-}
+      <div>
+      {location.pathname !== "/" && <NavBar />}
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Courses />} />
+      </Routes>
+    </div>
+  );
+};
 
 export default App
+
+
