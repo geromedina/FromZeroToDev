@@ -2,37 +2,38 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const userSchema = new Schema({
-  country_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    require: true,
+  country: {
+    type: String,
+    required: false
   },
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   username: {
     type: String,
-    require: true,
+    required: true,
   },
   lastname: {
     type: String,
-    require: true,
+    required: true,
   },
   image: {
     type: String,
-    require: true,
+    required: true,
   },
   firstname: {
     type: String,
-    require: true,
+    required: true,
   },
-  favourites: {
+  favorites: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Course",
+    required: false
   },
   created_at: {
     type: Date,
@@ -43,6 +44,7 @@ const userSchema = new Schema({
     default: Date.now,
   },
 });
+
 
 const Users = mongoose.model("Users", userSchema);
 export default Users;
