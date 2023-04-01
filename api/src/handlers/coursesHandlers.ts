@@ -3,8 +3,9 @@ import {
   getCourses,
   createCourse,
   getCoursesByName,
+  getCourseById,
 } from "../controllers/coursesController";
-import { ICourse } from "../Utils/types";
+import { ICourse } from "../utils/types";
 
 // MANEJADOR QUE TRAE LOS COURSES Y LOS CURSOS POR NOMBRE
 
@@ -27,6 +28,21 @@ export const getCoursesHandler = async (
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
+  }
+};
+// MANEJADOR QUE TRAE UN CURSO POR ID
+
+export const getCourseID = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const response = await getCourseById(id);
+    res.status(200).send(response);
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).send(error.message);
   }
 };
 
