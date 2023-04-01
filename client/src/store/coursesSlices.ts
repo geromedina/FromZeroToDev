@@ -13,6 +13,7 @@ interface ICourse {
   duration: number;
   price: number;
   video: string;
+  id: string;
   created_at: Date;
   updated_at: Date;
 }

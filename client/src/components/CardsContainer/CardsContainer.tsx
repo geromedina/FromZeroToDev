@@ -11,7 +11,7 @@ const CardsContainer: React.FC = (): JSX.Element => {
           name={course.name}
           difficults={course.difficulty}
           image={course.image}
-          id="idDePrueba"
+          id={course._id}
           description={course.description}
         />
       ))}
