@@ -3,7 +3,8 @@ import {
   getCourses,
   createCourse,
   getCoursesByName,
-  getCourseById,
+  getCourseById, 
+  updateCourseById
 } from "../controllers/coursesController";
 import { ICourse } from "../utils/types";
 
@@ -45,6 +46,23 @@ export const getCourseID = async (
     res.status(500).send(error.message);
   }
 };
+
+// MANEJADOR QUE ACTUALIZA UN CURSO POR ID
+export const updateCourseByIdHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const courseUpdates = req.body as ICourse;
+    const updatedCourse = await updateCourseById(id, courseUpdates);
+    res.status(200).json(updatedCourse);
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
+};
+
 
 //MANEJADOR QUE CREA LOS CURSOS
 
