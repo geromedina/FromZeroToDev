@@ -26,3 +26,17 @@ export interface IUser {
   created_at: Date,
   updated_at: Date
 }
+
+//TIPOS ADMINISTRADORES
+
+export interface IAdmin {
+  admin_id: Types.ObjectId,
+  name: string,
+  email: string,
+  lastname: string,
+  firstname: string,
+  image: string,
+  create_at: Date,
+  update_at: Date
+}
+
