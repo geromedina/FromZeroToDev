@@ -1,12 +1,14 @@
 import { Types } from "mongoose";
 
+export type difficulty = "Easy" | "Medium" | "Advanced"
+
 //TIPOS CURSO
 export interface ICourse {
     user_id: Types.ObjectId;
     name: string;
     description: string;
     image: string;
-    difficulty: string;
+    difficulty: difficulty;
     duration: number;
     price: number;
     video: string;
