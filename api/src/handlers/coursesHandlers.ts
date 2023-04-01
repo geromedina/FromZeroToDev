@@ -14,8 +14,6 @@ export const getCoursesHandler = async (
 ): Promise<void> => {
   const { name } = req.query;
   if (name) {
-    console.log(typeof name, name);
-
     try {
       const response = await getCoursesByName(name as string);
       res.status(200).json(response);
