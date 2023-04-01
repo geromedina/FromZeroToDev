@@ -22,6 +22,7 @@ const Form: React.FC = (): JSX.Element => {
     price: "",
     video: "",
   });
+
   const changeHandler = (e: any) => {
     const property = e.target.name;
     const value = e.target.value;
@@ -63,7 +64,7 @@ const Form: React.FC = (): JSX.Element => {
     } else return true;
   };
 
-  const submitHandler = (e: any) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const succesfull = validate(form);
     console.log(form);
@@ -87,12 +88,15 @@ const Form: React.FC = (): JSX.Element => {
   };
   return (
     <div className="border-solid">
-      <form onSubmit={submitHandler} className="grid grid-colms-8 border-solid">
+      <form
+        onSubmit={(e) => submitHandler}
+        className="grid grid-colms-8 border-solid"
+      >
         <label>Name</label>
         <input
           className="border-solid"
           value={form.name}
-          onChange={changeHandler}
+          onChange={(e) => changeHandler}
           name="name"
         ></input>
         <span>{errors.name}</span>
@@ -117,7 +121,7 @@ const Form: React.FC = (): JSX.Element => {
         <label>Difficulty</label>
         <select
           value={form.difficulty}
-          onChange={changeHandler}
+          onChange={(e) => changeHandler}
           name="difficulty"
         >
           <option value="" key={""}>

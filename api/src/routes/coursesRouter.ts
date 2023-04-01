@@ -1,6 +1,9 @@
 import { Router, Request, Response } from "express";
-import {getCoursesHandler, getCourseID, postCourse} from "../handlers/coursesHandlers";
-//import { Course } from "../model/courses";
+import {
+  getCoursesHandler,
+  postCourse,
+  getCourseID,
+} from "../handlers/coursesHandlers";
 
 const coursesRouter = Router();
 
@@ -12,8 +15,6 @@ coursesRouter.get("/", getCoursesHandler as ICoursesHandler);
 
 coursesRouter.get("/:id", getCourseID as ICoursesHandler);
 
-coursesRouter.post("/", postCourse as ICoursesHandler)
-
-
+coursesRouter.post("/", postCourse as ICoursesHandler);
 
 export default coursesRouter;

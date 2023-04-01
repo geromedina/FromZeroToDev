@@ -1,6 +1,6 @@
 import Users from "../model/users";
-import { IUser } from "../utils/types"
-
+// import { IUser } from "../utils/types"
+import { IUser } from "../utils/types";
 //FUNCION QUE TRAE LOS USER
 
 export const getUsersController = async () => {
@@ -11,8 +11,6 @@ export const getUsersController = async () => {
     throw new Error("Error al buscar los usuarios en la base de datos");
   }
 };
-
-
 // FUNCION QUE CREA UN USER
 
 export const createUser = async (user: IUser): Promise<IUser> => {

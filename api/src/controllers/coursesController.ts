@@ -11,6 +11,19 @@ export const getCourses = async () => {
   }
 };
 
+//FUNCION QUE TRAE CURSOS POR NOMBRE
+
+export const getCoursesByName = async (name: string) => {
+  try {
+    const courses = await Course.find({
+      name: { $regex: name, $options: "i" },
+    });
+    return courses;
+  } catch (error) {
+    throw new Error("Error al buscar los cursos por nombre");
+  }
+};
+
 // FUNCION QUE TRAE INFO DE UN CURSO POR ID
 
 export const getCourseById = async (id: any) => {
@@ -24,8 +37,7 @@ export const getCourseById = async (id: any) => {
     console.error(error);
     throw new Error(`Error al buscar el curso con ID ${id}`);
   }
-}
-
+};
 
 // FUNCION QUE CREA UN CURSO
 export const createCourse = async (course: ICourse): Promise<ICourse> => {

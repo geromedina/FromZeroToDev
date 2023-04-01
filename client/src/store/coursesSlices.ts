@@ -19,10 +19,12 @@ interface ICourse {
 
 interface CoursesState {
   courses: ICourse[];
+  filteredCourses: ICourse[];
 }
 
 const initialState: CoursesState = {
   courses: [],
+  filteredCourses: [],
 };
 
 export const coursesSlice = createSlice({
@@ -30,7 +32,17 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     fetchCourses: (state, action: PayloadAction<ICourse[]>) => {
-      return { ...state, courses: action.payload };
+      return {
+        ...state,
+        courses: action.payload,
+        filteredCourses: action.payload,
+      };
+    },
+    updateFilteredCourses: (state, action: PayloadAction<ICourse[]>) => {
+      return {
+        ...state,
+        filteredCourses: action.payload,
+      };
     },
   },
 });
@@ -43,5 +55,18 @@ export const getCourses = (): AppThunk => {
     dispatch(fetchCourses(response));
   };
 };
-export const { fetchCourses } = coursesSlice.actions;
+
+export const getCoursesByName = (name: string): AppThunk => {
+  return async (dispatch) => {
+    const rawData = await axios.get(
+      `http://localhost:3001/courses?name=${name}`
+    );
+    console.log(rawData);
+    const response = rawData.data;
+
+    dispatch(updateFilteredCourses(response));
+  };
+};
+
+export const { fetchCourses, updateFilteredCourses } = coursesSlice.actions;
 export default coursesSlice.reducer;

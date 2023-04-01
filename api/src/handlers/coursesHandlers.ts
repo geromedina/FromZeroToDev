@@ -1,25 +1,41 @@
 import { Request, Response } from "express";
-import { getCourses, getCourseById, createCourse } from "../controllers/coursesController";
+import {
+  getCourses,
+  createCourse,
+  getCoursesByName,
+  getCourseById,
+} from "../controllers/coursesController";
 import { ICourse } from "../utils/types";
-import { id } from "mongoose-typescript";
 
-// MANEJADOR QUE TRAE LOS COURSES
+// MANEJADOR QUE TRAE LOS COURSES Y LOS CURSOS POR NOMBRE
 
 export const getCoursesHandler = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  try {
-    const response = await getCourses();
-    res.status(200).json(response);
-  } catch (error: any) {
-    res.status(400).json({ message: error.message });
+  const { name } = req.query;
+  if (name) {
+    try {
+      const response = await getCoursesByName(name as string);
+      res.status(200).json(response);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  } else {
+    try {
+      const response = await getCourses();
+      res.status(200).json(response);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
   }
 };
-
 // MANEJADOR QUE TRAE UN CURSO POR ID
 
-export const getCourseID = async (req: Request, res: Response): Promise<void> => {
+export const getCourseID = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const id = req.params.id;
     const response = await getCourseById(id);
@@ -28,8 +44,7 @@ export const getCourseID = async (req: Request, res: Response): Promise<void> =>
     console.error(error);
     res.status(500).send(error.message);
   }
-}
-
+};
 
 //MANEJADOR QUE CREA LOS CURSOS
 
