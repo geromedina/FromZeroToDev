@@ -4,17 +4,17 @@ import { ICourse } from "../utils/types";
 
 const coursesSchema = new Schema<ICourse>(
   {
+    user_id: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
     description: {
       type: String,
-      required: true,
-    },
-    user_id: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
       required: true,
     },
     image: {
@@ -26,7 +26,6 @@ const coursesSchema = new Schema<ICourse>(
       enum: ["Easy", "Medium", "Advanced"],
       required: true,
     },
-
     duration: {
       type: Number,
       required: true,
