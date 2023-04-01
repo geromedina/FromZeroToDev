@@ -15,6 +15,7 @@ interface Course {
 
 const CardDetail: React.FC = (): JSX.Element  => {
   const courseId = useParams().id ;
+  
   const [course, setCourse] = useState<Course>({
     name: '',
     difficulty: '',
@@ -69,8 +70,8 @@ const CardDetail: React.FC = (): JSX.Element  => {
       Tu navegador no soporta la etiqueta de video.
       </video>
       <h3>Duration: {course.duration}</h3>
-      <h3>Dificulty: ${course.difficulty}</h3>
-      <h2>Price: {course.price}</h2>
+      <h3>Dificulty: {course.difficulty}</h3>
+      <h2>Price: ${course.price}</h2>
       <button>Comprar Curso</button>
     </div>
   )
