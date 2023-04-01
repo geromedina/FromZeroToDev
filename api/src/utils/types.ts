@@ -33,6 +33,8 @@ export interface IAdmin {
   admin_id: Types.ObjectId,
   name: string,
   email: string,
+  admname: string,
+  password: string,
   lastname: string,
   firstname: string,
   image: string,
