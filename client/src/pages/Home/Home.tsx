@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { SearchBar } from "../../components/Filters/SearchBar/SearchBar";
 import { Filters } from "../../components/Filters/Filters";
+import { Sorter } from "../../components/Filters/Sorters/Sorter";
 
 const Home: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ const Home: React.FC = (): JSX.Element => {
   }, []);
   return (
     <>
+      <Sorter />
       <Filters />
       <SearchBar />
       <CardsContainer />

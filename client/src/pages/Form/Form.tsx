@@ -88,15 +88,12 @@ const Form: React.FC = (): JSX.Element => {
   };
   return (
     <div className="border-solid">
-      <form
-        onSubmit={(e) => submitHandler}
-        className="grid grid-colms-8 border-solid"
-      >
+      <form onSubmit={submitHandler} className="grid grid-colms-8 border-solid">
         <label>Name</label>
         <input
           className="border-solid"
           value={form.name}
-          onChange={(e) => changeHandler}
+          onChange={changeHandler}
           name="name"
         ></input>
         <span>{errors.name}</span>
@@ -121,7 +118,7 @@ const Form: React.FC = (): JSX.Element => {
         <label>Difficulty</label>
         <select
           value={form.difficulty}
-          onChange={(e) => changeHandler}
+          onChange={changeHandler}
           name="difficulty"
         >
           <option value="" key={""}>
