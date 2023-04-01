@@ -6,7 +6,6 @@ const Form: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
     name: "",
     description: "",
-    user_id: "",
     image: "",
     difficulty: "",
     duration: "",
@@ -77,7 +76,6 @@ const Form: React.FC = (): JSX.Element => {
       setForm({
         name: "",
         description: "",
-        user_id: "",
         image: "",
         difficulty: "",
         duration: "",
@@ -109,12 +107,7 @@ const Form: React.FC = (): JSX.Element => {
         <label>image</label>
         <input value={form.image} onChange={changeHandler} name="image"></input>
         <span>{errors.image}</span>
-        <label>User_ID</label>
-        <input
-          value={form.user_id}
-          onChange={changeHandler}
-          name="user_id"
-        ></input>
+
         <label>Difficulty</label>
         <select
           value={form.difficulty}
