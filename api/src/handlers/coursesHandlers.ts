@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getCourses, createCourse } from "../controllers/coursesController";
-import { ICourse } from "../Utils/types";
+import { ICourse } from "../utils/types";
 
 // MANEJADOR QUE TRAE LOS COURSES
 

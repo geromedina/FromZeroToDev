@@ -1,5 +1,5 @@
 import { Course } from "../model/courses";
-import { ICourse } from "../Utils/types";
+import { ICourse } from "../utils/types";
 
 // FUNCION QUE TRAE TODOS LOS CURSOS
 export const getCourses = async () => {

@@ -1,6 +1,6 @@
 import Users from "../model/users";
 // import { IUser } from "../utils/types"
-import { IUser } from "../Utils/types";
+import { IUser } from "../utils/types";
 //FUNCION QUE TRAE LOS USER
 
 export const getUsersController = async () => {

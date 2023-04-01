@@ -86,7 +86,7 @@ const Form: React.FC = (): JSX.Element => {
     } else return;
   };
   return (
-    <div className="border-solid">
+    <div className="border-solid pt-16">
       <form onSubmit={submitHandler} className="grid grid-colms-8 border-solid">
         <label>Name</label>
         <input
