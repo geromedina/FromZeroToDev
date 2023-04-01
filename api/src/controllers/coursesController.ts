@@ -1,5 +1,6 @@
 import { Course } from "../model/courses";
 import { ICourse } from "../Utils/types";
+import { Request } from "express";
 
 // FUNCION QUE TRAE TODOS LOS CURSOS
 export const getCourses = async () => {
@@ -8,6 +9,19 @@ export const getCourses = async () => {
     return courses;
   } catch (error) {
     throw new Error("Error al buscar los cursos en la base de datos");
+  }
+};
+
+//FUNCION QUE TRAE CURSOS POR NOMBRE
+
+export const getCoursesByName = async (name: string) => {
+  try {
+    const courses = await Course.find({
+      name: { $regex: ".*" + name + ".*" },
+    });
+    return courses;
+  } catch (error) {
+    throw new Error("Error al buscar los cursos por nombre");
   }
 };
 

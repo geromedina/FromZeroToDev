@@ -19,10 +19,12 @@ interface ICourse {
 
 interface CoursesState {
   courses: ICourse[];
+  filteredCourses: ICourse[];
 }
 
 const initialState: CoursesState = {
   courses: [],
+  filteredCourses: [],
 };
 
 export const coursesSlice = createSlice({
@@ -30,7 +32,11 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     fetchCourses: (state, action: PayloadAction<ICourse[]>) => {
-      return { ...state, courses: action.payload };
+      return {
+        ...state,
+        courses: action.payload,
+        filteredCourses: action.payload,
+      };
     },
   },
 });
