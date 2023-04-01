@@ -1,6 +1,9 @@
 import { Router, Request, Response } from "express";
-import {getCoursesHandler, postCourse} from "../handlers/coursesHandlers";
-import { Course } from "../model/courses";
+import {
+  getCoursesHandler,
+  postCourse,
+  getCourseID,
+} from "../handlers/coursesHandlers";
 
 const coursesRouter = Router();
 
@@ -10,12 +13,8 @@ interface ICoursesHandler {
 
 coursesRouter.get("/", getCoursesHandler as ICoursesHandler);
 
-coursesRouter.post("/", postCourse as ICoursesHandler)
-// coursesRouter.post("/", async (req: Request, res: Response) => {
-//   const newCourse = req.body;
-//   await Course.create(newCourse);
-//   res.status(201).json(newCourse);
-// });
+coursesRouter.get("/:id", getCourseID as ICoursesHandler);
 
+coursesRouter.post("/", postCourse as ICoursesHandler);
 
 export default coursesRouter;

@@ -3,7 +3,7 @@ import {
   getUsersController,
   createUser,
 } from "../controllers/usersControllers";
-import { IUser } from "../Utils/types";
+import { IUser } from "../utils/types";
 
 export const getUsersHandler = async (
   req: Request,
