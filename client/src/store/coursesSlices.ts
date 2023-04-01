@@ -38,6 +38,12 @@ export const coursesSlice = createSlice({
         filteredCourses: action.payload,
       };
     },
+    updateFilteredCourses: (state, action: PayloadAction<ICourse[]>) => {
+      return {
+        ...state,
+        filteredCourses: action.payload,
+      };
+    },
   },
 });
 export const getCourses = (): AppThunk => {
@@ -49,5 +55,18 @@ export const getCourses = (): AppThunk => {
     dispatch(fetchCourses(response));
   };
 };
-export const { fetchCourses } = coursesSlice.actions;
+
+export const getCoursesByName = (name: string): AppThunk => {
+  return async (dispatch) => {
+    const rawData = await axios.get(
+      `http://localhost:3001/courses?name=${name}`
+    );
+    console.log(rawData);
+    const response = rawData.data;
+
+    dispatch(updateFilteredCourses(response));
+  };
+};
+
+export const { fetchCourses, updateFilteredCourses } = coursesSlice.actions;
 export default coursesSlice.reducer;

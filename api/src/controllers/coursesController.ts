@@ -17,7 +17,7 @@ export const getCourses = async () => {
 export const getCoursesByName = async (name: string) => {
   try {
     const courses = await Course.find({
-      name: { $regex: ".*" + name + ".*" },
+      name: { $regex: name, $options: "i" },
     });
     return courses;
   } catch (error) {

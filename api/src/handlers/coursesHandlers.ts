@@ -6,7 +6,7 @@ import {
 } from "../controllers/coursesController";
 import { ICourse } from "../Utils/types";
 
-// MANEJADOR QUE TRAE LOS COURSES
+// MANEJADOR QUE TRAE LOS COURSES Y LOS CURSOS POR NOMBRE
 
 export const getCoursesHandler = async (
   req: Request,
