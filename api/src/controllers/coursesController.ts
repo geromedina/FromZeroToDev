@@ -87,3 +87,15 @@ export const createCourse = async (course: ICourse): Promise<ICourse> => {
     throw new Error(`Ocurrió un error al crear el curso: ${error}`);
   }
 };
+
+export const deleteById = async (id:any) => {
+  try {
+    const infoDB = await Course.findByIdAndDelete(id)
+    if(!infoDB) {
+      console.log(`No se encontró ningún curso con ID ${id}`)
+    }
+    return infoDB
+  } catch (error) {
+    throw new Error(`Ocurrió un error al eliminar el curso: ${error}`);
+  }
+}
