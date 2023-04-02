@@ -3,6 +3,8 @@ import {
   getCoursesHandler,
   postCourse,
   getCourseID,
+  updateCourseByIdHandler,
+  deleteCourse
 } from "../handlers/coursesHandlers";
 
 const coursesRouter = Router();
@@ -15,6 +17,10 @@ coursesRouter.get("/", getCoursesHandler as ICoursesHandler);
 
 coursesRouter.get("/:id", getCourseID as ICoursesHandler);
 
+coursesRouter.put("/:id", updateCourseByIdHandler as ICoursesHandler);
+
 coursesRouter.post("/", postCourse as ICoursesHandler);
 
-export default coursesRouter;
+coursesRouter.delete("/:id", deleteCourse as ICoursesHandler)
+
+export default coursesRouter; 

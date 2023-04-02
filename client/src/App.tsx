@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Landing from "./pages/Landing/Landing";
 import Form from "./pages/Form/Form";
 import "./index.css";
+import CardDetail from "./components/CardDetail/CardDetail";
 
 const App: React.FC = (): JSX.Element => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = (): JSX.Element => {
         <Route path="/create" element={<Form />} />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Landing />} />
+        <Route path= "/detail/:id" element= {<CardDetail/>}/>
       </Routes>
     </div>
   );
