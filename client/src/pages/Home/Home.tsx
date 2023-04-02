@@ -12,7 +12,6 @@ const Home: React.FC = (): JSX.Element => {
   }, []);
   return (
     <>
-      <CardsContainer/>
       <Footer />
     </>
   );
