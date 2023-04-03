@@ -10,9 +10,9 @@ const App: React.FC = (): JSX.Element => {
   const location = useLocation()
   return (
     <div>
-      {location.pathname !== "/" && <NavBar />}
-      {/* {location.pathname !== "/home" && <NavBar />}  */}
-      {/* {location.pathname === "/courses" && <SideBar />} */}
+
+      {location.pathname !== '/' && <NavBar/>}
+
       <Routes>
         <Route path="/create" element={<Form />} />
         <Route path="/home" element={<Home />} />
