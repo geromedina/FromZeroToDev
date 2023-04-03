@@ -28,7 +28,7 @@ const Home: React.FC = (): JSX.Element => {
           <h1 className="text-3xl lg:text-5xl font-medium text-white mb-2.5">The best platform to boost your tech career</h1>
           <p className="text-lg text-gray-400 mb-7">We have the largest community of experts to provide you with the ideal content for your learning</p>
           <div className="flex flex-col sm:flex-row justify-center">
-            <NavLink to="/home">
+            <NavLink to="/courses">
               <button type="button" className="mb-20 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Start now</button>
             </NavLink>
           </div>
@@ -79,7 +79,7 @@ const Home: React.FC = (): JSX.Element => {
                   <h2 className="text-3xl lg:text-5xl font-bold text-white mb-2.5">Create your own professional course now</h2>
                   <p className="text-lg text-gray-400 mb-5">Hundreds of the best courses were powered by our creators</p>
                   <div className="flex flex-col sm:flex-row text-center">
-                    <NavLink to="/home">
+                    <NavLink to="/create">
                     <button type="button" className="mb-20 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">Create now</button>
                     </NavLink>
                   </div>
