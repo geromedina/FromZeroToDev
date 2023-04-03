@@ -1,5 +1,4 @@
 import Users from "../model/users";
-// import { IUser } from "../utils/types"
 import { IUser } from "../utils/types";
 //FUNCION QUE TRAE LOS USER
 

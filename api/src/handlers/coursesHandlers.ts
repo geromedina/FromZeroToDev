@@ -1,15 +1,14 @@
-import { Request, Response } from "express";
+import { Request, Response, ErrorRequestHandler } from "express";
 import {
   getCourses,
   createCourse,
   getCoursesByName,
-  getCourseById, 
+  getCourseById,
   updateCourseById,
-  deleteById
+  deleteById,
 } from "../controllers/coursesController";
 import { ICourse } from "../utils/types";
 import { Course } from "../model/courses";
-import mongoose from "mongoose";
 
 // MANEJADOR QUE TRAE LOS COURSES Y LOS CURSOS POR NOMBRE
 
@@ -45,7 +44,6 @@ export const getCourseID = async (
     const response = await getCourseById(id);
     res.status(200).send(response);
   } catch (error: any) {
-    console.error(error);
     res.status(500).send(error.message);
   }
 };
@@ -61,11 +59,9 @@ export const updateCourseByIdHandler = async (
     const updatedCourse = await updateCourseById(id, courseUpdates);
     res.status(200).json(updatedCourse);
   } catch (error: any) {
-    console.error(error);
     res.status(500).send(error.message);
   }
 };
-
 
 //MANEJADOR QUE CREA LOS CURSOS
 
@@ -77,25 +73,21 @@ export const postCourse = async (
     const course = req.body as ICourse;
     const createdCourse = await createCourse(course);
     res.status(200).json(createdCourse);
-  } catch (error) {
-    res.status(400).json();
+  } catch (error: any) {
+    res.status(400).json(error.message);
   }
 };
 
-export const deleteCourse = async (
-  req: Request,
-   res: Response
-   )  => {
+export const deleteCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const course = await Course.findById(id);
-    const deleteCourse = await deleteById(id)
+    const deleteCourse = await deleteById(id);
     if (!course) {
-      return res.status(400).json({ message: 'el ID es invalido' });
+      return res.status(400).json({ message: "el ID es invalido" });
     }
     return res.status(200).json(deleteCourse);
   } catch (err) {
-    console.error(err);
-    return res.status(500).send('Server Error');
+    return res.status(500).send("Server Error");
   }
 };
