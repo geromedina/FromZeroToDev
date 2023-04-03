@@ -4,7 +4,7 @@ import type { AppThunk, RootState } from "./store";
 import axios from "axios";
 import { ThunkActionDispatch } from "redux-thunk";
 
-interface ICourse {
+export interface ICourse {
   user_id: string;
   name: string;
   description: string;
@@ -13,7 +13,7 @@ interface ICourse {
   duration: number;
   price: number;
   video: string;
-  id: string;
+  _id: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -71,3 +71,4 @@ export const getCoursesByName = (name: string): AppThunk => {
 
 export const { fetchCourses, updateFilteredCourses } = coursesSlice.actions;
 export default coursesSlice.reducer;
+
