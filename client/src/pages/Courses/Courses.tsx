@@ -49,14 +49,14 @@ const Courses: React.FC = (): JSX.Element => {
         </div>
       </div>
       <CardsContainer currentCourses={currentCourses} />
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 flex-col">
         <Pagination
           currentPage={currentPage}
           coursesPerPage={coursesPerPage}
           totalCourses={courses.length}
           paginate={paginate}
         />
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

@@ -5,23 +5,25 @@ import { useSelector } from "react-redux";
 
 interface Course {
   name: string;
-  difficulty?: string;
+  difficulty: string;
   image: string;
   description: string;
   _id: string;
 }
 
-
-const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({ currentCourses }): JSX.Element => {
+const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({
+  currentCourses,
+}): JSX.Element => {
   const courses = useAppSelector((state) => state.courses.filteredCourses);
   const allCourses = useAppSelector((state) => state.courses);
 
   return (
     <>
-      {currentCourses.length ?
-        <div className="cards-container">
+      {currentCourses.length ? (
+        <div className="cards-container flex mx-auto">
           {currentCourses.map((course: Course) => (
             <Card
+              difficulty={course.difficulty}
               key={course._id}
               name={course.name}
               image={course.image}
@@ -30,17 +32,17 @@ const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({ currentCourses
             />
           ))}
         </div>
-        : !currentCourses.length && Array.isArray(allCourses.filteredCourses) && allCourses.filteredCourses.length ?
-          <div className="no-courses">
-            <h2> No hay cursos </h2>
-          </div>
-          :
-          <h2 className="loading">Cargando..</h2>
-      }
+      ) : !currentCourses.length &&
+        Array.isArray(allCourses.filteredCourses) &&
+        allCourses.filteredCourses.length ? (
+        <div className="no-courses">
+          <h2> No hay cursos </h2>
+        </div>
+      ) : (
+        <h2 className="loading">Cargando..</h2>
+      )}
     </>
   );
 };
-
-
 
 export default CardsContainer;
