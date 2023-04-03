@@ -7,9 +7,6 @@ import Pagination from "../../components/Pagination/Pagination";
 import "./Courses.css";
 import { SearchBar, Filters, Sorter } from "../../components/Filters/index";
 import Footer from "../../components/Footer/Footer";
-import { ICourse } from "../../store/coursesSlices";
-
-
 
 const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -36,7 +33,7 @@ const Courses: React.FC = (): JSX.Element => {
           <Sorter />
         </div>
         <div className="flex-1 justify-start">
-            <Filters />
+          <Filters />
         </div>
         <div className="flex items-center justify-end w-1/3">
           <div className="ml-4">
