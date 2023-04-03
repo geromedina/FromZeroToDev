@@ -6,6 +6,7 @@ import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import "./Courses.css";
 import { SearchBar, Filters, Sorter } from "../../components/Filters/index";
+import Footer from "../../components/Footer/Footer";
 
 interface Course {
   name: string;
@@ -55,6 +56,7 @@ const Courses: React.FC = (): JSX.Element => {
           totalCourses={courses.length}
           paginate={paginate}
         />
+        <Footer/>
       </div>
     </>
   );
