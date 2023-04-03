@@ -20,9 +20,16 @@ const Navbar: React.FC = () => {
         </div>
         <div id='menu' className='lg:flex hidden flex-grow justify-between absolute lg:relative lg:top-0 top-20 left-0 bg-gray-800 w-full lg:w-auto items-center py-14 lg:py-0 px-8 sm:px-24 lg:px-0'>
           <div className='flex flex-col lg:flex-row mb-8 lg:mb-0'>
-            <a href="" className='text-white lg:mr-7 mb-8 lg:mb-0'>Home</a>
-            <a href="" className='text-white lg:mr-7 mb-8 lg:mb-0'>Courses</a>
-            <a href="" className='text-white mb-8 lg:mb-0'>Create</a>
+            <NavLink to='/home' className='text-white lg:mr-7 mb-8 lg:mb-0'>
+            Home
+            </NavLink>
+            <NavLink to='/courses' className='text-white lg:mr-7 mb-8 lg:mb-0' >
+            Courses
+            </NavLink>
+            <NavLink to= "/create" className='text-white mb-8 lg:mb-0'>
+            Create
+            </NavLink>
+            
           </div>
           <div className='flex flex-col lg:flex-row text-center'>
             <a href="" className='text-white border border-white py-2 px-5 rounded-md hover:bg-white hover:text-gray-800 transition duration-500 ease-in-out lg:mr-7 mb-8 lg:mb-0'>Sign in</a>
