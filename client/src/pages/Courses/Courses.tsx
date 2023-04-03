@@ -12,12 +12,16 @@ const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const coursesPerPage = 4;
+  const courses = useAppSelector((state) => state.courses.filteredCourses);
 
   useEffect(() => {
     dispatch(getCourses());
   }, []);
 
-  const courses = useAppSelector((state) => state.courses.filteredCourses);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [courses]);
+
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
   const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
