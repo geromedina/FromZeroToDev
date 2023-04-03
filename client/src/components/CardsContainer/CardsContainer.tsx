@@ -2,6 +2,7 @@ import React from "react";
 import { useAppSelector } from "../../store/hooks";
 import Card from "../Card/Card";
 import { useSelector } from "react-redux";
+import { ICourse } from "../../store/coursesSlices";
 
 interface Course {
   name: string;
@@ -12,7 +13,7 @@ interface Course {
 }
 
 
-const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({ currentCourses }): JSX.Element => {
+const CardsContainer: React.FC<{ currentCourses: ICourse[] }> = ({ currentCourses }): JSX.Element => {
   const courses = useAppSelector((state) => state.courses.filteredCourses);
   const allCourses = useAppSelector((state) => state.courses);
 
@@ -20,7 +21,7 @@ const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({ currentCourses
     <>
       {currentCourses.length ?
         <div className="cards-container">
-          {currentCourses.map((course: Course) => (
+          {currentCourses.map((course: ICourse) => (
             <Card
               key={course._id}
               name={course.name}
