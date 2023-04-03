@@ -55,22 +55,12 @@ export const updateCourseById = async (id: any, courseUpdates: ICourse) => {
   }
 };
 
-
 // FUNCION QUE CREA UN CURSO
 export const createCourse = async (course: ICourse): Promise<ICourse> => {
   try {
-    const {
-      user_id,
-      name,
-      description,
-      image,
-      difficulty,
-      duration,
-      price,
-      video,
-    } = course;
+    const { name, description, image, difficulty, duration, price, video } =
+      course;
     if (
-      !user_id ||
       !name ||
       !description ||
       !image ||
@@ -88,14 +78,14 @@ export const createCourse = async (course: ICourse): Promise<ICourse> => {
   }
 };
 
-export const deleteById = async (id:any) => {
+export const deleteById = async (id: any) => {
   try {
-    const infoDB = await Course.findByIdAndDelete(id)
-    if(!infoDB) {
-      console.log(`No se encontró ningún curso con ID ${id}`)
+    const infoDB = await Course.findByIdAndDelete(id);
+    if (!infoDB) {
+      console.log(`No se encontró ningún curso con ID ${id}`);
     }
-    return infoDB
+    return infoDB;
   } catch (error) {
     throw new Error(`Ocurrió un error al eliminar el curso: ${error}`);
   }
-}
+};
