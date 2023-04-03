@@ -24,8 +24,7 @@ const coursesSchema = new Schema<ICourse>(
     },
     difficulty: {
       type: String,
-      enum: ["Easy", "Medium", "Advanced"],
-      required: true,
+      required: true
     },
 
     duration: {
