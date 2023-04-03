@@ -8,13 +8,6 @@ import "./Courses.css";
 import { SearchBar, Filters, Sorter } from "../../components/Filters/index";
 import Footer from "../../components/Footer/Footer";
 
-interface Course {
-  name: string;
-  difficulty: string;
-  image: string;
-  description: string;
-}
-
 const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);

@@ -2,28 +2,19 @@ import React from "react";
 import { useAppSelector } from "../../store/hooks";
 import Card from "../Card/Card";
 import { useSelector } from "react-redux";
+import { ICourse } from "../../store/coursesSlices"
 
-interface Course {
-  name: string;
-  difficulty: string;
-  image: string;
-  description: string;
-  _id: string;
-}
 
-const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({
-  currentCourses,
-}): JSX.Element => {
+const CardsContainer: React.FC<{ currentCourses: ICourse[] }> = ({ currentCourses }): JSX.Element => {
   const courses = useAppSelector((state) => state.courses.filteredCourses);
   const allCourses = useAppSelector((state) => state.courses);
 
   return (
     <>
-      {currentCourses.length ? (
-        <div className="cards-container flex mx-auto">
-          {currentCourses.map((course: Course) => (
+      {currentCourses.length ?
+        <div className="cards-container">
+          {currentCourses.map((course: ICourse) => (
             <Card
-              difficulty={course.difficulty}
               key={course._id}
               name={course.name}
               image={course.image}
@@ -32,17 +23,13 @@ const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({
             />
           ))}
         </div>
-      ) : !currentCourses.length &&
-        Array.isArray(allCourses.filteredCourses) &&
-        allCourses.filteredCourses.length ? (
-        <div className="no-courses">
-          <h2> No hay cursos </h2>
-        </div>
-      ) : (
-        <h2 className="loading">Cargando..</h2>
-      )}
+        : !currentCourses.length && Array.isArray(allCourses.filteredCourses) && allCourses.filteredCourses.length ?
+          <div className="no-courses">
+            <h2> No hay cursos </h2>
+          </div>
+          :
+          <h2 className="loading">Cargando..</h2>
+      }
     </>
   );
 };
-
-export default CardsContainer;
