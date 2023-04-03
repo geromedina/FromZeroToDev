@@ -33,7 +33,3 @@ const CardsContainer: React.FC<{ currentCourses: ICourse[] }> = ({ currentCourse
     </>
   );
 };
-
-
-
-export default CardsContainer;
