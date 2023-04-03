@@ -8,7 +8,7 @@ interface Course {
   difficulty?: string;
   image: string;
   description: string;
-  id: string;
+  _id: string;
 }
 
 
@@ -22,10 +22,10 @@ const CardsContainer: React.FC<{ currentCourses: Course[] }> = ({ currentCourses
         <div className="cards-container">
           {currentCourses.map((course: Course) => (
             <Card
-              key={course.id}
+              key={course._id}
               name={course.name}
               image={course.image}
-              id="idDePrueba"
+              id={course._id}
               description={course.description}
             />
           ))}
