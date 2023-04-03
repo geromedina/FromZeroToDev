@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { useEffect } from "react";
 import { getCourses } from "../../store/coursesSlices";
 import Footer from "../../components/Footer/Footer";
-import CardsContainer from "../../components/CardsContainer/CardsContainer";
+import Navbar from "../../components/NavBar/NavBar";
 
 const Home: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -11,9 +11,10 @@ const Home: React.FC = (): JSX.Element => {
     dispatch(getCourses());
   }, []);
   return (
-    <>
-      <Footer />
-    </>
+    <body className="bg-gray-800">
+      <Navbar/>
+      <Footer/>
+    </body>
   );
 };
 
