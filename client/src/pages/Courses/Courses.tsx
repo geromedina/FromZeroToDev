@@ -40,7 +40,7 @@ const Courses: React.FC = (): JSX.Element => {
           <Sorter />
         </div>
         <div className="flex-1 justify-start">
-            <Filters />
+          <Filters />
         </div>
         <div className="flex items-center justify-end w-1/3">
           <div className="ml-4">

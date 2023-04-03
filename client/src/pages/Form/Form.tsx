@@ -6,7 +6,6 @@ const Form: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
     name: "",
     description: "",
-    user_id: "",
     image: "",
     difficulty: "",
     duration: "",
@@ -77,7 +76,6 @@ const Form: React.FC = (): JSX.Element => {
       setForm({
         name: "",
         description: "",
-        user_id: "",
         image: "",
         difficulty: "",
         duration: "",
@@ -87,36 +85,40 @@ const Form: React.FC = (): JSX.Element => {
     } else return;
   };
   return (
-    <div className="border-solid">
-      <form onSubmit={submitHandler} className="grid grid-colms-8 border-solid">
-        <label>Name</label>
+    <div className="max-w-md mx-auto">
+      <form
+        onSubmit={submitHandler}
+        className="grid grid-cols-8 border border-gray-400 p-4 rounded-lg"
+      >
+        <label className="col-span-2">Name</label>
         <input
-          className="border-solid"
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
           value={form.name}
           onChange={changeHandler}
           name="name"
         ></input>
-        <span>{errors.name}</span>
+        <span className="col-span-8 text-red-600">{errors.name}</span>
 
-        <label>Description</label>
+        <label className="col-span-2">Description</label>
         <input
           value={form.description}
           onChange={changeHandler}
           name="description"
-          className="border-solid"
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
         ></input>
-        <span>{errors.description}</span>
-        <label>image</label>
-        <input value={form.image} onChange={changeHandler} name="image"></input>
-        <span>{errors.image}</span>
-        <label>User_ID</label>
+        <span className="col-span-8 text-red-600">{errors.description}</span>
+        <label className="col-span-2">image</label>
         <input
-          value={form.user_id}
+          value={form.image}
           onChange={changeHandler}
-          name="user_id"
+          name="image"
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
         ></input>
-        <label>Difficulty</label>
+        <span className="col-span-8 text-red-600">{errors.image}</span>
+
+        <label className="col-span-2">Difficulty</label>
         <select
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
           value={form.difficulty}
           onChange={changeHandler}
           name="difficulty"
@@ -137,21 +139,38 @@ const Form: React.FC = (): JSX.Element => {
             Advanced{" "}
           </option>
         </select>
-        <span>{errors.difficulty}</span>
-        <label>Duration</label>
+        <span className="col-span-8 text-red-600">{errors.difficulty}</span>
+        <label className="col-span-2">Duration</label>
         <input
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
           value={form.duration}
           onChange={changeHandler}
           name="duration"
         ></input>
-        <span>{errors.duration}</span>
-        <label>Price</label>
-        <input value={form.price} onChange={changeHandler} name="price"></input>
-        <span>{errors.price}</span>
-        <label>Video</label>
-        <input value={form.video} onChange={changeHandler} name="video"></input>
-        <span>{errors.video}</span>
-        <button type="submit"> Create! </button>
+        <span className="col-span-8 text-red-600">{errors.duration}</span>
+        <label className="col-span-2">Price</label>
+        <input
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
+          value={form.price}
+          onChange={changeHandler}
+          name="price"
+        ></input>
+        <span className="col-span-8 text-red-600">{errors.price}</span>
+        <label className="col-span-2">Video</label>
+        <input
+          value={form.video}
+          onChange={changeHandler}
+          name="video"
+          className="col-span-6 border border-gray-400 p-2 rounded-lg"
+        ></input>
+        <span className="col-span-8 text-red-600">{errors.video}</span>
+        <button
+          type="submit"
+          className="col-span-8 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          {" "}
+          Create!{" "}
+        </button>
       </form>
     </div>
   );
