@@ -62,18 +62,41 @@ const CardDetail: React.FC = (): JSX.Element  => {
   }, [course]);
 
   return (
-    <div>
-      <h1>{course.name}</h1>
-      <img src={course.image} alt={`Imagen del curso de ${course.name}`}/>
-      <h2>{course.description}</h2>
-      <video src={course.video} width="640" height="360" controls>
+    <div className="min-h-screen flex items-center justify-center">
+  <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-10 text-center">
+    <h1 className="text-4xl font-bold mb-4 text-white">{course.name}</h1>
+    <img
+      src={course.image}
+      alt={`Imagen del curso de ${course.name}`}
+      className="w-1/2 mx-auto mb-6"
+    />
+    <h2 className="text-lg mb-4 text-white">{course.description}</h2>
+    <video
+      src={course.video}
+      width="640"
+      height="360"
+      controls
+      className="mb-6"
+    >
       Tu navegador no soporta la etiqueta de video.
-      </video>
-      <h3>Duration: {course.duration}</h3>
-      <h3>Dificulty: {course.difficulty}</h3>
-      <h2>Price: ${course.price}</h2>
-      <button>Comprar Curso</button>
+    </video>
+    <div className="flex flex-row mb-4">
+      <h3 className="text-lg font-bold mr-2 text-white">Duration:</h3>
+      <h3 className="text-lg text-white">{course.duration} hours</h3>
     </div>
+    <div className="flex flex-row mb-4">
+      <h3 className="text-lg font-bold mr-2 text-white">Difficulty:</h3>
+      <h3 className="text-lg text-white">{course.difficulty}</h3>
+    </div>
+    <div className="flex flex-row items-center mb-4">
+      <h2 className="text-2xl font-bold mr-4 text-white">Price: ${course.price}</h2>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+        {/* <AiOutlineShoppingCart className="mr-2" /> */}
+        Comprar Curso
+      </button>
+    </div>
+  </div>
+</div>
   )
 };
 
