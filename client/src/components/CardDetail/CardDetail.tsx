@@ -59,7 +59,7 @@ const CardDetail: React.FC = (): JSX.Element  => {
     image: '',
     price:0,
     video: '',}); */
-  }, [course]);
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
