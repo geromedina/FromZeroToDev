@@ -62,9 +62,9 @@ export const Sorter: React.FC = (): JSX.Element => {
 
   return (
 <>
-  <label className="mr-2">Sort by:</label>
+  <label className="block font-bold mb-2 text-gray-700">Sort by:</label>
   <select
-    className="border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+   className="border border-gray-400 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
     onChange={changeHandler}
   >
     <option value="Name Descending">Name Descending</option>

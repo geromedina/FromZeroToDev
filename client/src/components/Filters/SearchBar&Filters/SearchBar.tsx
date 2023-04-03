@@ -12,7 +12,7 @@ export const SearchBar: React.FC = (): JSX.Element => {
   return (
 <form className="flex items-center">
   <input
-    className="border rounded-l py-2 px-3 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
     type="text"
     placeholder="Search for Courses..."
     onChange={handleChange}

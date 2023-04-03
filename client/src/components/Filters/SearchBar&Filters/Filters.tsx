@@ -1,7 +1,7 @@
 import React from "react";
-import { useAppSelector } from "../../store/hooks";
-import { useAppDispatch } from "../../store/hooks";
-import { updateFilteredCourses } from "../../store/coursesSlices";
+import { useAppSelector } from "../../../store/hooks";
+import { useAppDispatch } from "../../../store/hooks";
+import { updateFilteredCourses } from "../../../store/coursesSlices";
 
 export const Filters: React.FC = (): JSX.Element => {
   const courses = useAppSelector((state) => state.courses.courses);
@@ -28,25 +28,21 @@ export const Filters: React.FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <label> Select a difficulty</label>
-      <select onChange={changeHandler} name="dificulty">
-        <option value="" key={""}>
-          {" "}
-        </option>
-        <option value="Easy" key={"1"}>
-          {" "}
-          Easy{" "}
-        </option>
-        <option value="Medium" key={"2"}>
-          {" "}
-          Medium{" "}
-        </option>
-        <option value="Advanced" key={"3"}>
-          {" "}
-          Advanced{" "}
-        </option>
-      </select>
-    </>
+<>
+  <label className="block font-bold mb-2 text-gray-700">
+    Select a difficulty
+  </label>
+  <select
+    className="border border-gray-400 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    name="difficulty"
+    id="difficulty"
+    onChange={changeHandler}
+  >
+    <option value="" key={""}></option>
+    <option value="Easy" key={"1"}>Easy</option>
+    <option value="Medium" key={"2"}>Medium</option>
+    <option value="Advanced" key={"3"}>Advanced</option>
+  </select>
+</>
   );
 };

@@ -88,84 +88,72 @@ const Form: React.FC = (): JSX.Element => {
   };
   return (
     <div className="border-solid">
-  <form onSubmit={submitHandler} className="grid grid-cols-8 border-solid gap-4 p-4">
-    <label className="col-span-1">Name</label>
-    <input
-      className="col-span-7 border border-gray-400 rounded-md p-2"
-      value={form.name}
-      onChange={changeHandler}
-      name="name"
-    ></input>
-    <span className="col-span-8 text-red-500">{errors.name}</span>
+      <form onSubmit={submitHandler} className="grid grid-colms-8 border-solid">
+        <label>Name</label>
+        <input
+          className="border-solid"
+          value={form.name}
+          onChange={changeHandler}
+          name="name"
+        ></input>
+        <span>{errors.name}</span>
 
-    <label className="col-span-1">Description</label>
-    <input
-      value={form.description}
-      onChange={changeHandler}
-      name="description"
-      className="col-span-7 border border-gray-400 rounded-md p-2"
-    ></input>
-    <span className="col-span-8 text-red-500">{errors.description}</span>
-
-    <label className="col-span-1">Image</label>
-    <input value={form.image} onChange={changeHandler} name="image" className="col-span-7 border border-gray-400 rounded-md p-2"></input>
-    <span className="col-span-8 text-red-500">{errors.image}</span>
-
-    <label className="col-span-1">User ID</label>
-    <input
-      value={form.user_id}
-      onChange={changeHandler}
-      name="user_id"
-      className="col-span-7 border border-gray-400 rounded-md p-2"
-    ></input>
-
-    <label className="col-span-1">Difficulty</label>
-    <select
-      value={form.difficulty}
-      onChange={changeHandler}
-      name="difficulty"
-      className="col-span-7 border border-gray-400 rounded-md p-2"
-    >
-      <option value="" key={""}>
-        {" "}
-      </option>
-      <option value="Easy" key={"1"}>
-        {" "}
-        Easy{" "}
-      </option>
-      <option value="Medium" key={"2"}>
-        {" "}
-        Medium{" "}
-      </option>
-      <option value="Advanced" key={"3"}>
-        {" "}
-        Advanced{" "}
-      </option>
-    </select>
-    <span className="col-span-8 text-red-500">{errors.difficulty}</span>
-
-    <label className="col-span-1">Duration</label>
-    <input
-      value={form.duration}
-      onChange={changeHandler}
-      name="duration"
-      className="col-span-7 border border-gray-400 rounded-md p-2"
-    ></input>
-    <span className="col-span-8 text-red-500">{errors.duration}</span>
-
-    <label className="col-span-1">Price</label>
-    <input value={form.price} onChange={changeHandler} name="price" className="col-span-7 border border-gray-400 rounded-md p-2"></input>
-    <span className="col-span-8 text-red-500">{errors.price}</span>
-
-    <label className="col-span-1">Video</label>
-    <input value={form.video} onChange={changeHandler} name="video" className="col-span-7 border border-gray-400 rounded-md p-2"></input>
-    <span className="col-span-8 text-red-500">{errors.video}</span>
-
-    <button type="submit" className="col-span-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
-      Create!
-    </button>
-  </form>
-</div>
+        <label>Description</label>
+        <input
+          value={form.description}
+          onChange={changeHandler}
+          name="description"
+          className="border-solid"
+        ></input>
+        <span>{errors.description}</span>
+        <label>image</label>
+        <input value={form.image} onChange={changeHandler} name="image"></input>
+        <span>{errors.image}</span>
+        <label>User_ID</label>
+        <input
+          value={form.user_id}
+          onChange={changeHandler}
+          name="user_id"
+        ></input>
+        <label>Difficulty</label>
+        <select
+          value={form.difficulty}
+          onChange={changeHandler}
+          name="difficulty"
+        >
+          <option value="" key={""}>
+            {" "}
+          </option>
+          <option value="Easy" key={"1"}>
+            {" "}
+            Easy{" "}
+          </option>
+          <option value="Medium" key={"2"}>
+            {" "}
+            Medium{" "}
+          </option>
+          <option value="Advanced" key={"3"}>
+            {" "}
+            Advanced{" "}
+          </option>
+        </select>
+        <span>{errors.difficulty}</span>
+        <label>Duration</label>
+        <input
+          value={form.duration}
+          onChange={changeHandler}
+          name="duration"
+        ></input>
+        <span>{errors.duration}</span>
+        <label>Price</label>
+        <input value={form.price} onChange={changeHandler} name="price"></input>
+        <span>{errors.price}</span>
+        <label>Video</label>
+        <input value={form.video} onChange={changeHandler} name="video"></input>
+        <span>{errors.video}</span>
+        <button type="submit"> Create! </button>
+      </form>
+    </div>
   );
 };
 
