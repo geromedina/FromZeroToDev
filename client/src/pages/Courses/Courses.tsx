@@ -4,7 +4,10 @@ import { getCourses } from "../../store/coursesSlices";
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/Pagination";
-import "./Courses.css"
+import "./Courses.css";
+import { Filters } from "../../components/Filters/Filters";
+import { Sorter } from "../../components/Filters/Sorters/Sorter";
+import { SearchBar } from "../../components/Filters/SearchBar/SearchBar";
 
 interface Course {
   name: string;
@@ -33,6 +36,9 @@ const Courses: React.FC = (): JSX.Element => {
 
   return (
     <>
+      <SearchBar />
+      <Sorter />
+      <Filters />
       <CardsContainer currentCourses={currentCourses} />
       <Pagination
         currentPage={currentPage}
