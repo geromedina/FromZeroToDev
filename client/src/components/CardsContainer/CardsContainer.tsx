@@ -20,6 +20,7 @@ const CardsContainer: React.FC<{ currentCourses: ICourse[] }> = ({ currentCourse
               image={course.image}
               id={course._id}
               description={course.description}
+              difficulty={course.difficulty}
             />
           ))}
         </div>
@@ -33,3 +34,5 @@ const CardsContainer: React.FC<{ currentCourses: ICourse[] }> = ({ currentCourse
     </>
   );
 };
+
+export default CardsContainer;
