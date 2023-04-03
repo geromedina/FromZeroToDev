@@ -1,10 +1,9 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Home, Landing, Form, Courses } from "./pages/index";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import "./index.css";
 import CardDetail from "./components/CardDetail/CardDetail";
-// import SideBar from "./components/SideBar/side";
 
 const App: React.FC = (): JSX.Element => {
   const location = useLocation();
@@ -13,7 +12,7 @@ const App: React.FC = (): JSX.Element => {
       {location.pathname !== "/" && <NavBar />}
 
       <Routes>
-        <Route path="/create" element={<Form git pull />} />
+        <Route path="/create" element={<Form />} />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Landing />} />
         <Route path="/detail/:id" element={<CardDetail />} />
