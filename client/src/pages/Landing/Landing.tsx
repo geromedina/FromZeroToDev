@@ -1,13 +1,14 @@
 import React from 'react';
 import Footer from '../../components/Footer/Footer';
 import { NavLink } from 'react-router-dom';
+import logo from '../../assets/pictures/web-dev-icon.svg';
 
 const Landing: React.FC = (): JSX.Element => {
   return (
     <div className="bg-white">
       <nav className="bg-white dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap mx-auto p-10 justify-center">
-        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="FlowBite Logo" />
+        <img src={logo} alt="logo" />
         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">FromZeroToDev</span>
         </div>
       </nav>
