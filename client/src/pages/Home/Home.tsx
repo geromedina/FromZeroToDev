@@ -22,7 +22,7 @@ const Home: React.FC = (): JSX.Element => {
   }, []);
   return (
     <body className="bg-gray-800">
-      <Navbar/>
+      {/* <Navbar/> */}
       <section className="container mx-auto py-24 px-8">
         <div className="text-center lg:w-3/5 mx-auto mb-24">
           <h1 className="text-3xl lg:text-5xl font-medium text-white mb-2.5">The best platform to boost your tech career</h1>
