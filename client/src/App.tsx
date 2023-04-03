@@ -11,6 +11,8 @@ const App: React.FC = (): JSX.Element => {
   return (
     <div>
 
+      {location.pathname !== '/' && <NavBar/>}
+
       <Routes>
         <Route path="/create" element={<Form />} />
         <Route path="/home" element={<Home />} />
