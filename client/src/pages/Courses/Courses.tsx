@@ -5,6 +5,9 @@ import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import "./Courses.css"
+import { SearchBar } from "../../components/Filters/SearchBar/SearchBar";
+import { Sorter } from "../../components/Filters/Sorters/Sorter";
+import Footer from "../../components/Footer/Footer";
 
 interface Course {
   name: string;
@@ -32,15 +35,25 @@ const Courses: React.FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <CardsContainer currentCourses={currentCourses} />
-      <Pagination
-        currentPage={currentPage}
-        coursesPerPage={coursesPerPage}
-        totalCourses={courses.length}
-        paginate={paginate}
-      />
-    </>
+<>
+  <div className="flex justify-between items-center mb-4">
+    <div className="flex-1">
+      <Sorter />
+    </div>
+    <div className="ml-4">
+      <SearchBar />
+    </div>
+  </div>
+  <CardsContainer currentCourses={currentCourses} />
+  <div className="flex justify-center mt-4">
+    <Pagination
+      currentPage={currentPage}
+      coursesPerPage={coursesPerPage}
+      totalCourses={courses.length}
+      paginate={paginate}
+    />
+  </div>
+</>
   );
 };
 
