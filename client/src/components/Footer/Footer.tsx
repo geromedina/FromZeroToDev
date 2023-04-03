@@ -5,7 +5,7 @@ import { IonIcon } from '@ionic/react';
 
 const Footer: React.FC = (): JSX.Element => {
   return (
-    <footer className="bg-gray-900 border-t border-gray-400 py-14">
+    <footer className="bg-gray-900 border-t border-gray-400 py-14 w-full">
         <div className='container mx-auto px-8 mb-14'>
             <div className='grid lg:grid-cols-2'>
                 <div className='mb-10 lg:mb-0'>
