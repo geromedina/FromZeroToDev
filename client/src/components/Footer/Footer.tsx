@@ -48,8 +48,8 @@ const Footer: React.FC = (): JSX.Element => {
                 <p className='text-gray-400 mb-5 lg:mb-0'>FromZeroToDev 2023 | All rights reserved.</p>
                 <div className='flex lg:justify-end'>
                     <p className='text-gray-400 mr-7'>Follow us on:</p>
-                    <a href="" className='mr-7'><IonIcon  icon={logoGithub} size="large" className="icon-class text-blue-500 hover:text-blue-600" /></a>
-                    <a href="" className='mr-7'><IonIcon  icon={logoDiscord} size="large" className="icon-class text-blue-500 hover:text-blue-600" /></a>
+                    <a href="https://github.com/geromedina/FromZeroToDev" className='mr-7'><IonIcon  icon={logoGithub} size="large" className="icon-class text-blue-500 hover:text-blue-600" /></a>
+                    <a href="https://discord.gg/gKjzmMTz" className='mr-7'><IonIcon  icon={logoDiscord} size="large" className="icon-class text-blue-500 hover:text-blue-600" /></a>
                 </div>
             </div>
         </div>

@@ -12,8 +12,10 @@ const Navbar: React.FC = () => {
     <nav className='bg-gray-800 py-6 relative'>
       <div className='container mx-auto flex px-8 xl:px-0'>
         <div className='flex flex-grow items-center'>
-          <img src={logo} alt="logo" />
-          <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 px-2">FromZeroToDev</h1>
+          <NavLink to='/' className='flex flex-grow items-center'>
+            <img src={logo} alt="logo" />
+            <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 px-2">FromZeroToDev</h1>
+          </NavLink>
         </div>
         <div className='flex lg:hidden'>
           <IonIcon  icon={menuOutline} size="large" className="icon-class text-blue-500 hover:text-blue-600" onClick={(e) => openMenu()} />

@@ -1,5 +1,5 @@
-import { SearchBar } from "./SearchBar&Filters/SearchBar";
+import { Search } from "./SearchBar&Filters/Search";
 import { Filters } from "./SearchBar&Filters/Filters";
 import { Sorter } from "./SearchBar&Filters/Sorter";
  
-export {SearchBar,Filters,Sorter}
+export {Search,Filters,Sorter}
