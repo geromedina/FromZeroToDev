@@ -67,13 +67,12 @@ const Form: React.FC = (): JSX.Element => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const succesfull = validate(form);
-    console.log(form);
+
     if (succesfull) {
-      console.log("validate succesfull");
       axios
         .post("http://localhost:3001/courses", form)
-        .then((res) => alert(res.data))
-        .catch((error) => console.log(error.message));
+        .then((res) => alert("Succesfully created"))
+        .catch((error) => alert(error.message));
       setForm({
         name: "",
         description: "",

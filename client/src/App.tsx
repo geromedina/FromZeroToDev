@@ -1,10 +1,9 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Home, Landing, Form, Courses } from "./pages/index";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import "./index.css";
 import CardDetail from "./components/CardDetail/CardDetail";
-// import SideBar from "./components/SideBar/side";
 
 const App: React.FC = (): JSX.Element => {
   const location = useLocation();

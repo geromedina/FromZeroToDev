@@ -53,3 +53,4 @@ function openMenu() {
     menu?.classList.add('hidden');
   }
 }
+

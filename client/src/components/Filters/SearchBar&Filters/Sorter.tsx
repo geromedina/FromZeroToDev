@@ -75,3 +75,4 @@ export const Sorter: React.FC = (): JSX.Element => {
     </div>
   );
 };
+

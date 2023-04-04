@@ -13,7 +13,6 @@ export const getUsersHandler = async (
     const response = await getUsersController();
     res.status(200).json(response);
   } catch (error: any) {
-    console.log("hay una error");
     res.status(400).json({ error });
   }
 };
