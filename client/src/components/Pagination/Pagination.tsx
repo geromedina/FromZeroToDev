@@ -7,7 +7,11 @@ interface Props {
   paginate: (pageNumber: number) => void;
 }
 
-const Pagination: React.FC<Props> = ({ currentPage, coursesPerPage, totalCourses, paginate }) => {
+const Pagination: React.FC<Props> = ({
+  coursesPerPage,
+  totalCourses,
+  paginate,
+}) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalCourses / coursesPerPage); i++) {

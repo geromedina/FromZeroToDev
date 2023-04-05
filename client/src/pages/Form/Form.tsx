@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import Footer from "../../components/Footer/Footer";
 
 const Form: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
@@ -66,13 +67,12 @@ const Form: React.FC = (): JSX.Element => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const succesfull = validate(form);
-    console.log(form);
+
     if (succesfull) {
-      console.log("validate succesfull");
       axios
         .post("http://localhost:3001/courses", form)
-        .then((res) => alert(res.data))
-        .catch((error) => console.log(error.message));
+        .then((res) => alert("Succesfully created"))
+        .catch((error) => alert(error.message));
       setForm({
         name: "",
         description: "",
@@ -85,93 +85,96 @@ const Form: React.FC = (): JSX.Element => {
     } else return;
   };
   return (
-    <div className="max-w-md mx-auto">
-      <form
-        onSubmit={submitHandler}
-        className="grid grid-cols-8 border border-gray-400 p-4 rounded-lg"
-      >
-        <label className="col-span-2">Name</label>
-        <input
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          value={form.name}
-          onChange={changeHandler}
-          name="name"
-        ></input>
-        <span className="col-span-8 text-red-600">{errors.name}</span>
-
-        <label className="col-span-2">Description</label>
-        <input
-          value={form.description}
-          onChange={changeHandler}
-          name="description"
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-        ></input>
-        <span className="col-span-8 text-red-600">{errors.description}</span>
-        <label className="col-span-2">image</label>
-        <input
-          value={form.image}
-          onChange={changeHandler}
-          name="image"
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-        ></input>
-        <span className="col-span-8 text-red-600">{errors.image}</span>
-
-        <label className="col-span-2">Difficulty</label>
-        <select
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          value={form.difficulty}
-          onChange={changeHandler}
-          name="difficulty"
+    <div>
+      <div className="max-w-md mx-auto my-20">
+        <form
+          onSubmit={submitHandler}
+          className="grid grid-cols-8 border border-gray-400 p-4 rounded-lg"
         >
-          <option value="" key={""}>
+          <label className="col-span-2">Name</label>
+          <input
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+            value={form.name}
+            onChange={changeHandler}
+            name="name"
+          ></input>
+          <span className="col-span-8 text-red-600">{errors.name}</span>
+
+          <label className="col-span-2">Description</label>
+          <input
+            value={form.description}
+            onChange={changeHandler}
+            name="description"
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+          ></input>
+          <span className="col-span-8 text-red-600">{errors.description}</span>
+          <label className="col-span-2">image</label>
+          <input
+            value={form.image}
+            onChange={changeHandler}
+            name="image"
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+          ></input>
+          <span className="col-span-8 text-red-600">{errors.image}</span>
+
+          <label className="col-span-2">Difficulty</label>
+          <select
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+            value={form.difficulty}
+            onChange={changeHandler}
+            name="difficulty"
+          >
+            <option value="" key={""}>
+              {" "}
+            </option>
+            <option value="Easy" key={"1"}>
+              {" "}
+              Easy{" "}
+            </option>
+            <option value="Medium" key={"2"}>
+              {" "}
+              Medium{" "}
+            </option>
+            <option value="Advanced" key={"3"}>
+              {" "}
+              Advanced{" "}
+            </option>
+          </select>
+          <span className="col-span-8 text-red-600">{errors.difficulty}</span>
+          <label className="col-span-2">Duration</label>
+          <input
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+            value={form.duration}
+            onChange={changeHandler}
+            name="duration"
+          ></input>
+          <span className="col-span-8 text-red-600">{errors.duration}</span>
+          <label className="col-span-2">Price</label>
+          <input
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+            value={form.price}
+            onChange={changeHandler}
+            name="price"
+          ></input>
+          <span className="col-span-8 text-red-600">{errors.price}</span>
+          <label className="col-span-2">Video</label>
+          <input
+            value={form.video}
+            onChange={changeHandler}
+            name="video"
+            className="col-span-6 border border-gray-400 p-2 rounded-lg"
+          ></input>
+          <span className="col-span-8 text-red-600">{errors.video}</span>
+          <button
+            type="submit"
+            className="col-span-8 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
             {" "}
-          </option>
-          <option value="Easy" key={"1"}>
-            {" "}
-            Easy{" "}
-          </option>
-          <option value="Medium" key={"2"}>
-            {" "}
-            Medium{" "}
-          </option>
-          <option value="Advanced" key={"3"}>
-            {" "}
-            Advanced{" "}
-          </option>
-        </select>
-        <span className="col-span-8 text-red-600">{errors.difficulty}</span>
-        <label className="col-span-2">Duration</label>
-        <input
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          value={form.duration}
-          onChange={changeHandler}
-          name="duration"
-        ></input>
-        <span className="col-span-8 text-red-600">{errors.duration}</span>
-        <label className="col-span-2">Price</label>
-        <input
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          value={form.price}
-          onChange={changeHandler}
-          name="price"
-        ></input>
-        <span className="col-span-8 text-red-600">{errors.price}</span>
-        <label className="col-span-2">Video</label>
-        <input
-          value={form.video}
-          onChange={changeHandler}
-          name="video"
-          className="col-span-6 border border-gray-400 p-2 rounded-lg"
-        ></input>
-        <span className="col-span-8 text-red-600">{errors.video}</span>
-        <button
-          type="submit"
-          className="col-span-8 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          {" "}
-          Create!{" "}
-        </button>
-      </form>
+            Create!{" "}
+          </button>
+        </form>
+      </div>
+      <Footer/>
     </div>
   );
 };

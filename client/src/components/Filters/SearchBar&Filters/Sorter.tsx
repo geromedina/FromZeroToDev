@@ -61,17 +61,18 @@ export const Sorter: React.FC = (): JSX.Element => {
   };
 
   return (
-<>
-  <label className="block font-bold mb-2 text-gray-700">Sort by:</label>
-  <select
-   className="border border-gray-400 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    onChange={changeHandler}
-  >
-    <option value="Name Descending">Name Descending</option>
-    <option value="Name Ascending">Name Ascending</option>
-    <option value="Difficulty Descending">Difficulty Descending</option>
-    <option value="Difficulty Ascending">Difficulty Ascending</option>
-  </select>
-</>
+    <div className="flex items-center">
+      <label className="block font-medium text-white px-1">Sort by:</label>
+      <select
+      className="border border-gray-400 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onChange={changeHandler}
+      >
+        <option value="Name Descending">Name Descending</option>
+        <option value="Name Ascending">Name Ascending</option>
+        <option value="Difficulty Descending">Difficulty Descending</option>
+        <option value="Difficulty Ascending">Difficulty Ascending</option>
+      </select>
+    </div>
   );
 };
+
