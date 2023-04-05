@@ -1,5 +1,10 @@
 import Users from "../model/users";
 import { IUser } from "../utils/types";
+import bcrypt from "bcrypt"
+
+
+
+
 //FUNCION QUE TRAE LOS USER
 
 export const getUsersController = async () => {
@@ -18,7 +23,12 @@ export const createUser = async (user: IUser): Promise<IUser> => {
     if (!username || !password || !email || !firstname || !lastname || !image) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
-    const createdUser = await Users.create(user);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const createdUser = await Users.create({
+      ...user,
+      password: hashedPassword,
+    });
+
     return createdUser.toJSON() as IUser;
   } catch (error) {
     throw new Error(`Ocurrió un error al crear el usuario: ${error}`);
