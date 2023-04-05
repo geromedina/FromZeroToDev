@@ -24,8 +24,8 @@ export interface IUser {
   lastname: string,
   image: string,
   firstname: string,
-  favorites: string,
-  roles: Types.ObjectId,
+  favorites: Types.ObjectId[],
+  roles: Types.ObjectId[] 
   created_at: Date,
   updated_at: Date
 }
