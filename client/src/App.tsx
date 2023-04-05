@@ -13,7 +13,7 @@ const App: React.FC = (): JSX.Element => {
       {location.pathname !== "/" && <NavBar />}
 
       <Routes>
-        <Route path="/create" element={<Form git pull />} />
+        <Route path="/create" element={<Form />} />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Landing />} />
         <Route path="/detail/:id" element={<CardDetail />} />
