@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { AppThunk, RootState } from "./store";
+import type { AppThunk } from "./store";
 import axios from "axios";
-import { ThunkActionDispatch } from "redux-thunk";
 
 export interface ICourse {
   user_id: string;
@@ -71,4 +70,3 @@ export const getCoursesByName = (name: string): AppThunk => {
 
 export const { fetchCourses, updateFilteredCourses } = coursesSlice.actions;
 export default coursesSlice.reducer;
-

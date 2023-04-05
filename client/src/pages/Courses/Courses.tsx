@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { getCourses } from "../../store/coursesSlices";
-import CardsContainer from "../../components/CardsContainer";
+import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import "./Courses.css";
@@ -12,12 +12,16 @@ const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const coursesPerPage = 4;
+  const courses = useAppSelector((state) => state.courses.filteredCourses);
 
   useEffect(() => {
     dispatch(getCourses());
   }, []);
 
-  const courses = useAppSelector((state) => state.courses.filteredCourses);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [courses]);
+
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
   const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
