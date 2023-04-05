@@ -25,6 +25,7 @@ export interface IUser {
   image: string,
   firstname: string,
   favorites: string,
+  roles: Types.ObjectId,
   created_at: Date,
   updated_at: Date
 }
@@ -44,3 +45,8 @@ export interface IAdmin {
   update_at: Date
 }
 
+//TIPOS DE ROLES
+
+export interface IRoles {
+  name: string
+}

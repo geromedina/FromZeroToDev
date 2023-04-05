@@ -35,6 +35,13 @@ const userSchema = new Schema({
     ref: "Course",
     required: false
   },
+  roles:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+    }
+  ],
+
   created_at: {
     type: Date,
     default: Date.now,
