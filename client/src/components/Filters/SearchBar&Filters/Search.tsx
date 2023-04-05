@@ -2,7 +2,7 @@ import React from "react";
 import { getCoursesByName } from "../../../store/coursesSlices";
 import { useAppDispatch } from "../../../store/hooks";
 
-export const SearchBar: React.FC = (): JSX.Element => {
+export const Search: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
