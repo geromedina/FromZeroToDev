@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 interface Course {
   name: string;
@@ -37,6 +38,20 @@ const CardDetail: React.FC = (): JSX.Element => {
         window.alert(err);
       });
   }, []);
+  const body: any = {
+    title: course.name,
+    description: course.description,
+    price: course.price,
+  };
+  const purchaseHandler = async () => {
+    console.log(body);
+    const rawData: any = await axios.get("http://localhost:3001/payments", {
+      params: body,
+    });
+    const url = rawData.data.init_point;
+    console.log(url);
+    window.location.href = url;
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -69,7 +84,10 @@ const CardDetail: React.FC = (): JSX.Element => {
           <h2 className="text-2xl font-bold mr-4 text-white">
             Price: ${course.price}
           </h2>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+          <button
+            onClick={purchaseHandler}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+          >
             Comprar Curso
           </button>
         </div>
