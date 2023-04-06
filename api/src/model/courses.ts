@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
-import { ICourse } from "../utils/types";
+import { ICourse, Review } from "../utils/types";
 
 const coursesSchema = new Schema<ICourse>(
   {
@@ -15,8 +15,7 @@ const coursesSchema = new Schema<ICourse>(
     user_id: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
-      required: false,
-      default: "6424dd601d4b9f6a3de0554b",
+      required: true,
     },
     image: {
       type: String,
@@ -24,7 +23,8 @@ const coursesSchema = new Schema<ICourse>(
     },
     difficulty: {
       type: String,
-      required: true
+      enum: ["Easy", "Medium", "Advanced"],
+      required: true,
     },
 
     duration: {
@@ -41,8 +41,14 @@ const coursesSchema = new Schema<ICourse>(
       type: String,
       required: true,
     },
+    reviews: {
+      
+      
+      defaultValue: [],
+    }
   },
   { timestamps: true }
 );
+
 
 export const Course = mongoose.model<ICourse>("Course", coursesSchema);
