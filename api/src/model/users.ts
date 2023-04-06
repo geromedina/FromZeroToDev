@@ -1,20 +1,17 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
+
+
+
+
 const userSchema = new Schema({
-  country: {
+  id: {
     type: String,
-    required: false
+    primaryKey: true,
+    autoIncrement: true,
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  username: {
+  firstname: {
     type: String,
     required: true,
   },
@@ -22,18 +19,39 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  username: {
     type: String,
     required: true,
   },
-  firstname: {
+  password: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: false,
+  },
+  image: {
     type: String,
     required: true,
   },
   favorites: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Course",
-    required: false
+    required: false,
+  },
+  role: { 
+    type: String, 
+    default: 'user' 
+  },
+  token: { 
+    type: String,
+    default: null 
   },
   roles:[
     {

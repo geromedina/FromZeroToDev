@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 
 export type difficulty = "Easy" | "Medium" | "Advanced"
+export type role = "admin" | "teacher" | "user"
 
 //TIPOS CURSO
 export interface ICourse {
@@ -18,14 +19,17 @@ export interface ICourse {
 
 //TIPOS USUARIOS
 export interface IUser {
+  id: string,
+  username: string,
   email: string,
   password: string,
-  username: string,
   lastname: string,
   image: string,
   firstname: string,
   favorites: Types.ObjectId[],
-  roles: Types.ObjectId[] 
+  role: role,
+  roles: Types.ObjectId[], 
+  token: string,
   created_at: Date,
   updated_at: Date
 }
