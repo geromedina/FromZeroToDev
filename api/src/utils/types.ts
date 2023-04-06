@@ -18,13 +18,16 @@ export interface ICourse {
 
 //TIPOS USUARIOS
 export interface IUser {
+  id: string,
+  username: string,
   email: string,
   password: string,
-  username: string,
   lastname: string,
   image: string,
   firstname: string,
   favorites: string,
+  role: string;
+  token: string | null;
   created_at: Date,
   updated_at: Date
 }
