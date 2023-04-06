@@ -3,10 +3,15 @@ import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/pictures/web-dev-icon.svg';
 import { menuOutline } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from '../LoginButton/LoginButton';
+import LogoutButton from '../LogoutButton/LogoutButton';
+
 
 const Navbar: React.FC = () => {
 
   const location = useLocation();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   return (
     <nav className='bg-gray-800 py-6 relative'>
@@ -33,9 +38,8 @@ const Navbar: React.FC = () => {
             </NavLink>
             
           </div>
-          <div className='flex flex-col lg:flex-row text-center'>
-            <a href="" className='text-white border border-white py-2 px-5 rounded-md hover:bg-white hover:text-gray-800 transition duration-500 ease-in-out lg:mr-7 mb-8 lg:mb-0'>Sign in</a>
-            <a href="" className='text-white bg-blue-500 border border-blue-500 py-2 px-5 rounded-md hover:bg-blue-600 hover:border-blue-600 transition duration-500 ease-in-out lg:mr-7 mb-8 lg:mb-0'>Sign up</a>
+          <div className='flex flex-col lg:flex-row items-center'>
+          { isAuthenticated ? <LogoutButton /> : <LoginButton />}
           </div>
         </div>
       </div>

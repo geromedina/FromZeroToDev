@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.0.1",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.16",
     "@ionic/react": "^7.0.0",
@@ -22,11 +23,14 @@
     "react-router-dom": "^6.10.0"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^18.15.11",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
+    "dotenv": "^16.0.3",
     "eslint": "^8.37.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-import": "^2.27.5",
