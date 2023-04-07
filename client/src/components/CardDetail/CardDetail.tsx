@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from "axios";
 
 interface Review {
-    username: string;
+    username: string | undefined;
     comment:string;
 }
 
@@ -24,7 +25,8 @@ interface Course {
 
 const CardDetail: React.FC = (): JSX.Element => {
   const courseId = useParams().id;
-
+  const {user}=useAuth0()
+  /* console.log(user) */
   const [course, setCourse] = useState<Course>({
     name: "",
     difficulty: "",
@@ -72,7 +74,7 @@ const CardDetail: React.FC = (): JSX.Element => {
 
     
     //Acá en realidad el username viene del name de auth-0
-    setReview({...review, username:'Beto', [e.target.name]: value });
+    setReview({...review, username: user?.name, [e.target.name]: value });
   };
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
