@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
+interface Review {
+  username: string;
+  comment:string;
+}
 
 interface ICourse {
   user_id: string;
