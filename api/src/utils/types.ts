@@ -2,6 +2,10 @@ import { Types } from "mongoose";
 
 export type difficulty = "Easy" | "Medium" | "Advanced"
 
+interface Review {
+  username: string;
+  comment:string;
+}
 //TIPOS CURSO
 export interface ICourse {
     user_id: Types.ObjectId;
@@ -12,6 +16,7 @@ export interface ICourse {
     duration: number;
     price: number;
     video: string;
+    reviews: Review[];
     created_at: Date;
     updated_at: Date;
   }
