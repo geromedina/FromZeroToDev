@@ -6,7 +6,8 @@ import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import "./Courses.css";
 import Footer from "../../components/Footer/Footer";
-import SearchBar from "../../components/SearchBar";
+
+import FiltersAndSorters from "../../components/Filters/FiltersAndSorters";
 
 const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const Courses: React.FC = (): JSX.Element => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <SearchBar />
+        <FiltersAndSorters />
       </div>
       <section className="py-10 px-10">
         <CardsContainer currentCourses={currentCourses} />
@@ -46,7 +47,7 @@ const Courses: React.FC = (): JSX.Element => {
           />
         </div>
       </section>
-        <Footer />
+      <Footer />
     </div>
   );
 };
