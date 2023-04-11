@@ -7,7 +7,7 @@ interface Review {
   comment:string;
 }
 
-interface ICourse {
+export interface ICourse {
   user_id: string;
   name: string;
   description: string;
