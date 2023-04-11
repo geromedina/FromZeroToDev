@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     <nav className='bg-gray-800 py-6 relative'>
       <div className='container mx-auto flex px-8 xl:px-0'>
         <div className='flex flex-grow items-center'>
-          <NavLink to='/' className='flex flex-grow items-center'>
+          <NavLink to='/home' className='flex flex-grow items-center'>
             <img src={logo} alt="logo" />
             <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 px-2">FromZeroToDev</h1>
           </NavLink>
