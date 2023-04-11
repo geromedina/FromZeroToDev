@@ -15,7 +15,7 @@ const App: React.FC = (): JSX.Element => {
         <Route path="/create" element={<Form />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Landing />} />
+        {/* <Route path="/" element={<Landing />} /> */}
         <Route path="/detail/:id" element={<CardDetail />} />
         <Route path="/courses" element={<Courses />} />
       </Routes>
