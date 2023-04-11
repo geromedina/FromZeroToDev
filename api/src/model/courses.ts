@@ -41,6 +41,9 @@ const coursesSchema = new Schema<ICourse>(
       type: String,
       required: true,
     },
+    reviews: {
+      defaultValue: []
+    }
   },
   { timestamps: true }
 );

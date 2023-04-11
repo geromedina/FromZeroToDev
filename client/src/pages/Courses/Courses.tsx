@@ -5,8 +5,9 @@ import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useAppSelector } from "../../store/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import "./Courses.css";
-import { SearchBar, Filters, Sorter } from "../../components/Filters/index";
 import Footer from "../../components/Footer/Footer";
+
+import FiltersAndSorters from "../../components/Filters/FiltersAndSorters";
 
 const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -31,31 +32,23 @@ const Courses: React.FC = (): JSX.Element => {
   };
 
   return (
-    <>
+    <div>
       <div className="flex justify-between items-center mb-4">
-        <div className="flex-1">
-          <Sorter />
-        </div>
-        <div className="flex-1 justify-start">
-          <Filters />
-        </div>
-        <div className="flex items-center justify-end w-1/3">
-          <div className="ml-4">
-            <SearchBar />
-          </div>
-        </div>
+        <FiltersAndSorters />
       </div>
-      <CardsContainer currentCourses={currentCourses} />
-      <div className="flex justify-center mt-4 flex-col">
-        <Pagination
-          currentPage={currentPage}
-          coursesPerPage={coursesPerPage}
-          totalCourses={courses.length}
-          paginate={paginate}
-        />
-        <Footer />
-      </div>
-    </>
+      <section className="py-10 px-10">
+        <CardsContainer currentCourses={currentCourses} />
+        <div className="flex justify-center mt-4 flex-col">
+          <Pagination
+            currentPage={currentPage}
+            coursesPerPage={coursesPerPage}
+            totalCourses={courses.length}
+            paginate={paginate}
+          />
+        </div>
+      </section>
+      <Footer />
+    </div>
   );
 };
 
