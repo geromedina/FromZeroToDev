@@ -13,7 +13,7 @@ const UserAvatar: React.FC = () => {
   };
 
   return (
-    <div className="relative inline-block text-left mr-4">
+    <div className="relative inline-block text-left mr-4 z-10">
       <div>
         <button
           type="button"
