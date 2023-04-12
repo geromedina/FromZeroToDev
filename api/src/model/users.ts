@@ -40,6 +40,18 @@ const userSchema = new Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Course",
     required: false,
+<<<<<<< HEAD
+=======
+  },
+  role: { 
+    type: String, 
+    enum: ['admin','teacher','user'], 
+    default: 'user' 
+  },
+  token: { 
+    type: String,
+    default: null 
+>>>>>>> c5feb7a327fb4f3a3a6e95daa19944d0d8f6dd6e
   },
   role: { 
     type: String, 
@@ -68,8 +80,11 @@ const userSchema = new Schema({
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c5feb7a327fb4f3a3a6e95daa19944d0d8f6dd6e
 =======
 >>>>>>> c5feb7a327fb4f3a3a6e95daa19944d0d8f6dd6e
 const Users = mongoose.model("Users", userSchema);

@@ -6,6 +6,10 @@ interface Review {
   username: string;
   comment:string;
 }
+interface Review {
+  username: string;
+  comment:string;
+}
 //TIPOS CURSO
 export interface ICourse {
     user_id: Types.ObjectId;
@@ -17,12 +21,15 @@ export interface ICourse {
     price: number;
     video: string;
     reviews: Review[];
+    reviews: Review[];
     created_at: Date;
     updated_at: Date;
   }
 
 //TIPOS USUARIOS
 export interface IUser {
+  id: string,
+  username: string,
   id: string,
   username: string,
   email: string,
