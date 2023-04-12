@@ -22,14 +22,28 @@ export interface ICourse {
   updated_at: Date;
 }
 
+export interface Product {
+  id: string;
+  name: string;
+  image: string;
+  // price: number;
+}
+
+// interface ShoppingCartItem {
+//   product: Product;
+//   quantity: number;
+// }
+
 interface CoursesState {
   courses: ICourse[];
   filteredCourses: ICourse[];
+  cartItems: Product[];
 }
 
 const initialState: CoursesState = {
   courses: [],
   filteredCourses: [],
+  cartItems: []
 };
 
 export const coursesSlice = createSlice({
@@ -48,6 +62,12 @@ export const coursesSlice = createSlice({
         ...state,
         filteredCourses: action.payload,
       };
+    },
+    addToCart: (state, action: PayloadAction<Product>) => {
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.payload]
+      }
     },
   },
 });
@@ -73,5 +93,5 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
-export const { fetchCourses, updateFilteredCourses } = coursesSlice.actions;
+export const { fetchCourses, updateFilteredCourses, addToCart } = coursesSlice.actions;
 export default coursesSlice.reducer;
