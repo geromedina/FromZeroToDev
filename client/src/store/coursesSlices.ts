@@ -26,7 +26,7 @@ export interface Product {
   id: string;
   name: string;
   image: string;
-  // price: number;
+  price: number;
 }
 
 // interface ShoppingCartItem {
@@ -69,6 +69,15 @@ export const coursesSlice = createSlice({
         cartItems: [...state.cartItems, action.payload]
       }
     },
+    removeFromCart: (state, action: PayloadAction<Product>) => {
+      state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+    },
+    clearCart: (state) => {
+      return {
+        ...state,
+        cartItems: []
+      }
+    }
   },
 });
 export const getCourses = (): AppThunk => {
@@ -93,5 +102,5 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
-export const { fetchCourses, updateFilteredCourses, addToCart } = coursesSlice.actions;
+export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart } = coursesSlice.actions;
 export default coursesSlice.reducer;

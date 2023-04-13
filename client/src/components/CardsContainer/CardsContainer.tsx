@@ -20,7 +20,7 @@ const CardsContainer: React.FC<{ currentCourses: ICourse[] }> = ({
               id={course._id}
               description={course.description}
               difficulty={course.difficulty}
-              // price={course.price}
+              price={course.price}
             />
           ))}
         </div>

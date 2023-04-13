@@ -13,7 +13,7 @@ interface CardProps {
   id: string;
   description: string;
   image: string;
-  // price: number;
+  price: number;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -22,13 +22,13 @@ const Card: React.FC<CardProps> = ({
   id,
   image,
   description,
-  // price
+  price
 }) => {
 
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ id, name, image}))
+    dispatch(addToCart({ id, name, image, price}))
   }
 
   return (
