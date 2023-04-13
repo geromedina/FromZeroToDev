@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
+import { clearCart } from '../../store/coursesSlices';
+import { removeFromCart } from '../../store/coursesSlices';
+import { Product } from '../../store/coursesSlices';
+
 
 
 const Cart: React.FC = () => {
@@ -15,41 +20,15 @@ const Cart: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  // const [cartItems, setCartItems] = useState<ShoppingCartItem[]>([]);
-  // const [total, setTotal] = useState<number>(0);
+  const dispatch = useAppDispatch();
 
-  // const addToCart = (product: Product) => {
-  //   const itemIndex = cartItems.findIndex(item => item.product.id === product.id);
-  //   if (itemIndex >= 0) {
-  //     const updatedCartItems = [...cartItems];
-  //     updatedCartItems[itemIndex].quantity += 1;
-  //     setCartItems(updatedCartItems);
-  //   } else {
-  //     setCartItems([...cartItems, { product, quantity: 1 }]);
-  //   }
-  //   setTotal(total + product.price);
-  // };
+  const handleRemoveFromCart = (product: Product) => {
+    dispatch(removeFromCart(product))
+  }
 
-  // const removeFromCart = (product: Product) => {
-  //   const itemIndex = cartItems.findIndex(item => item.product.id === product.id);
-  //   if (itemIndex >= 0) {
-  //     const updatedCartItems = [...cartItems];
-  //     if (updatedCartItems[itemIndex].quantity > 1) {
-  //       updatedCartItems[itemIndex].quantity -= 1;
-  //       setCartItems(updatedCartItems);
-  //     } else {
-  //       updatedCartItems.splice(itemIndex, 1);
-  //       setCartItems(updatedCartItems);
-  //     }
-  //     setTotal(total - product.price);
-  //   }
-  // };
-
-  // const clearCart = () => {
-  //   setCartItems([]);
-  //   setTotal(0);
-  // };
-
+  const handleClearCart = () => {
+    dispatch(clearCart())
+  }
 
   return (
     <div className='z-10'>
@@ -58,36 +37,60 @@ const Cart: React.FC = () => {
       </button>
 
       {isOpen && (
-        <Dropdown>
-          <div >
-            <div className="block px-4 py-2 text-sm text-gray-700 ">
-              El carro de: {user?.name?.split(' ')[0]}
+        <Dropdown >
+          <div className="pointer-events-auto w-screen max-w-[340px] overflow-hidden rounded-md border border-gray-200">
+            <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+              <div>
+                <div className="block px-4 py-2 text-sm text-gray-700 ">
+                  El carro de: {user?.name?.split(' ')[0]}
+                </div>
+              </div>
+
+              <div>
+                <ul className="-my-3">
+                  {products?.map(p => (
+                  <li key={p.id} className="flex py-4">
+                    <div className="h-24 w-24 rounded-md border border-gray-200">
+                      <img src={p.image} alt="img" className="h-full w-full object-cover object-center" />
+                    </div>
+                    <div className="ml-4 flex flex-1 flex-col">
+                        <div className="flex justify-between text-base font-medium text-gray-900">
+                            <h3>
+                              <a href="">{p.name}</a>
+                            </h3>
+                            <p className="ml-4 font-semibold">${p.price}</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                      <div className="flex">
+                      <button
+                        type="button"
+                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                        onClick={() => handleRemoveFromCart(p)}
+                        >Remove
+                        </button>
+                      </div>
+                    </div>
+                  </li>))}
+                </ul>
+              </div>
+
+              <button
+                type="button"
+                className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                onClick={handleClearCart}
+              >
+                Vaciar el carro
+              </button>
+              <button
+                type="button"
+                className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                
+              >
+                Finalizar compra
+              </button>
             </div>
           </div>
-
-          <div>
-            <ul>
-              {products?.map(p => (<li key={p.id}>
-                <h4>{p.name}</h4>
-                <img src={p.image} alt="img" />
-              </li>))}
-            </ul>
-          </div>
-
-          <button
-            type="button"
-            className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            
-          >
-            Vaciar el carro
-          </button>
-          <button
-            type="button"
-            className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            
-          >
-            Finalizar compra
-          </button>
         </Dropdown>
       )}
 
