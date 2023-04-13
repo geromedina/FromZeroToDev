@@ -6,6 +6,7 @@ import { IonIcon } from '@ionic/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../LoginButton/LoginButton';
 import UserAvatar from '../UserAvatar/UserAvatar';
+import Cart from '../Cart/Cart';
 
 
 const Navbar: React.FC = () => {
@@ -39,6 +40,7 @@ const Navbar: React.FC = () => {
             
           </div>
           <div className='flex flex-col lg:flex-row items-center'>
+            <Cart/>
           { isAuthenticated ? <UserAvatar /> : <LoginButton />}
           </div>
         </div>
