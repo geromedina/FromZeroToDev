@@ -5,6 +5,7 @@
     "typescript": "^5.0.2"
   },
   "scripts": {
+    "build": "tsc",
     "start": "nodemon --exec ts-node src/index.ts"
   },
   "dependencies": {
