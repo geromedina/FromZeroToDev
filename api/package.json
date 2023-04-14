@@ -5,7 +5,7 @@
     "typescript": "^5.0.2"
   },
   "scripts": {
-    "start": "nodemon index.ts"
+    "start": "nodemon --exec ts-node src/index.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
