@@ -9,6 +9,29 @@ import {
 } from "../controllers/usersControllers";
 import { IUser } from "../utils/types";
 import Users from "../model/users";
+import * as nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
+
+interface  IObjEmail {
+  host: string | undefined,
+  port: string | undefined,
+  secure: boolean,
+  auth: {
+    user: string | undefined,
+    pass: string | undefined,
+  }
+}
+
+const ObjEmail:  IObjEmail = {
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE === "true",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  }
+};
 
 
 export const getUsersHandler = async (
@@ -25,9 +48,23 @@ export const getUsersHandler = async (
 };
 //MANEJADOR QUE CREA LOS USUARIOS
 export const postUser = async (req: Request, res: Response): Promise<void> => {
+  const nombreRemitente: string = req.body.nombre;
+  const correoRemitente: string = req.body.correo;
+  const asunto: string = req.body.asunto || "Registro compleado."
+  const mensaje: string = req.body.mensaje || "Felicidades por formar parte de fromzerotodev."
+
+  const smtpConfig = JSON.parse(process.env.SMTP_CONFIG || '{}');
+
+  const transporter = nodemailer.createTransport(smtpConfig || ObjEmail);
   try {
     const user = req.body as IUser;
     const createdUser = await createUser(user);
+    await transporter.sendMail({
+      from: `"${nombreRemitente}" <${correoRemitente}>`,
+      to: createdUser.email,
+      subject: asunto,
+      text: mensaje
+    });
     res.status(200).json(createdUser);
   } catch (error) {
     res.status(400).json({ error });
