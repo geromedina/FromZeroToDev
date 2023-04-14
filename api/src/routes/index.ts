@@ -11,8 +11,9 @@ const router = Router();
 router.use("/courses", coursesRouter);
 router.use("/users", usersRouter);
 
-router.get("/payments", (req, res) => {
+router.put("/payments", (req, res) => {
   PaymentInstance.getPaymentLink(req, res);
 });
+router.post("/purchases", (req, res) => {});
 
 export default router;

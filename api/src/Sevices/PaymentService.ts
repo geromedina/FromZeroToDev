@@ -5,28 +5,12 @@ interface PaymentService {
   price: number;
 }
 class PaymentService {
-  //   constructor(title: string, description: string, price: number) {
-  //     this.price = price;
-  //     this.description = description;
-  //     this.title = title;
-  //   }
-  async createPayment(title: string, description: string, price: string) {
-    console.log(title, description, price);
+  // https://www.success.com/?collection_id=56881684554&collection_status=approved&payment_id=56881684554&status=approved&external_reference=Reference_1234&payment_type=account_money&merchant_order_id=8698537933&preference_id=1345606588-14772c45-2016-4483-b448-5539f21b9f92&site_id=MLA&processing_mode=aggregator&merchant_account_id=null
+  async createPayment(items: []) {
+    console.log(items);
     const url = "https://api.mercadopago.com/checkout/preferences";
     const body = {
-      items: [
-        {
-          id: "item-ID-1234",
-          title: `${title}`,
-          currency_id: "ARS",
-          picture_url:
-            "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-          description: `${description}`,
-          category_id: "art",
-          quantity: 1,
-          unit_price: parseInt(price),
-        },
-      ],
+      items: items,
       payer: {
         name: "Juan",
         surname: "Lopez",
@@ -46,14 +30,14 @@ class PaymentService {
         },
       },
       back_urls: {
-        success: "https://www.success.com",
+        success: "http://localhost:3000/courses",
         failure: "http://www.failure.com",
         pending: "http://www.pending.com",
       },
       auto_return: "approved",
       notification_url: "https://www.your-site.com/ipn",
       statement_descriptor: "MINEGOCIO",
-      external_reference: "Reference_1234",
+      external_reference: "123456",
       expires: true,
     };
     console.log(body);

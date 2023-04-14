@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { clearCart } from '../../store/coursesSlices';
 import { removeFromCart } from '../../store/coursesSlices';
 import { Product } from '../../store/coursesSlices';
+import axios from 'axios';
 
 
 
@@ -29,6 +30,39 @@ const Cart: React.FC = () => {
   const handleClearCart = () => {
     dispatch(clearCart())
   }
+// items: [
+      //   {
+      //     id: "123456",
+      //     title: `${title}`,
+      //     currency_id: "ARS",
+      //     picture_url:
+      //       "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+      //     description: `${description}`,
+      //     category_id: "art",
+      //     quantity: 1,
+      //     unit_price: parseInt(price),
+      //   },
+      // ],
+  
+  const purchaseHandler = async () => {
+    ;
+    const body = products.map(product => {
+      return {
+        title: product.name,
+        id: product.id,
+        currency_id: "ARS",
+        picture_url:"https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+        description: "NIY",
+        category_id: "art",
+        unit_price: product.price,
+        }
+
+    })
+    const rawData: any = await axios.put("http://localhost:3001/payments", body);
+    const url = rawData.data.init_point;
+    console.log(url);
+    window.location.href = url;
+  };
 
   return (
     <div className='z-10'>
@@ -85,7 +119,7 @@ const Cart: React.FC = () => {
               <button
                 type="button"
                 className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                
+                onClick={purchaseHandler}
               >
                 Finalizar compra
               </button>
