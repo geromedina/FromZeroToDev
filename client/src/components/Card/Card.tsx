@@ -4,9 +4,6 @@ import img from "../../assets/pictures/img.jpeg";
 import { useAppDispatch } from "../../store/hooks";
 import { addToCart } from "../../store/coursesSlices";
 
-
-
-
 interface CardProps {
   name: string;
   difficulty: string;
