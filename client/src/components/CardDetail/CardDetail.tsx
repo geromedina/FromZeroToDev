@@ -24,19 +24,12 @@ interface Course {
   reviews: Review[];
 }
 
-interface CardProps {
-  name: string;
-  id: string;
-  image: string;
-  price: number;
-}
-
-const CardDetail: React.FC<CardProps> = ({ id, name, image, price}) => {
+const CardDetail: React.FC<Course> = () => {
 
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ id, name, image, price}))
+    dispatch(addToCart({ id: course.id, name: course.name, image: course.image, price: course.price}))
   }
 
   const courseId = useParams().id;

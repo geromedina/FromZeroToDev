@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, Landing, Form, Courses, Register } from "./pages/index";
+import { Home, Form, Courses, Register } from "./pages/index";
 import NavBar from "./components/NavBar/NavBar";
 import "./index.css";
 import CardDetail from "./components/CardDetail/CardDetail";
