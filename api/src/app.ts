@@ -6,7 +6,7 @@ import cors from "cors";
 const app = express();
 
 // Configuración de CORS
-const allowedOrigins = ["https://fromzerotodev-production.up.railway.app/", "127.0.0.1:3000"];
+const allowedOrigins = ["https://fromzerotodev-production.up.railway.app", "127.0.0.1:3000"];
 const corsOptions: cors.CorsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {

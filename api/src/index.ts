@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import app from './app';
 
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Conectar a MongoDB
 mongoose.connect(process.env.MONGODB_URI!, {
