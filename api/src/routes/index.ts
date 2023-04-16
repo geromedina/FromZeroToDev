@@ -14,6 +14,5 @@ router.use("/users", usersRouter);
 router.put("/payments", (req, res) => {
   PaymentInstance.getPaymentLink(req, res);
 });
-router.post("/purchases", (req, res) => {});
 
 export default router;

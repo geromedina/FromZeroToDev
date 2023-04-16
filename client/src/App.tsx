@@ -4,6 +4,7 @@ import { Home, Form, Courses, Register } from "./pages/index";
 import NavBar from "./components/NavBar/NavBar";
 import "./index.css";
 import CardDetail from "./components/CardDetail/CardDetail";
+import { Succesful } from "./pages/SuccessfulPurchase/succesful";
 
 const App: React.FC = (): JSX.Element => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const App: React.FC = (): JSX.Element => {
         {/* <Route path="/" element={<Landing />} /> */}
         <Route path="/detail/:id" element={<CardDetail />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/success" element={<Succesful />} />
       </Routes>
     </div>
   );

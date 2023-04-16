@@ -18,11 +18,15 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   username: {
     type: String,
     required: true,
+  },
+  courses: {
+    type: Array,
+    defaultValue: [],
   },
   password: {
     type: String,
@@ -41,14 +45,14 @@ const userSchema = new Schema({
     ref: "Course",
     required: false,
   },
-  role: { 
-    type: String, 
-    enum: ['admin','teacher','user'], 
-    default: 'user' 
-  },
-  token: { 
+  role: {
     type: String,
-    default: null 
+    enum: ["admin", "teacher", "user"],
+    default: "user",
+  },
+  token: {
+    type: String,
+    default: null,
   },
   created_at: {
     type: Date,

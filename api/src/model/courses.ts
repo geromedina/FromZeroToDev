@@ -24,7 +24,7 @@ const coursesSchema = new Schema<ICourse>(
     },
     difficulty: {
       type: String,
-      required: true
+      required: true,
     },
 
     duration: {
@@ -42,8 +42,8 @@ const coursesSchema = new Schema<ICourse>(
       required: true,
     },
     reviews: {
-      defaultValue: []
-    }
+      defaultValue: [],
+    },
   },
   { timestamps: true }
 );

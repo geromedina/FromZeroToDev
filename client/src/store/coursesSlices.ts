@@ -4,7 +4,7 @@ import type { AppThunk } from "./store";
 import axios from "axios";
 interface Review {
   username: string;
-  comment:string;
+  comment: string;
 }
 
 export interface ICourse {
@@ -43,7 +43,7 @@ interface CoursesState {
 const initialState: CoursesState = {
   courses: [],
   filteredCourses: [],
-  cartItems: []
+  cartItems: [],
 };
 
 export const coursesSlice = createSlice({
@@ -66,18 +66,20 @@ export const coursesSlice = createSlice({
     addToCart: (state, action: PayloadAction<Product>) => {
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload]
-      }
+        cartItems: [...state.cartItems, action.payload],
+      };
     },
     removeFromCart: (state, action: PayloadAction<Product>) => {
-      state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
     },
     clearCart: (state) => {
       return {
         ...state,
-        cartItems: []
-      }
-    }
+        cartItems: [],
+      };
+    },
   },
 });
 export const getCourses = (): AppThunk => {
@@ -102,5 +104,11 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
-export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart } = coursesSlice.actions;
+export const {
+  fetchCourses,
+  updateFilteredCourses,
+  addToCart,
+  removeFromCart,
+  clearCart,
+} = coursesSlice.actions;
 export default coursesSlice.reducer;

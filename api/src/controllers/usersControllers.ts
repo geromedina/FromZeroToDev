@@ -74,6 +74,27 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+export const findUserController = async (email: string) => {
+  try {
+    const user = await Users.findOne({ email: email });
+    console.log(user);
+    return user;
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
+};
+
+export const addCoursesToUserController = async (
+  coursesId: [],
+  userEmail: string
+) => {
+  const response = Users.updateOne(
+    { email: userEmail },
+    { $push: { courses: [...coursesId] } }
+  );
+  return response;
+};
+
 // export const logoutUser = async (req: Request, res: Response) => {
 //   const { userId } = req.body;
 //   try {

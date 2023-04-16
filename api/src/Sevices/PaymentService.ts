@@ -5,14 +5,25 @@ interface PaymentService {
   price: number;
 }
 class PaymentService {
-  // https://www.success.com/?collection_id=56881684554&collection_status=approved&payment_id=56881684554&status=approved&external_reference=Reference_1234&payment_type=account_money&merchant_order_id=8698537933&preference_id=1345606588-14772c45-2016-4483-b448-5539f21b9f92&site_id=MLA&processing_mode=aggregator&merchant_account_id=null
-  async createPayment(items: []) {
+  async createPayment(items: any) {
     console.log(items);
     const url = "https://api.mercadopago.com/checkout/preferences";
     const body = {
-      items: items,
+      items: [
+        {
+          id: "product.id",
+          title: `${items.title}`,
+          currency_id: "ARS",
+          picture_url:
+            "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+          description: "NIY",
+          category_id: `Programming languaje`,
+          quantity: 1,
+          unit_price: items.unit_price,
+        },
+      ],
       payer: {
-        name: "Juan",
+        name: "Matias",
         surname: "Lopez",
         email: "user@email.com",
         phone: {
@@ -30,14 +41,14 @@ class PaymentService {
         },
       },
       back_urls: {
-        success: "http://localhost:3000/courses",
+        success: "http://localhost:3000/success",
         failure: "http://www.failure.com",
         pending: "http://www.pending.com",
       },
       auto_return: "approved",
-      notification_url: "https://www.your-site.com/ipn",
+      notification_url: "https://minegocio.com",
       statement_descriptor: "MINEGOCIO",
-      external_reference: "123456",
+      external_reference: `${items.title}`,
       expires: true,
     };
     console.log(body);
