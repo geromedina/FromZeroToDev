@@ -48,7 +48,7 @@ const Cart: React.FC = () => {
     };
 
     const rawData: any = await axios.put(
-      "http://localhost:3001/payments",
+      "https://fromzerotodev-production.up.railway.app/payments",
       body
     );
     const url = rawData.data.init_point;
