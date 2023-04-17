@@ -3,10 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
 interface Review {
+
   username: string | undefined;
   comment:string;
   courseId: string | undefined;
   courseName: string;
+
 }
 
 export interface ICourse {
@@ -47,7 +49,9 @@ const initialState: CoursesState = {
   courses: [],
   filteredCourses: [],
   cartItems: [],
+
   reviewsReported: [],
+
 };
 
 export const coursesSlice = createSlice({
@@ -70,11 +74,13 @@ export const coursesSlice = createSlice({
     addToCart: (state, action: PayloadAction<Product>) => {
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload]
-      }
+        cartItems: [...state.cartItems, action.payload],
+      };
     },
     removeFromCart: (state, action: PayloadAction<Product>) => {
-      state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
     },
     clearCart: (state) => {
       return {
@@ -118,5 +124,8 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
+
+
 export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart, reportReview, deleteReport } = coursesSlice.actions;
+
 export default coursesSlice.reducer;
