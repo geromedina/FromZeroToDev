@@ -53,7 +53,7 @@ const CardDetail: React.FC = (): JSX.Element => {
   })
 
   useEffect(() => {
-    fetch(`http://localhost:3001/courses/${courseId}`)
+    fetch(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`)
       .then((response) => response.json())
       .then((c: Course) => {
         setCourse(c);
@@ -69,7 +69,7 @@ const CardDetail: React.FC = (): JSX.Element => {
   };
   const purchaseHandler = async () => {
     console.log(body);
-    const rawData: any = await axios.get("http://localhost:3001/payments", {
+    const rawData: any = await axios.get("https://fromzerotodev-production.up.railway.app/payments", {
       params: body,
     });
     const url = rawData.data.init_point;
@@ -113,11 +113,11 @@ const CardDetail: React.FC = (): JSX.Element => {
           : [review]
       }));
       if(course.reviews.length>0){
-        await axios.put(`http://localhost:3001/courses/${courseId}`, {...course, reviews:[...course.reviews, review]});
+        await axios.put(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`, {...course, reviews:[...course.reviews, review]});
       }
       else {
         console.log('Entre al else')
-        await axios.put(`http://localhost:3001/courses/${courseId}`, {...course, reviews: [review]});
+        await axios.put(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`, {...course, reviews: [review]});
       }  
       setReview({ ...review, comment: "" });   
   }
