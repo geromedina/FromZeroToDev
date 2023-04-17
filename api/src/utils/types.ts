@@ -23,14 +23,15 @@ export interface ICourse {
 
 //TIPOS USUARIOS
 export interface IUser {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  lastname: string;
-  image: string;
-  firstname: string;
-  favorites: string;
+  id: string,
+  nickname: string,
+  email: string,
+  password: string,
+  lastname: string,
+  image: string,
+  firstname: string,
+  favorites: string,
+
   role: string;
   token: string | null;
   created_at: Date;

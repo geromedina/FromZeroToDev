@@ -16,7 +16,6 @@ const coursesSchema = new Schema<ICourse>(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
       required: false,
-      default: "6424dd601d4b9f6a3de0554b",
     },
     image: {
       type: String,
