@@ -3,8 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
 interface Review {
-  username: string;
-  comment: string;
+
+  username: string | undefined;
+  comment:string;
+  courseId: string | undefined;
+  courseName: string;
+
 }
 
 export interface ICourse {
@@ -38,12 +42,16 @@ interface CoursesState {
   courses: ICourse[];
   filteredCourses: ICourse[];
   cartItems: Product[];
+  reviewsReported: Review [],
 }
 
 const initialState: CoursesState = {
   courses: [],
   filteredCourses: [],
   cartItems: [],
+
+  reviewsReported: [],
+
 };
 
 export const coursesSlice = createSlice({
@@ -77,14 +85,26 @@ export const coursesSlice = createSlice({
     clearCart: (state) => {
       return {
         ...state,
-        cartItems: [],
-      };
+        cartItems: []
+      }
     },
+    reportReview: (state, action: PayloadAction<Review>) => {
+      return {
+        ...state,
+        reviewsReported: [...state.reviewsReported, action.payload]
+      }
+    },
+    deleteReport: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        reviewsReported: state.reviewsReported.filter(r=>r.comment!==action.payload)
+      }
+    }
   },
 });
 export const getCourses = (): AppThunk => {
   return async (dispatch) => {
-    const rawData = await axios.get("http://localhost:3001/courses");
+    const rawData = await axios.get("https://fromzerotodev-production.up.railway.app/courses");
     console.log(rawData);
     const response = rawData.data;
 
@@ -95,7 +115,7 @@ export const getCourses = (): AppThunk => {
 export const getCoursesByName = (name: string): AppThunk => {
   return async (dispatch) => {
     const rawData = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://fromzerotodev-production.up.railway.app/courses?name=${name}`
     );
     console.log(rawData);
     const response = rawData.data;
@@ -104,11 +124,8 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
-export const {
-  fetchCourses,
-  updateFilteredCourses,
-  addToCart,
-  removeFromCart,
-  clearCart,
-} = coursesSlice.actions;
+
+
+export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart, reportReview, deleteReport } = coursesSlice.actions;
+
 export default coursesSlice.reducer;

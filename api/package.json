@@ -6,7 +6,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "local": "nodemon src/index.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
