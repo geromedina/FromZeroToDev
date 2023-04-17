@@ -4,10 +4,12 @@ import type { AppThunk } from "./store";
 import axios from "axios";
 import { getItem, setItem } from "../components/LocalStorage/LocalStorage";
 interface Review {
+
   username: string | undefined;
   comment:string;
   courseId: string | undefined;
   courseName: string;
+
 }
 
 export interface ICourse {
@@ -51,7 +53,9 @@ const initialState: CoursesState = localStorageState ? localStorageState : {
   courses: [],
   filteredCourses: [],
   cartItems: [],
+
   reviewsReported: [],
+
 };
 
 export const coursesSlice = createSlice({
@@ -80,6 +84,7 @@ export const coursesSlice = createSlice({
     addToCart: (state, action: PayloadAction<Product>) => {
       const newState = {
         ...state,
+
         cartItems: [...state.cartItems, action.payload]
       };
       // Guardar el estado actualizado en localStorage
@@ -141,5 +146,8 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
+
+
 export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart, reportReview, deleteReport } = coursesSlice.actions;
+
 export default coursesSlice.reducer;

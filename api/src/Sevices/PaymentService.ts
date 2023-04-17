@@ -5,30 +5,25 @@ interface PaymentService {
   price: number;
 }
 class PaymentService {
-  //   constructor(title: string, description: string, price: number) {
-  //     this.price = price;
-  //     this.description = description;
-  //     this.title = title;
-  //   }
-  async createPayment(title: string, description: string, price: string) {
-    console.log(title, description, price);
+  async createPayment(items: any) {
+    console.log(items);
     const url = "https://api.mercadopago.com/checkout/preferences";
     const body = {
       items: [
         {
-          id: "item-ID-1234",
-          title: `${title}`,
+          id: "product.id",
+          title: `${items.title}`,
           currency_id: "ARS",
           picture_url:
             "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-          description: `${description}`,
-          category_id: "art",
+          description: "NIY",
+          category_id: `Programming languaje`,
           quantity: 1,
-          unit_price: parseInt(price),
+          unit_price: items.unit_price,
         },
       ],
       payer: {
-        name: "Juan",
+        name: "Matias",
         surname: "Lopez",
         email: "user@email.com",
         phone: {
@@ -46,14 +41,14 @@ class PaymentService {
         },
       },
       back_urls: {
-        success: "https://www.success.com",
+        success: "http://localhost:3000/success",
         failure: "http://www.failure.com",
         pending: "http://www.pending.com",
       },
       auto_return: "approved",
-      notification_url: "https://www.your-site.com/ipn",
+      notification_url: "https://minegocio.com",
       statement_descriptor: "MINEGOCIO",
-      external_reference: "Reference_1234",
+      external_reference: `${items.title}`,
       expires: true,
     };
     console.log(body);
