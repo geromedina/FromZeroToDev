@@ -98,7 +98,7 @@ export const coursesSlice = createSlice({
 });
 export const getCourses = (): AppThunk => {
   return async (dispatch) => {
-    const rawData = await axios.get("http://localhost:3001/courses");
+    const rawData = await axios.get("https://fromzerotodev-production.up.railway.app/courses");
     console.log(rawData);
     const response = rawData.data;
 
@@ -109,7 +109,7 @@ export const getCourses = (): AppThunk => {
 export const getCoursesByName = (name: string): AppThunk => {
   return async (dispatch) => {
     const rawData = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://fromzerotodev-production.up.railway.app/courses?name=${name}`
     );
     console.log(rawData);
     const response = rawData.data;
