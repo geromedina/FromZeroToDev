@@ -204,3 +204,4 @@ const CardDetail: React.FC = (): JSX.Element => {
 };
 
 export default CardDetail;
+
