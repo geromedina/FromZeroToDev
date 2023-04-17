@@ -5,7 +5,7 @@ import {
   deleteById,
   loginUser, 
   // logoutUser,
-  // refreshAccessToken
+  refreshAccessToken
 } from "../controllers/usersControllers";
 import { IUser } from "../utils/types";
 import Users from "../model/users";
@@ -29,8 +29,15 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
     const user = req.body as IUser;
     const createdUser = await createUser(user);
     res.status(200).json(createdUser);
-  } catch (error) {
-    res.status(400).json({ error });
+  } catch (error: any) {
+    const message = error.message.toLowerCase();
+    if (message.includes("email")) {
+      res.status(409).json({ error: "Ya existe un usuario con el mismo email" });
+    } else if (message.includes("nickname")) {
+      res.status(409).json({ error: "Ya existe un usuario con el mismo nickname" });
+    } else {
+      res.status(400).json({ error: "Ocurrió un error al crear el usuario" });
+    }
   }
 };
 
@@ -70,11 +77,11 @@ export const handleLogin = async (req: Request, res: Response) => {
 //   }
 // };
 
-// export const handleRefreshAccessToken = async (req: Request, res: Response) => {
-//   try {
-//     await refreshAccessToken(req, res);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// };
+export const handleRefreshAccessToken = async (req: Request, res: Response) => {
+  try {
+    await refreshAccessToken(req, res);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};

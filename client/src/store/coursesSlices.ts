@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
+import { getItem, setItem } from "../components/LocalStorage/LocalStorage";
 interface Review {
   username: string;
   comment:string;
@@ -40,7 +41,10 @@ interface CoursesState {
   cartItems: Product[];
 }
 
-const initialState: CoursesState = {
+
+const localStorageState = getItem("coursesState");
+
+const initialState: CoursesState = localStorageState ? localStorageState : {
   courses: [],
   filteredCourses: [],
   cartItems: []
@@ -51,32 +55,50 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     fetchCourses: (state, action: PayloadAction<ICourse[]>) => {
-      return {
+      const newState = {
         ...state,
         courses: action.payload,
         filteredCourses: action.payload,
       };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     },
     updateFilteredCourses: (state, action: PayloadAction<ICourse[]>) => {
-      return {
+      const newState = {
         ...state,
         filteredCourses: action.payload,
       };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     },
     addToCart: (state, action: PayloadAction<Product>) => {
-      return {
+      const newState = {
         ...state,
         cartItems: [...state.cartItems, action.payload]
-      }
+      };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     },
     removeFromCart: (state, action: PayloadAction<Product>) => {
-      state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+      const newState = {
+        ...state,
+        cartItems: state.cartItems.filter(item => item.id !== action.payload.id)
+      };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     },
     clearCart: (state) => {
-      return {
+      const newState = {
         ...state,
         cartItems: []
-      }
+      };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     }
   },
 });

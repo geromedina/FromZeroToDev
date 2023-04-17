@@ -15,6 +15,6 @@ usersRouter.delete("/:id", deleteUsers as IUsersHandler);
 
 // Autenticacion
 usersRouter.post("/login", handleLogin as IUsersHandler);
-// usersRouter.post("/logout", handleLogin as IUsersHandler);
+usersRouter.post("/logout", handleLogin as IUsersHandler);
 
 export default usersRouter;

@@ -24,7 +24,7 @@ export interface ICourse {
 //TIPOS USUARIOS
 export interface IUser {
   id: string,
-  username: string,
+  nickname: string,
   email: string,
   password: string,
   lastname: string,
