@@ -13,11 +13,11 @@ const ReviewsReported: React.FC = (): JSX.Element => {
     const courseId = (e.target as HTMLButtonElement).value;
     let comment = (e.target as HTMLButtonElement).getAttribute('data-comment');
     comment === null? comment='' : comment=comment
-    const url= `http://localhost:3001/courses/${courseId}`
+    const url= `https://fromzerotodev-production.up.railway.app/courses/${courseId}`
     fetch(url)
       .then((response) => response.json())
       .then((c: Course) => 
-      axios.put(`http://localhost:3001/courses/${courseId}`,{...c, reviews: c.reviews.filter(r=>r.comment!==comment) }
+      axios.put(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`,{...c, reviews: c.reviews.filter(r=>r.comment!==comment) }
       ))
       .catch((err) => {
         window.alert(err);

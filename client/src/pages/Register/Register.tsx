@@ -70,7 +70,7 @@ const Register: React.FC = (): JSX.Element => {
 
     if (succesfull) {
       axios
-        .post("http://localhost:3001/users", form)
+        .post("https://fromzerotodev-production.up.railway.app/users", form)
         .then((res) => alert("Succesfully created"))
         .catch((error) => alert(error.message));
       setForm({
