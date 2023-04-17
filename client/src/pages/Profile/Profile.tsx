@@ -2,8 +2,6 @@ import React, {Fragment, useState}from "react";
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
 import { useAppSelector } from "../../store/hooks";
 import ReactDom from "react-dom";
-import { useLocalStorage } from "../../components/LocalStorage/useLocalStorage";
-
 
 const Profile: React.FC = () => {
   const products = useAppSelector((state) => state.courses.cartItems);
