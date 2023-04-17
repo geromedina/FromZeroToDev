@@ -7,7 +7,6 @@ import CardDetail from "./components/CardDetail/CardDetail";
 
 import { Succesful } from "./pages/SuccessfulPurchase/succesful";
 
-import Dashboard from "./pages/Dashboard/Dashboard";
 
 
 const App: React.FC = (): JSX.Element => {
