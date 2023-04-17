@@ -4,4 +4,7 @@ import Courses from "./Courses/Courses";
 import Form from "./Form/Form";
 import Register from "./Register/Register";
 
-export { Home, Landing, Form, Courses, Register };
+import Profile from "./Profile/Profile";
+
+
+export { Home, Landing, Form, Courses, Register, Profile };
