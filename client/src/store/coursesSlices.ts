@@ -3,8 +3,10 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
 interface Review {
-  username: string;
+  username: string | undefined;
   comment:string;
+  courseId: string | undefined;
+  courseName: string;
 }
 
 export interface ICourse {
@@ -26,7 +28,7 @@ export interface Product {
   id: string;
   name: string;
   image: string;
-  // price: number;
+  price: number;
 }
 
 // interface ShoppingCartItem {
@@ -38,12 +40,14 @@ interface CoursesState {
   courses: ICourse[];
   filteredCourses: ICourse[];
   cartItems: Product[];
+  reviewsReported: Review [],
 }
 
 const initialState: CoursesState = {
   courses: [],
   filteredCourses: [],
-  cartItems: []
+  cartItems: [],
+  reviewsReported: [],
 };
 
 export const coursesSlice = createSlice({
@@ -69,6 +73,27 @@ export const coursesSlice = createSlice({
         cartItems: [...state.cartItems, action.payload]
       }
     },
+    removeFromCart: (state, action: PayloadAction<Product>) => {
+      state.cartItems = state.cartItems.filter(item => item.id !== action.payload.id)
+    },
+    clearCart: (state) => {
+      return {
+        ...state,
+        cartItems: []
+      }
+    },
+    reportReview: (state, action: PayloadAction<Review>) => {
+      return {
+        ...state,
+        reviewsReported: [...state.reviewsReported, action.payload]
+      }
+    },
+    deleteReport: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        reviewsReported: state.reviewsReported.filter(r=>r.comment!==action.payload)
+      }
+    }
   },
 });
 export const getCourses = (): AppThunk => {
@@ -93,5 +118,5 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
-export const { fetchCourses, updateFilteredCourses, addToCart } = coursesSlice.actions;
+export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart, reportReview, deleteReport } = coursesSlice.actions;
 export default coursesSlice.reducer;
