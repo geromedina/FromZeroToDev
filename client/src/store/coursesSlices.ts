@@ -20,6 +20,7 @@ export interface ICourse {
   difficulty: string;
   duration: number;
   price: number;
+  deleted: null | number;
   video: string;
   reviews: Review[];
   _id: string;

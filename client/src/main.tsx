@@ -5,8 +5,8 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import Auth0ProviderWithRedirectUri from "./components/Auth0Provider/auth0Provider"; 
-
-
+/* const frontURL= `https://fromzerotodev-front.vercel.app` */
+const frontURL= `http://localhost:3000`
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
     <BrowserRouter>
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Auth0ProviderWithRedirectUri 
           domain='dev-c556ut7dezqsu5xn.us.auth0.com'
           clientId='Pt4iDYS5IXt3Bufu5g1aBA2NH0EkOd0h'
-          redirectUri=/* 'https://fromzerotodev-front.vercel.app/' */ 'http://localhost:3000'>
+          redirectUri={frontURL}>
             <App />
           </Auth0ProviderWithRedirectUri>
       </React.StrictMode>

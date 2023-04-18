@@ -6,6 +6,8 @@ import "./index.css";
 import CardDetail from "./components/CardDetail/CardDetail";
 
 import { Succesful } from "./pages/SuccessfulPurchase/succesful";
+import ReviewsReported from "./components/ReviewsReported/ReviewsReported";
+import DeleteCourses from "./components/DeleteCourses/DeleteCourses";
 
 
 const App: React.FC = (): JSX.Element => {
@@ -23,6 +25,8 @@ const App: React.FC = (): JSX.Element => {
       <Route path="/courses" element={<Courses />} />
       <Route path="/success" element={<Succesful />} />
       <Route path= "/dashboard" element = {<Dashboard />}/>
+      <Route path= "/reported" element= {<ReviewsReported />}/>
+      <Route path= "/admincourses" element= {<DeleteCourses />}/>
       </Routes>
     </div>
   );
