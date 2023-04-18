@@ -21,18 +21,29 @@ export const getUsersController = async () => {
 
 export const createUser = async (user: IUser): Promise<IUser> => {
   try {
-    const { username, password, email, firstname, lastname, image } = user;
-    if (!username || !password || !email || !firstname || !lastname || !image) {
+    const { nickname, password, email, firstname, lastname, image } = user;
+    if (!nickname || !password || !email || !firstname || !lastname || !image) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
+
+    const existingUserByEmail = await Users.findOne({ email });
+    if (existingUserByEmail) {
+      throw new Error("Ya existe un usuario con el mismo email");
+    }
+
+    const existingUserByNickname = await Users.findOne({ nickname });
+    if (existingUserByNickname) {
+      throw new Error("Ya existe un usuario con el mismo nickname");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const createdUser = await Users.create({
       ...user,
       password: hashedPassword,
     });
     return createdUser.toJSON() as IUser;
-  } catch (error) {
-    throw new Error(`Ocurrió un error al crear el usuario: ${error}`);
+  } catch (error: any) {
+    throw new Error(`Ocurrió un error al crear el usuario: ${error.message}`);
   }
 };
 
@@ -74,6 +85,27 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
+export const findUserController = async (email: string) => {
+  try {
+    const user = await Users.findOne({ email: email });
+    console.log(user);
+    return user;
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
+};
+
+export const addCoursesToUserController = async (
+  coursesId: [],
+  userEmail: string
+) => {
+  const response = Users.updateOne(
+    { email: userEmail },
+    { $push: { courses: [...coursesId] } }
+  );
+  return response;
+};
+
 // export const logoutUser = async (req: Request, res: Response) => {
 //   const { userId } = req.body;
 //   try {
@@ -90,23 +122,25 @@ export const loginUser = async (req: Request, res: Response) => {
 //   }
 // };
 
-// export const refreshAccessToken = async (req: Request, res: Response) => {
-//   const { refreshToken } = req.body;
-//   try {
-//     const decoded = jwt.verify(refreshToken, JWT_SECRET_KEY) as {
-//       userId: string;
-//     };
-//     const user = await Users.findById(decoded.userId);
-//     // If user doesn't exist, return error
-//     if (!user) {
-//       return res.status(400).json({ error: "Invalid refresh token" });
-//     }
-//     const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
-//       expiresIn: "3h",
-//     });
-//     res.status(200).json({ accessToken });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Server error" });
-//   }
-// };
+
+export const refreshAccessToken = async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
+  try {
+    const decoded = jwt.verify(refreshToken, JWT_SECRET_KEY) as {
+      userId: string;
+    };
+    const user = await Users.findById(decoded.userId);
+    // If user doesn't exist, return error
+    if (!user) {
+      return res.status(400).json({ error: "Invalid refresh token" });
+    }
+    const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
+    });
+    res.status(200).json({ accessToken });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+

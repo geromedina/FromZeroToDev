@@ -2,9 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
+import { getItem, setItem } from "../components/LocalStorage/LocalStorage";
 interface Review {
-  username: string;
+
+  username: string | undefined;
   comment:string;
+  courseId: string | undefined;
+  courseName: string;
+
 }
 
 export interface ICourse {
@@ -26,7 +31,7 @@ export interface Product {
   id: string;
   name: string;
   image: string;
-  // price: number;
+  price: number;
 }
 
 // interface ShoppingCartItem {
@@ -38,12 +43,19 @@ interface CoursesState {
   courses: ICourse[];
   filteredCourses: ICourse[];
   cartItems: Product[];
+  reviewsReported: Review [],
 }
 
-const initialState: CoursesState = {
+
+const localStorageState = getItem("coursesState");
+
+const initialState: CoursesState = localStorageState ? localStorageState : {
   courses: [],
   filteredCourses: [],
-  cartItems: []
+  cartItems: [],
+
+  reviewsReported: [],
+
 };
 
 export const coursesSlice = createSlice({
@@ -51,29 +63,70 @@ export const coursesSlice = createSlice({
   initialState,
   reducers: {
     fetchCourses: (state, action: PayloadAction<ICourse[]>) => {
-      return {
+      const newState = {
         ...state,
         courses: action.payload,
         filteredCourses: action.payload,
       };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     },
     updateFilteredCourses: (state, action: PayloadAction<ICourse[]>) => {
-      return {
+      const newState = {
         ...state,
         filteredCourses: action.payload,
       };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
     },
     addToCart: (state, action: PayloadAction<Product>) => {
+      const newState = {
+        ...state,
+
+        cartItems: [...state.cartItems, action.payload]
+      };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
+    },
+    removeFromCart: (state, action: PayloadAction<Product>) => {
+      const newState = {
+        ...state,
+        cartItems: state.cartItems.filter(item => item.id !== action.payload.id)
+      };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
+    },
+    clearCart: (state) => {
+      const newState = {
+        ...state,
+        cartItems: []
+      };
+      // Guardar el estado actualizado en localStorage
+      setItem("coursesState", newState);
+      return newState;
+    },
+    reportReview: (state, action: PayloadAction<Review>) => {
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload]
+        reviewsReported: [...state.reviewsReported, action.payload]
       }
     },
+    deleteReport: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        reviewsReported: state.reviewsReported.filter(r=>r.comment!==action.payload)
+      }
+    }
   },
 });
+
 export const getCourses = (): AppThunk => {
   return async (dispatch) => {
-    const rawData = await axios.get("http://localhost:3001/courses");
+    const rawData = await axios.get("https://fromzerotodev-production.up.railway.app/courses");
     console.log(rawData);
     const response = rawData.data;
 
@@ -84,7 +137,7 @@ export const getCourses = (): AppThunk => {
 export const getCoursesByName = (name: string): AppThunk => {
   return async (dispatch) => {
     const rawData = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://fromzerotodev-production.up.railway.app/courses?name=${name}`
     );
     console.log(rawData);
     const response = rawData.data;
@@ -93,5 +146,8 @@ export const getCoursesByName = (name: string): AppThunk => {
   };
 };
 
-export const { fetchCourses, updateFilteredCourses, addToCart } = coursesSlice.actions;
+
+
+export const { fetchCourses, updateFilteredCourses, addToCart, removeFromCart, clearCart, reportReview, deleteReport } = coursesSlice.actions;
+
 export default coursesSlice.reducer;

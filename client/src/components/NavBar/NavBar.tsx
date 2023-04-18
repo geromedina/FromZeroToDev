@@ -39,6 +39,7 @@ const Navbar: React.FC = () => {
             </NavLink>
             
           </div>
+          
           <div className='flex flex-col lg:flex-row items-center'>
             <Cart/>
           { isAuthenticated ? <UserAvatar /> : <LoginButton />}
