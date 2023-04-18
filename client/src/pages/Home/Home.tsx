@@ -17,6 +17,7 @@ import cel from "../../assets/pictures/img-06.png";
 const Home: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    
     dispatch(getCourses());
   }, []);
   return (

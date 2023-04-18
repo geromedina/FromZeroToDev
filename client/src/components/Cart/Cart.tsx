@@ -7,6 +7,7 @@ import { clearCart } from "../../store/coursesSlices";
 import { removeFromCart } from "../../store/coursesSlices";
 import { Product } from "../../store/coursesSlices";
 import axios from "axios";
+import { backURL } from "../../main";
 
 const Cart: React.FC = () => {
   const { user } = useAuth0();
@@ -48,7 +49,7 @@ const Cart: React.FC = () => {
     };
 
     const rawData: any = await axios.put(
-      "http://localhost:3001/payments",
+      `${backURL}/payments`,
       body
     );
     const url = rawData.data.init_point;
