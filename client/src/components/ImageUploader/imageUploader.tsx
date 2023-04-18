@@ -31,7 +31,9 @@ export function UploadImage() {
   function uploadSingleImage(base64: any) {
     setLoading(true);
     axios
-      .post("http://localhost:3001/cloudinary", { image: base64 })
+      .post("https://fromzerotodev-production.up.railway.app/cloudinary", {
+        image: base64,
+      })
       .then((res) => {
         setUrl(res.data);
         alert("Image uploaded Succesfully");
