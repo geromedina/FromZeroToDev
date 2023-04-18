@@ -37,9 +37,6 @@ const Navbar: React.FC = () => {
             <NavLink to= "/create" className='text-white mb-8 lg:mb-0'>
             Create
             </NavLink>
-            <NavLink to= "/dashboard" className='text-white lg:mr-7 mb-8 lg:mb-0'>
-            Dashboard
-            </NavLink>
             
           </div>
           
