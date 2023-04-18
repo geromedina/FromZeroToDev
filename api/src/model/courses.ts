@@ -43,6 +43,10 @@ const coursesSchema = new Schema<ICourse>(
     reviews: {
       defaultValue: [],
     },
+    deleted: {
+      type: Number,
+      defaultValue:0
+    }
   },
   { timestamps: true }
 );
