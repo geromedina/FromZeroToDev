@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Auth0ProviderWithRedirectUri 
           domain='dev-c556ut7dezqsu5xn.us.auth0.com'
           clientId='Pt4iDYS5IXt3Bufu5g1aBA2NH0EkOd0h'
-          redirectUri='https://fromzerotodev-front.vercel.app/' >
+          redirectUri=/* 'https://fromzerotodev-front.vercel.app/' */ 'http://localhost:3000'>
             <App />
           </Auth0ProviderWithRedirectUri>
       </React.StrictMode>
