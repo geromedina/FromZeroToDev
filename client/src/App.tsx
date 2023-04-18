@@ -15,7 +15,6 @@ const App: React.FC = (): JSX.Element => {
       <NavBar/>
       <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
       <Route path="/Profile" element={<Profile />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/create" element={<Form />} />
