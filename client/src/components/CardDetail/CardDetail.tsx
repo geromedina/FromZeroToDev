@@ -1,17 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { useAppDispatch } from "../../store/hooks";
 import axios from "axios";
 import { reportReview } from "../../store/coursesSlices";
 import { backURL } from "../../main";
 
 interface Review {
-    username: string | undefined;
-    comment:string;
-    courseId: string | undefined;
-    courseName: string;
+  username: string | undefined;
+  comment: string;
+  courseId: string | undefined;
+  courseName: string;
 }
 
 export interface Course {
@@ -27,10 +28,10 @@ export interface Course {
 }
 
 
-
 const CardDetail: React.FC = (): JSX.Element => {
   const courseId = useParams().id;
-  const {user}=useAuth0()
+  const { user } = useAuth0();
+
   const dispatch = useAppDispatch();
   /* console.log(user) */
   const [course, setCourse] = useState<Course>({
@@ -44,7 +45,6 @@ const CardDetail: React.FC = (): JSX.Element => {
     video: "",
     reviews: []
   });
-  
 
   const [review, setReview] = useState<Review>({
     username:'',
@@ -52,6 +52,7 @@ const CardDetail: React.FC = (): JSX.Element => {
     courseId:courseId,
     courseName:''
   })
+
 
   useEffect(() => {
     fetch(`${backURL}/courses/${courseId}`)
@@ -70,9 +71,11 @@ const CardDetail: React.FC = (): JSX.Element => {
   };
   const purchaseHandler = async () => {
     console.log(body);
+
     const rawData: any = await axios.get(`${backURL}/payments`, {
       params: body,
     });
+
     const url = rawData.data.init_point;
     console.log(url);
     window.location.href = url;
@@ -81,29 +84,31 @@ const CardDetail: React.FC = (): JSX.Element => {
   const changeHandler = (e: any) => {
     const value = e.target.value;
 
-    
-    //AcÃ¡ en realidad el username viene del name de auth-0
-    setReview({...review, username: user?.name, [e.target.name]: value });
-    
+
+    //Acá en realidad el username viene del name de auth-0
+    setReview({ ...review, username: user?.name, [e.target.name]: value });
+
   };
 
   const handleReview = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    let comment = (e.target as HTMLButtonElement).getAttribute('data-comment');
-    comment===null? comment='' : comment=comment
-   /*  const courseId = (e.target as HTMLButtonElement).value; */
-   
-   let username = (e.target as HTMLButtonElement).getAttribute('data-username')
-   username===null?  username='' : username=username
-  
-   const reviewReported = {
-    username,
-    comment,
-    courseId,
-    courseName: course.name
-  } 
-  console.log(reviewReported)
-    dispatch(reportReview(reviewReported))
-  }
+    let comment = (e.target as HTMLButtonElement).getAttribute("data-comment");
+    comment === null ? (comment = "") : (comment = comment);
+    /*  const courseId = (e.target as HTMLButtonElement).value; */
+
+    let username = (e.target as HTMLButtonElement).getAttribute(
+      "data-username"
+    );
+    username === null ? (username = "") : (username = username);
+
+    const reviewReported = {
+      username,
+      comment,
+      courseId,
+      courseName: course.name,
+    };
+    console.log(reviewReported);
+    dispatch(reportReview(reviewReported));
+  };
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(course.reviews.length)
@@ -111,6 +116,7 @@ const CardDetail: React.FC = (): JSX.Element => {
         ...prevCourse,
         reviews: prevCourse.reviews.length > 0
           ? [...prevCourse.reviews, review]
+
           : [review]
       }));
       if(course.reviews.length>0){
@@ -188,12 +194,14 @@ const CardDetail: React.FC = (): JSX.Element => {
                     {r.username}
                   </p>
                   <p className="text-lg text-white">{r.comment}</p>
-                  
-                  <button 
+
+                  <button
                     data-comment={r.comment}
-                    data-username= {r.username}
-                   
-                   onClick={handleReview}>Report Review</button>
+                    data-username={r.username}
+                    onClick={handleReview}
+                  >
+                    Report Review
+                  </button>
                 </div>
               ))}
             </div>
@@ -204,4 +212,6 @@ const CardDetail: React.FC = (): JSX.Element => {
   );
 };
 
+
 export default CardDetail;
+
