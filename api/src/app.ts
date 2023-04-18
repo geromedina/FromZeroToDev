@@ -5,6 +5,7 @@ import cors from "cors";
 
 const app = express();
 
+
 // Configuración de CORS
 // const allowedOrigins = ["https://fromzerotodev-production.up.railway.app", "*"];
 // const corsOptions: cors.CorsOptions = {

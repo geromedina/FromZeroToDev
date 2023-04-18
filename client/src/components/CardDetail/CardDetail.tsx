@@ -2,9 +2,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import { useAppDispatch } from "../../store/hooks";
 import axios from "axios";
 import { reportReview } from "../../store/coursesSlices";
+import { backURL } from "../../main";
 
 interface Review {
   username: string | undefined;
@@ -25,9 +27,11 @@ export interface Course {
   reviews: Review[];
 }
 
+
 const CardDetail: React.FC = (): JSX.Element => {
   const courseId = useParams().id;
   const { user } = useAuth0();
+
   const dispatch = useAppDispatch();
   /* console.log(user) */
   const [course, setCourse] = useState<Course>({
@@ -39,18 +43,19 @@ const CardDetail: React.FC = (): JSX.Element => {
     image: "",
     price: 0,
     video: "",
-    reviews: [],
+    reviews: []
   });
 
   const [review, setReview] = useState<Review>({
-    username: "",
-    comment: "",
-    courseId: courseId,
-    courseName: "",
-  });
+    username:'',
+    comment:'',
+    courseId:courseId,
+    courseName:''
+  })
+
 
   useEffect(() => {
-    fetch(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`)
+    fetch(`${backURL}/courses/${courseId}`)
       .then((response) => response.json())
       .then((c: Course) => {
         setCourse(c);
@@ -66,12 +71,11 @@ const CardDetail: React.FC = (): JSX.Element => {
   };
   const purchaseHandler = async () => {
     console.log(body);
-    const rawData: any = await axios.get(
-      "https://fromzerotodev-production.up.railway.app/payments",
-      {
-        params: body,
-      }
-    );
+
+    const rawData: any = await axios.get(`${backURL}/payments`, {
+      params: body,
+    });
+
     const url = rawData.data.init_point;
     console.log(url);
     window.location.href = url;
@@ -80,8 +84,10 @@ const CardDetail: React.FC = (): JSX.Element => {
   const changeHandler = (e: any) => {
     const value = e.target.value;
 
+
     //Acá en realidad el username viene del name de auth-0
     setReview({ ...review, username: user?.name, [e.target.name]: value });
+
   };
 
   const handleReview = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -105,28 +111,23 @@ const CardDetail: React.FC = (): JSX.Element => {
   };
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(course.reviews.length);
-    setCourse((prevCourse) => ({
-      ...prevCourse,
-      reviews:
-        prevCourse.reviews.length > 0
+    console.log(course.reviews.length)
+    setCourse(prevCourse => ({
+        ...prevCourse,
+        reviews: prevCourse.reviews.length > 0
           ? [...prevCourse.reviews, review]
-          : [review],
-    }));
-    if (course.reviews.length > 0) {
-      await axios.put(
-        `https://fromzerotodev-production.up.railway.app/courses/${courseId}`,
-        { ...course, reviews: [...course.reviews, review] }
-      );
-    } else {
-      console.log("Entre al else");
-      await axios.put(
-        `https://fromzerotodev-production.up.railway.app/courses/${courseId}`,
-        { ...course, reviews: [review] }
-      );
-    }
-    setReview({ ...review, comment: "" });
-  };
+
+          : [review]
+      }));
+      if(course.reviews.length>0){
+        await axios.put(`${backURL}/courses/${courseId}`, {...course, reviews:[...course.reviews, review]});
+      }
+      else {
+        console.log('Entre al else')
+        await axios.put(`${backURL}/courses/${courseId}`, {...course, reviews: [review]});
+      }  
+      setReview({ ...review, comment: "" });   
+  }
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-10 text-center">
@@ -171,6 +172,7 @@ const CardDetail: React.FC = (): JSX.Element => {
               <div className="w-full px-3">
                 <textarea
                   className="border rounded-lg py-2 px-3 bg-gray-200 resize-none"
+                  
                   name="comment"
                   value={review.comment}
                   onChange={changeHandler}
@@ -210,4 +212,6 @@ const CardDetail: React.FC = (): JSX.Element => {
   );
 };
 
+
 export default CardDetail;
+

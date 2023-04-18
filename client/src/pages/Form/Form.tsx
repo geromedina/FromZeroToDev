@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Footer from "../../components/Footer/Footer";
 import { UploadImage } from "../../components/ImageUploader/imageUploader";
 import { useAppSelector } from "../../store/hooks";
+import { backURL } from "../../main";
+
 
 const Form: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
@@ -80,7 +82,7 @@ const Form: React.FC = (): JSX.Element => {
 
     if (succesfull) {
       axios
-        .post("https://fromzerotodev-production.up.railway.app/courses", form)
+        .post(`${backURL}/courses`, form)
         .then((res) => alert("Succesfully created"))
         .catch((error) => alert(error.message));
       setForm({
