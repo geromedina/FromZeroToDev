@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AppThunk } from "./store";
 import axios from "axios";
 import { getItem, setItem } from "../components/LocalStorage/LocalStorage";
+import { backURL } from "../main";
 interface Review {
 
   username: string | undefined;
@@ -127,7 +128,7 @@ export const coursesSlice = createSlice({
 
 export const getCourses = (): AppThunk => {
   return async (dispatch) => {
-    const rawData = await axios.get("https://fromzerotodev-production.up.railway.app/courses");
+    const rawData = await axios.get(`${backURL}/courses`);
     console.log(rawData);
     const response = rawData.data;
 
@@ -138,7 +139,7 @@ export const getCourses = (): AppThunk => {
 export const getCoursesByName = (name: string): AppThunk => {
   return async (dispatch) => {
     const rawData = await axios.get(
-      `https://fromzerotodev-production.up.railway.app/courses?name=${name}`
+      `${backURL}/courses?name=${name}`
     );
     console.log(rawData);
     const response = rawData.data;

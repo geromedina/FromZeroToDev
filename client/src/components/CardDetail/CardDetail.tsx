@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useAppDispatch } from "../../store/hooks";
 import axios from "axios";
 import { reportReview } from "../../store/coursesSlices";
+import { backURL } from "../../main";
 
 interface Review {
     username: string | undefined;
@@ -53,7 +54,7 @@ const CardDetail: React.FC = (): JSX.Element => {
   })
 
   useEffect(() => {
-    fetch(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`)
+    fetch(`${backURL}/courses/${courseId}`)
       .then((response) => response.json())
       .then((c: Course) => {
         setCourse(c);
@@ -69,7 +70,7 @@ const CardDetail: React.FC = (): JSX.Element => {
   };
   const purchaseHandler = async () => {
     console.log(body);
-    const rawData: any = await axios.get("https://fromzerotodev-production.up.railway.app/payments", {
+    const rawData: any = await axios.get(`${backURL}/payments`, {
       params: body,
     });
     const url = rawData.data.init_point;
@@ -113,11 +114,11 @@ const CardDetail: React.FC = (): JSX.Element => {
           : [review]
       }));
       if(course.reviews.length>0){
-        await axios.put(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`, {...course, reviews:[...course.reviews, review]});
+        await axios.put(`${backURL}/courses/${courseId}`, {...course, reviews:[...course.reviews, review]});
       }
       else {
         console.log('Entre al else')
-        await axios.put(`https://fromzerotodev-production.up.railway.app/courses/${courseId}`, {...course, reviews: [review]});
+        await axios.put(`${backURL}/courses/${courseId}`, {...course, reviews: [review]});
       }  
       setReview({ ...review, comment: "" });   
   }

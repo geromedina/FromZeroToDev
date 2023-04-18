@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { backURL } from "../main";
 
 interface UserState {
   id: string;
@@ -35,7 +36,7 @@ export const registerUser = createAsyncThunk<string, UserCredentials, { rejectVa
   "auth/registerUser",
   async (value, { rejectWithValue }) => {
     try {
-      const token = await axios.post<string>("https://fromzerotodev-production.up.railway.app/courses/users", {
+      const token = await axios.post<string>(`${backURL}/courses/users`, {
         username: value.username,
         email: value.email,
         password: value.password,

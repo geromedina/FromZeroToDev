@@ -2,21 +2,22 @@ import React from 'react'
 import { useAppSelector } from '../../store/hooks'
 import { ICourse } from "../../store/coursesSlices";
 import axios from 'axios';
+import { backURL } from '../../main';
 
 const DeleteCourses = () => {
   let courses = useAppSelector(state => state.courses.courses)
   const handleDelete = async (id:string) => {
-    let response =(await axios.get(`https://fromzerotodev-production.up.railway.app/courses/${id}`)).data
+    let response =(await axios.get(`${backURL}/courses/${id}`)).data
     console.log('course delete', response)
-    await axios.put(`https://fromzerotodev-production.up.railway.app/courses/${id}`, {...response, deleted:1})
+    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:1})
     
     // Implementa la lógica para eliminar el curso con el id especificado
   }
   
 const handleRestore= async (id:string) =>{
-  let response =(await axios.get(`https://fromzerotodev-production.up.railway.app/courses/${id}`)).data
+  let response =(await axios.get(`${backURL}/courses/${id}`)).data
     console.log('course delete', response)
-    await axios.put(`https://fromzerotodev-production.up.railway.app/courses/${id}`, {...response, deleted:0})
+    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:0})
 }
   return (
     <div>
