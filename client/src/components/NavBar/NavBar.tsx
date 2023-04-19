@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../../assets/pictures/web-dev-icon.svg';
+import logo from '../../assets/pictures/fromzerotodev2.png';
 import { menuOutline } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -18,9 +18,8 @@ const Navbar: React.FC = () => {
     <nav className='bg-gray-800 py-6 relative'>
       <div className='container mx-auto flex px-8 xl:px-0'>
         <div className='flex flex-grow items-center'>
-          <NavLink to='/home' className='flex flex-grow items-center'>
-            <img src={logo} alt="logo" />
-            <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 px-2">FromZeroToDev</h1>
+          <NavLink to='/' className='flex flex-grow items-center'>
+            <img src={logo} alt="logo" className='h-30 w-40'/>
           </NavLink>
         </div>
         <div className='flex lg:hidden'>
