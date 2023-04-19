@@ -4,6 +4,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backURL } from "../../main";
 
 const UserAvatar: React.FC = () => {
   const { logout, user, isAuthenticated } = useAuth0(); // asumiendo que tienes una función de logout en tu hook de autenticación
@@ -18,7 +19,7 @@ const UserAvatar: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`http://localhost:3001/users`)
+        .get(`${backURL}users`)
         .then((response) => {
           const userWithEmail = response.data.find(
             (userData: any) => userData.email === user?.email
