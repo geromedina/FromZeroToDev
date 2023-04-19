@@ -77,11 +77,11 @@ const DeleteCourses = () => {
   const handleDelete = async (id: string) => {
     let response = (await axios.get(`${backURL}/courses/${id}`)).data;
     console.log('course delete', response);
-    await axios.put(`{backURL}/courses/${id}`, { ...response, deleted: 1 });
+    await axios.put(`${backURL}/courses/${id}`, { ...response, deleted: 1 });
     setCourses(courses.map(course => course._id === id ? { ...course, deleted: 1 } : course));
   };
   const handleRestore= async (id:string) =>{
-    let response =(await axios.get(`{backURL}/courses/${id}`)).data
+    let response =(await axios.get(`${backURL}/courses/${id}`)).data
     console.log('course restore', response)
     await axios.put(`${backURL}/courses/${id}`, {...response, deleted:0})
     setCourses(courses.map(course => course._id === id ? { ...course, deleted: 0 } : course));
