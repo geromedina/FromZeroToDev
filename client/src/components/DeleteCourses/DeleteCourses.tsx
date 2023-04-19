@@ -68,7 +68,7 @@ const DeleteCourses = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:3001/courses/all');
+      const response = await axios.get(`${backURL}/all`);
       setCourses(response.data);
       console.log('courses', response.data);
     };
