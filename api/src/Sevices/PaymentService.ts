@@ -1,4 +1,6 @@
 import axios from "axios";
+
+
 interface PaymentService {
   title: string;
   description: string;
@@ -41,7 +43,7 @@ class PaymentService {
         },
       },
       back_urls: {
-        success: "http://localhost:3000/success",
+        success: "https://from-zero-to-dev.vercel.app/success",
         failure: "http://www.failure.com",
         pending: "http://www.pending.com",
       },
