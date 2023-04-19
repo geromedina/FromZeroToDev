@@ -6,11 +6,12 @@ import { backURL } from '../../main';
 
 const DeleteCourses = () => {
   let courses = useAppSelector(state => state.courses.courses)
+  
   const handleDelete = async (id:string) => {
     let response =(await axios.get(`${backURL}/courses/${id}`)).data
     console.log('course delete', response)
     await axios.put(`${backURL}/courses/${id}`, {...response, deleted:1})
-    
+    /* courses= courses.filter(course=>course._id!==id) */
     // Implementa la lógica para eliminar el curso con el id especificado
   }
   
