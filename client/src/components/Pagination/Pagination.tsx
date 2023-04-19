@@ -10,6 +10,7 @@ interface Props {
 const Pagination: React.FC<Props> = ({
   coursesPerPage,
   totalCourses,
+  currentPage,
   paginate,
 }) => {
   const pageNumbers = [];
@@ -22,7 +23,7 @@ const Pagination: React.FC<Props> = ({
     <nav>
       <ul className="pagination">
         {pageNumbers.map((number) => (
-          <li key={number}>
+          <li key={number} className={currentPage === number ? "active" : ""}>
             <button onClick={() => paginate(number)}>{number}</button>
           </li>
         ))}
@@ -32,3 +33,4 @@ const Pagination: React.FC<Props> = ({
 };
 
 export default Pagination;
+
