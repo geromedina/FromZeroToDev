@@ -2,14 +2,15 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { IUser } from "../utils/types";
 const bcrypt = require("bcrypt");
-import dotenv from "dotenv";
 import Users from "../model/users";
-dotenv.config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
 
+
+
+
 //FUNCION QUE TRAE LOS USER
-export const getUsersController = async () => {
+export const getUsersController = async() => {
   try {
     const users = await Users.find();
     return users;
@@ -18,8 +19,7 @@ export const getUsersController = async () => {
   }
 };
 // FUNCION QUE CREA UN USER
-
-export const createUser = async (user: IUser): Promise<IUser> => {
+export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
     const { nickname, password, email, firstname, lastname, image } = user;
     if (!nickname || !password || !email || !firstname || !lastname || !image) {
@@ -37,15 +37,33 @@ export const createUser = async (user: IUser): Promise<IUser> => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const createdUser = await Users.create({
+    const userWithTokens = {
       ...user,
       password: hashedPassword,
+      token: '',
+      refreshToken: '',
+    };
+    const createdUser = await Users.create(userWithTokens);
+
+    const accessToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
     });
-    return createdUser.toJSON() as IUser;
+    const refreshToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+
+    await Users.findByIdAndUpdate(createdUser._id, { refreshToken });
+
+    return {
+      ...createdUser.toJSON(),
+      token: accessToken,
+      refreshToken: refreshToken,
+    } as IUser;
   } catch (error: any) {
     throw new Error(`Ocurrió un error al crear el usuario: ${error.message}`);
   }
 };
+
 
 export const deleteById = async (id: any) => {
   try {
@@ -144,3 +162,23 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
   }
 };
 
+
+
+/*
+export const createUser = async (user: IUser): Promise<IUser> => {
+  try {
+    const { username, password, email, firstname, lastname, image } = user;
+    if (!username  !password  !email  !firstname  !lastname || !image) {
+      throw new Error("Faltan datos requeridos para crear un Usuario");
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const createdUser = await Users.create({
+      ...user,
+      password: hashedPassword,
+    });
+    return createdUser.toJSON() as IUser;
+  } catch (error) {
+    throw new Error(Ocurrió un error al crear el usuario: ${error});
+  }
+};
+*/
