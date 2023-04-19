@@ -92,11 +92,11 @@ const DeleteCourses = () => {
       <table>
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
             <th>Active</th>
-            <th>Acciones</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -108,7 +108,7 @@ const DeleteCourses = () => {
               <td>{course.deleted === 1 ? "No" : "Yes"}</td>
               
               <td>
-                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Eliminar</button>}
+                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Delete</button>}
                 
               </td>
             </tr>
