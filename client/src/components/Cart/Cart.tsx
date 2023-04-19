@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppSelector } from "../../store/hooks";
@@ -12,8 +12,24 @@ import { backURL } from "../../main";
 const Cart: React.FC = () => {
   const { user } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
+  const [productsInStorage, setProductsInStorage] = useState([]);
 
   const products = useAppSelector((state) => state.courses.cartItems);
+  localStorage.setItem('cartItems', JSON.stringify(products));
+
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(products));
+  }, [products]);
+
+
+  useEffect(() => {
+    // Intenta obtener los productos almacenados en el localStorage
+    const products = localStorage.getItem('cartItems');
+    if (products) {
+      // Si se encontraron productos en el localStorage, conviértelos de JSON a un objeto de JavaScript
+      setProductsInStorage(JSON.parse(products));
+    }
+  }, []);
 
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
@@ -61,7 +77,7 @@ const Cart: React.FC = () => {
     <div className="z-10">
       <button type="button" onClick={handleDropdownToggle} className="inline-flex items-center justify-center rounded-full w-10 h-10 border-2 border-gray-500 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 mr-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2s-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59l-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 20.01 4H5.21l-.67-1.43a.993.993 0 0 0-.9-.57H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2s2-.9 2-2s-.9-2-2-2z"/>
+          <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2s-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59l-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A.996.996 0 0 0 20.01 4H5.21l-.67-1.43a.993.993 0 0 0-.9-.57H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2s2-.9 2-2s-.9-2-2-2z" />
         </svg>
       </button>
       {isOpen && (
