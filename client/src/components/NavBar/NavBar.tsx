@@ -34,16 +34,11 @@ const Navbar: React.FC = () => {
             <NavLink to='/courses' className='text-white lg:mr-7 mb-8 lg:mb-0' >
             Courses
             </NavLink>
-            <NavLink to= "/create" className='text-white mb-8 lg:mb-0'>
-            Create
-            </NavLink>
-            {/* <NavLink to='/dashboard' className='text-white lg:mr-7 mb-8 lg:mb-0' >
-            Dashboard
-            </NavLink> */}
+            {isAuthenticated && <NavLink to= "/create" className='text-white mb-8 lg:mb-0'>Create</NavLink>}
           </div>
           
           <div className='flex flex-col lg:flex-row items-center'>
-            <Cart/>
+          { isAuthenticated && <Cart/>}
           { isAuthenticated ? <UserAvatar /> : <LoginButton />}
           </div>
         </div>
