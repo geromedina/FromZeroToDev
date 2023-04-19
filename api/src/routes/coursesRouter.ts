@@ -4,7 +4,8 @@ import {
   postCourse,
   getCourseID,
   updateCourseByIdHandler,
-  deleteCourse
+  deleteCourse,
+  getAllCoursesHandler
 } from "../handlers/coursesHandlers";
 
 const coursesRouter = Router();
@@ -13,7 +14,10 @@ interface ICoursesHandler {
   (req: Request, res: Response): void;
 }
 
+
 coursesRouter.get("/", getCoursesHandler as ICoursesHandler);
+
+coursesRouter.get('/all', getAllCoursesHandler as ICoursesHandler)
 
 coursesRouter.get("/:id", getCourseID as ICoursesHandler);
 
