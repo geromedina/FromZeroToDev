@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import Footer from "../../components/Footer/Footer";
+import { backURL } from "../../main";
 
 const Register: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
@@ -70,7 +71,7 @@ const Register: React.FC = (): JSX.Element => {
 
     if (succesfull) {
       axios
-        .post("https://fromzerotodev-production.up.railway.app/users", form)
+        .post(`${backURL}/users`, form)
         .then((res) => alert("Succesfully created"))
         .catch((error) => alert(error.message));
       setForm({

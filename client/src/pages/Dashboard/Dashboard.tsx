@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 
@@ -21,6 +22,8 @@ const Dashboard = () => {
     <div>
       <h1>Resumen</h1>
       <p>Aquí se muestra un resumen de la salud y el rendimiento de la aplicación.</p>
+      <NavLink to={'/reported'}>Reported Reviews</NavLink>
+      <NavLink to= {'/admincourses'}>Admin Courses</NavLink> 
       <LineChart width={500} height={300} data={data1} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
         <XAxis dataKey="name" />
         <YAxis />
