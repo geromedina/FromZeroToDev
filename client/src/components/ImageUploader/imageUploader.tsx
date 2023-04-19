@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { updateImage } from "../../store/coursesSlices";
@@ -42,17 +41,6 @@ export function UploadImage() {
       .catch(console.log);
   }
 
-  function uploadMultipleImages(images: any) {
-    setLoading(true);
-    axios
-      .post("http://localhost:5000/uploadMultipleImages", { images })
-      .then((res) => {
-        setUrl(res.data);
-        alert("Image uploaded Succesfully");
-      })
-      .then(() => setLoading(false))
-      .catch(console.log);
-  }
 
   const uploadImage = async (event: any) => {
     const files = event.target.files;
@@ -69,7 +57,6 @@ export function UploadImage() {
       var base = await convertBase64(files[i]);
       base64s.push(base);
     }
-    uploadMultipleImages(base64s);
   };
 
   function UploadInput() {

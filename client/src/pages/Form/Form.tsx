@@ -95,13 +95,6 @@ const Form: React.FC = (): JSX.Element => {
       });
     } else return;
   };
-  // const uploadHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log(e.target.value);
-
-  //   const response = await axios
-  //     .post("http://localhost:3001/cloudinary", { path: e.target.value })
-  //     .then((res) => console.log(res.data));
-  // };
 
   return (
     <div>

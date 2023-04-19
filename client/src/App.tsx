@@ -18,6 +18,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Succesful } from "./pages/SuccessfulPurchase/succesful";
 import ReviewsReported from "./components/ReviewsReported/ReviewsReported";
 import DeleteCourses from "./components/DeleteCourses/DeleteCourses";
+import { backURL } from "./main";
 
 const App: React.FC = (): JSX.Element => {
   const { isAuthenticated, user } = useAuth0();
@@ -27,7 +28,7 @@ const App: React.FC = (): JSX.Element => {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`http://localhost:3001/users`)
+        .get(`${backURL}/users`)
         .then((response) => {
           const userWithEmail = response.data.find(
             (userData: any) => userData.email === user?.email
