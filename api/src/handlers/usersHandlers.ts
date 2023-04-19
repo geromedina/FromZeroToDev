@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   getUsersController,
+  updateUser,
   createUser,
   deleteById,
   loginUser,
@@ -36,6 +37,18 @@ export const getUserId = async (
     const id = req.params.id;
     const response = await getUserById(id);
     res.status(200).send(response);
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+};
+
+//  FUNCION QUE ACTUALIZA INFORMACION DEL USUARIO
+export const updateUserById = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const dataToUpdate = req.body;
+    const updatedUser = await updateUser(id, dataToUpdate);
+    res.status(200).json(updatedUser);
   } catch (error: any) {
     res.status(500).send(error.message);
   }

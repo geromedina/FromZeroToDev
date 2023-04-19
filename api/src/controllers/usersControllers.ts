@@ -33,6 +33,40 @@ export const getUserById = async (id: any) => {
   }
 };
 
+// FUNCION QUE ACTUALIZA INFORMACION DEL USUARIO
+
+export const updateUser = async (id: any, updatedData: Partial<IUser>) => {
+  try {
+    const user = await Users.findById(id);
+    if (!user) {
+      console.log(`No se encontró ningún usuario con ID ${id}`);
+      return null;
+    }
+    const { nickname, email } = updatedData;
+
+    if (email) {
+      const existingUserByEmail = await Users.findOne({ email });
+      if (existingUserByEmail && existingUserByEmail._id != id) {
+        throw new Error("Ya existe un usuario con el mismo email");
+      }
+    }
+
+    if (nickname) {
+      const existingUserByNickname = await Users.findOne({ nickname });
+      if (existingUserByNickname && existingUserByNickname._id != id) {
+        throw new Error("Ya existe un usuario con el mismo nickname");
+      }
+    }
+
+    const updatedUser = await Users.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    return updatedUser;
+  } catch (error: any) {
+    throw new Error(`Ocurrió un error al actualizar el usuario: ${error.message}`);
+  }
+};
+
 
 // FUNCION QUE CREA UN USER
 
