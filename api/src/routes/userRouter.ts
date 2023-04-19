@@ -3,7 +3,7 @@ import {
   getUsersHandler,
   postUser,
   deleteUsers,
-  handleLogin,
+  // handleLogin,
   addCoursesById,
   getUserId,
   // handleLogout
@@ -19,11 +19,12 @@ interface IUsersHandler {
 usersRouter.get("/", getUsersHandler as IUsersHandler);
 usersRouter.get("/:id", getUserId as IUsersHandler)
 usersRouter.post("/", postUser as IUsersHandler);
+usersRouter.get("/:id", getUserId as IUsersHandler)
 usersRouter.delete("/:id", deleteUsers as IUsersHandler);
 usersRouter.put("/addCourses", addCoursesById as IUsersHandler);
 
 // Autenticacion
-usersRouter.post("/login", handleLogin as IUsersHandler);
-usersRouter.post("/logout", handleLogin as IUsersHandler);
+// usersRouter.post("/login", handleLogin as IUsersHandler);
+// usersRouter.post("/logout", handleLogin as IUsersHandler);
 
 export default usersRouter;

@@ -18,6 +18,7 @@ export const getUsersController = async () => {
   }
 };
 
+
 // FUNCION QUE TRAE INFO DE UN USUARIO POR ID
 
 export const getUserById = async (id: any) => {
@@ -36,7 +37,23 @@ export const getUserById = async (id: any) => {
 
 // FUNCION QUE CREA UN USER
 
-export const createUser = async (user: IUser): Promise<IUser> => {
+// FUNCION QUE TRAE INFO DE UN USUARIO POR ID
+
+export const getUserById = async (id: any) => {
+  try {
+    const infoDB = await Users.findById(id).exec();
+    if (infoDB === null) {
+      console.log(`No se encontró ningún usuario con ID ${id}`);
+    }
+    return infoDB;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error al buscar el usuario con ID ${id}`);
+  }
+};
+
+// FUNCION QUE CREA UN  USER
+export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
     const { nickname, password, email, firstname, lastname, image } = user;
     if (!nickname || !password || !email || !firstname || !lastname || !image) {
@@ -54,11 +71,28 @@ export const createUser = async (user: IUser): Promise<IUser> => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const createdUser = await Users.create({
+    const userWithTokens = {
       ...user,
       password: hashedPassword,
+      token: '',
+      refreshToken: '',
+    };
+    const createdUser = await Users.create(userWithTokens);
+
+    const accessToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
     });
-    return createdUser.toJSON() as IUser;
+    const refreshToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+
+    await Users.findByIdAndUpdate(createdUser._id, { refreshToken });
+
+    return {
+      ...createdUser.toJSON(),
+      token: accessToken,
+      refreshToken: refreshToken,
+    } as IUser;
   } catch (error: any) {
     throw new Error(`Ocurrió un error al crear el usuario: ${error.message}`);
   }
@@ -160,4 +194,3 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-
