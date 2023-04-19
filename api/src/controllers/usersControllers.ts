@@ -17,6 +17,23 @@ export const getUsersController = async () => {
     throw new Error("Error al buscar los usuarios en la base de datos");
   }
 };
+
+// FUNCION QUE TRAE INFO DE UN USUARIO POR ID
+
+export const getUserById = async (id: any) => {
+  try {
+    const infoDB = await Users.findById(id).exec();
+    if (infoDB === null) {
+      console.log(`No se encontró ningún usuario con ID ${id}`);
+    }
+    return infoDB;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error al buscar el usuario con ID ${id}`);
+  }
+};
+
+
 // FUNCION QUE CREA UN USER
 
 export const createUser = async (user: IUser): Promise<IUser> => {
