@@ -1,5 +1,5 @@
 import React from 'react';
-import logotipo from '../../assets/pictures/web-dev-icon.svg';
+import logo from '../../assets/pictures/fromzerotodev.png';
 import { logoDiscord, logoGithub  } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
 
@@ -10,8 +10,7 @@ const Footer: React.FC = (): JSX.Element => {
             <div className='grid lg:grid-cols-2'>
                 <div className='mb-10 lg:mb-0'>
                     <div className='flex flex-grow items-center'>
-                        <img src={logotipo} alt="logo" />
-                        <h1 className="font-bold text-transparent bg-clip-text text-white px-2">FromZeroToDev</h1>
+                        <img src={logo} alt="logo" className='h-30 w-40'/>
                     </div>
                     <p className='text-gray-400'>Discover the new way of learning</p>
                 </div>
