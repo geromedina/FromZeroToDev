@@ -16,6 +16,15 @@ export const getCourses = async () => {
   }
 };
 
+export const getAllCourses= async () => {
+  try {
+    const courses = await Course.find();
+    return courses;
+  } catch (error) {
+    throw new Error("Error al buscar los cursos en la base de datos");
+  }
+};
+
 //FUNCION QUE TRAE CURSOS POR NOMBRE
 
 export const getCoursesByName = async (name: string) => {
