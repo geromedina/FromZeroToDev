@@ -77,11 +77,11 @@ const DeleteCourses = () => {
   const handleDelete = async (id: string) => {
     let response = (await axios.get(`${backURL}/courses/${id}`)).data;
     console.log('course delete', response);
-    await axios.put(`{backURL}/courses/${id}`, { ...response, deleted: 1 });
+    await axios.put(`${backURL}/courses/${id}`, { ...response, deleted: 1 });
     setCourses(courses.map(course => course._id === id ? { ...course, deleted: 1 } : course));
   };
   const handleRestore= async (id:string) =>{
-    let response =(await axios.get(`{backURL}/courses/${id}`)).data
+    let response =(await axios.get(`${backURL}/courses/${id}`)).data
     console.log('course restore', response)
     await axios.put(`${backURL}/courses/${id}`, {...response, deleted:0})
     setCourses(courses.map(course => course._id === id ? { ...course, deleted: 0 } : course));
@@ -92,11 +92,11 @@ const DeleteCourses = () => {
       <table>
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
             <th>Active</th>
-            <th>Acciones</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -108,7 +108,7 @@ const DeleteCourses = () => {
               <td>{course.deleted === 1 ? "No" : "Yes"}</td>
               
               <td>
-                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Eliminar</button>}
+                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Delete</button>}
                 
               </td>
             </tr>
