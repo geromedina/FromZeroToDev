@@ -1,12 +1,5 @@
-
-import React, { ReactNode, useEffect, useState } from "react";
-import { Auth0Provider } from "@auth0/auth0-react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Navigate } from "react-router-dom";
-
-import React, { ReactNode } from "react";
-import { Auth0Provider, Auth0ProviderOptions, CacheLocation } from "@auth0/auth0-react";
-
+import { ReactNode } from "react";
+import { Auth0Provider, Auth0ProviderOptions } from "@auth0/auth0-react";
 
 interface Auth0ProviderWithRedirectUriProps extends Auth0ProviderOptions {
   children: ReactNode;
