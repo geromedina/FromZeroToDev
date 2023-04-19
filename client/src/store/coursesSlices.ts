@@ -52,12 +52,10 @@ interface CoursesState {
 const localStorageState = getItem("coursesState");
 
 const initialState: CoursesState = localStorageState ? localStorageState : {
-
   courseIMG: "",
   courses: [],
   filteredCourses: [],
   cartItems: [],
-
   reviewsReported: [],
 };
 
