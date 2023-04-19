@@ -13,6 +13,7 @@ interface CardProps {
   price: number;
 }
 
+
 const Card: React.FC<CardProps> = ({
   name,
   difficulty,
@@ -25,42 +26,32 @@ const Card: React.FC<CardProps> = ({
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ id, name, image, price}))
+    dispatch(addToCart({ id, name, image, price }))
   }
 
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <NavLink
-          to={`/detail/${id}`}
-          style={{ color: "inherit", textDecoration: "inherit" }}
-        >
     <div>
-      <a href="#">
-        <img className="rounded-t-lg" src={image ? image : img} alt="Imagen" />
-      </a>
-      <div className="p-5">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {name}
-        </h5>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          {description}
-        </p>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Difficulty: {difficulty}
-        </p>
+      <NavLink to={`/detail/${id}`} style={{ color: "inherit", textDecoration: "inherit", zIndex: "0" }}>
+        <div className="relative m-3 flex flex-wrap mx-auto justify-center">
+          <div className="relative max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
+            <div className="overflow-x-hidden rounded-2xl relative">
+                <img className="h-40 rounded-2xl w-full object-cover" src={image ? image : img} alt="Imagen" />
+              <button onClick={(e) => {e.preventDefault(); handleAddToCart()}} className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-50 opacity-70" fill="none" viewBox="0 0 24 24" stroke="black">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </button>
+            </div>
+            <div className="mt-4 pl-2 mb-2 flex justify-between ">
+              <div>
+                <p className="text-lg font-semibold text-gray-900 mb-0">{name}</p>
+                <p className="text-md text-gray-800 mt-0">{description}</p>
+                <p className="text-md text-gray-800 mt-0">Difficulty: {difficulty}</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
       </NavLink>
-      <div className="flex items-center justify-center">
-          <button
-            className="flex items-center justify-center align-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={handleAddToCart}
-            >
-            Add to cart
-            <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
-          </button>
-
-      </div>
     </div>
   );
 };
