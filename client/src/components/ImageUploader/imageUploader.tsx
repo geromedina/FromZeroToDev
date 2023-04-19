@@ -100,7 +100,7 @@ export function UploadImage() {
               drop
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
+              SVG, PNG or JPG
             </p>
           </div>
           <input
@@ -135,7 +135,7 @@ export function UploadImage() {
       <div>
         {loading ? (
           <div className="flex items-center justify-center">
-            <h1>Loading...</h1>
+            <h1>Uploading...</h1>
           </div>
         ) : (
           <UploadInput />

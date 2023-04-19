@@ -16,6 +16,7 @@ export interface ICourse {
   duration: number;
   price: number;
   video: string;
+  deleted: number;
   reviews: Review[];
   created_at: Date;
   updated_at: Date;

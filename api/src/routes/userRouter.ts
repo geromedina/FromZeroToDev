@@ -17,6 +17,7 @@ interface IUsersHandler {
 }
 // Usuarios
 usersRouter.get("/", getUsersHandler as IUsersHandler);
+usersRouter.get("/:id", getUserId as IUsersHandler)
 usersRouter.post("/", postUser as IUsersHandler);
 usersRouter.get("/:id", getUserId as IUsersHandler)
 usersRouter.delete("/:id", deleteUsers as IUsersHandler);
