@@ -25,15 +25,17 @@ const App: React.FC = (): JSX.Element => {
   const [userData, setUserData] = useState({role:null});
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`${backURL}/users`)
-        .then((response) => {
-          const userWithEmail = response.data.find(
-            (userData: any) => userData.email === user?.email
-          );
+      .get(`${backURL}/users`)
+      .then((response) => {
 
+        const userWithEmail = response.data.find(
+          (userData: any) => userData.email === user?.email
+          );
+          
           if (userWithEmail) {
             setUserData(userWithEmail);
           } else {
@@ -41,9 +43,10 @@ const App: React.FC = (): JSX.Element => {
           }
         })
         .catch((error) => console.log(error));
-    }
-  }, [isAuthenticated, user, navigate]);
-
+      }
+    }, [isAuthenticated, user, navigate]);
+    
+  console.log(userData)
   const isAdmin = userData?.role === "admin";
 
   return (
