@@ -31,9 +31,10 @@ export interface IUser {
   image: string,
   firstname: string,
   favorites: string,
-
+  country: string,
   role: string;
-  token: string | null;
+  token: string,
+  refreshToken: string,
   created_at: Date;
   updated_at: Date;
 }

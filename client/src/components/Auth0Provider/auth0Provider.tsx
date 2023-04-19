@@ -1,5 +1,21 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Navigate } from "react-router-dom";
+
+// interface AuthProviderProps {
+//   children: ReactNode;
+// }
+
+// export const AuthProvider = ({ children }: AuthProviderProps) => {
+//   const [token, setToken] = useState({});
+//   if (!token) {
+//     return <Navigate to="/register" replace={true} />;
+//   }
+//   return <>{children}</>;
+// };
+
+
 
 interface Auth0ProviderWithRedirectUriProps {
     children: ReactNode;
