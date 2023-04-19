@@ -47,7 +47,7 @@
   }
   
   .pagination .active button {
-    background-color: #4CAF50;
+    background-color: rgb(0, 0, 0);
     color: white;
     border: 1px solid #4CAF50;
   }
