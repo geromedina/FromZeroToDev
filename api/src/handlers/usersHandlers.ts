@@ -7,7 +7,8 @@ import {
   findUserController,
   addCoursesToUserController,
   // logoutUser,
-  refreshAccessToken
+  refreshAccessToken,
+  getUserById
 } from "../controllers/usersControllers";
 import { IUser } from "../utils/types";
 import Users from "../model/users";
@@ -24,6 +25,23 @@ export const getUsersHandler = async (
     res.status(400).json({ error });
   }
 };
+
+// MANEJADOR QUE TRAE UN USUARIO POR ID
+
+export const getUserId = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const response = await getUserById(id);
+    res.status(200).send(response);
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+};
+
+
 //MANEJADOR QUE CREA LOS USUARIOS
 export const postUser = async (req: Request, res: Response): Promise<void> => {
   try {
