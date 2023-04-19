@@ -4,7 +4,12 @@ import { ICourse } from "../utils/types";
 // FUNCION QUE TRAE TODOS LOS CURSOS
 export const getCourses = async () => {
   try {
-    const courses = await Course.find();
+    const courses = await Course.find({
+      $or: [
+        { deleted: {$ne: 1} },
+        { deleted: {$exists: false} }
+      ]
+    });
     return courses;
   } catch (error) {
     throw new Error("Error al buscar los cursos en la base de datos");
