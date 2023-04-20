@@ -95,7 +95,7 @@ export const FiltersAndSorters: React.FC = (): JSX.Element => {
 
   return (
     <nav className="bg-gray-800 py-4 relative border-t border-gray-400 w-full">
-      <div className="containter flex px-8 mx-6">
+      <div className="containter flex flex-wrap px-8 mx-6">
         <form className="flex items-center">
           <input
             value={filters.search}
