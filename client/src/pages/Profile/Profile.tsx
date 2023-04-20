@@ -97,7 +97,7 @@ const Profile: React.FC = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-2xl font-bold mb-8">Recommended project</h1>
+          <h1 className="text-2xl font-bold mb-8"><My Projects</h1>
           <div className="bg-white p-10 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
             <div>
                 <div className="flex flex-wrap gap-4 mb-4 overflow-y-scroll">
