@@ -1,68 +1,26 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { PieChart, Pie, Cell } from 'recharts';
-
-const data1 = [
-  { name: 'Desktop', value: 100 },
-  { name: 'Tablet', value: 20 },
-  { name: 'Mobile', value: 80 }
-];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
-
-const data2 = [
-  { id: 1, nombre: 'Juan Perez', email: 'juan.perez@mail.com', fechaRegistro: '2022-01-01' },
-  { id: 2, nombre: 'Maria Gomez', email: 'maria.gomez@mail.com', fechaRegistro: '2022-01-05' },
-  { id: 3, nombre: 'Pedro Rodriguez', email: 'pedro.rodriguez@mail.com', fechaRegistro: '2022-01-09' }
-];
+import { NavLink } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Resumen</h1>
-      <p>Aquí se muestra un resumen de la salud y el rendimiento de la aplicación.</p>
-      <NavLink to={'/reported'}>Reported Reviews</NavLink>
-      <NavLink to= {'/admincourses'}>Admin Courses</NavLink> 
-      <LineChart width={500} height={300} data={data1} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <CartesianGrid stroke="#f5f5f5" />
-        <Line type="monotone" dataKey="tiempoRespuesta" stroke="#ff7300" yAxisId={0} />
-        <Tooltip />
-      </LineChart>
-      <PieChart width={400} height={400}>
-        <Pie data={data1} cx={200} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value">
-          {data1.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend />
-      </PieChart>
-      <h2>Usuarios Registrados</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Fecha de Registro</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data2.map((usuario) => (
-            <tr key={usuario.id}>
-              <td>{usuario.id}</td>
-              <td>{usuario.nombre}</td>
-              <td>{usuario.email}</td>
-              <td>{usuario.fechaRegistro}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="flex bg-gray-100">
+      <div className="p-6 w-full">
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+          <p className="mt-2">Here is a summary of the app's health and performance.</p>
+        </div>
+        <div className="mt-4">
+          <button className="bg-white hover:bg-gray-100 text-gray-800 font-normal py-1 px-2 border border-gray-400 rounded shadow">
+          <NavLink to="/reported" className="mr-4 text-blue-500 hover:text-blue-600 font-semibold">
+            Reported reviews
+          </NavLink>
+          </button>
+          <button className="bg-white hover:bg-gray-100 text-gray-800 font-normal py-1 px-2 border border-gray-400 rounded shadow">
+          <NavLink to="/admincourses" className="text-blue-500 hover:text-blue-600 font-semibold">
+            Admin courses
+          </NavLink>
+          </button>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default Dashboard;
+}
