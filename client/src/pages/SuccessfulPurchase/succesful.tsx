@@ -1,19 +1,23 @@
 import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { backURL } from "../../main";
 
-export const Succesful: React.FC = (): JSX.Element => {
+export const Succesful: React.FC<any> = (props: any): JSX.Element => {
   const [queryParameters] = useSearchParams();
-  const status = queryParameters.get("status");
-  const courses_id = queryParameters.get("external_reference");
-  console.log(status, courses_id);
+
+  const coursesNames = queryParameters.get("external_reference");
+  const userId = props._id;
+  let coursesArr = coursesNames?.replace(/,/g, "").split(" ");
+
+  console.log(coursesNames, userId);
+
   useEffect(() => {
-    console.log(status, courses_id);
-  }, [status, courses_id]);
+    axios.put(`${backURL}/users/addCourses`, {
+      id: userId,
+      courses: coursesArr,
+    });
+  }, [coursesArr]);
 
-  const putCoursesToUser = async () => {};
-
-  return (
-    <div>Succcess! you can now view your course in My Profile/Courses</div>
-  );
+  return <div>Succcess! you can now view your course</div>;
 };
