@@ -93,10 +93,12 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
 
   const transporter = nodemailer.createTransport(smtpConfig || ObjEmail);
   try {
+
     const { nickname, email, firstname, lastname } = req.body as IUser;
     if (!nickname || !email || !firstname || !lastname) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
+
 
     const existingUserByEmail = await Users.findOne({ email });
     if (existingUserByEmail) {
