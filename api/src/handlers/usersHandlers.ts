@@ -88,9 +88,9 @@ export const updateUserById = async (req: Request, res: Response): Promise<void>
 export const postUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { nickname, password, email, firstname, lastname, image } = req.body as IUser;
-    if (!nickname || !password || !email || !firstname || !lastname || !image) {
-      throw new Error("Faltan datos requeridos para crear un Usuario");
-    }
+//     if (!nickname || !password || !email || !firstname || !lastname || !image) {
+//       throw new Error("Faltan datos requeridos para crear un Usuario");
+//     }
 
     const existingUserByEmail = await Users.findOne({ email });
     if (existingUserByEmail) {
