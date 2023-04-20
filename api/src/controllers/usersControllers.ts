@@ -35,28 +35,11 @@ export const getUserById = async (id: any) => {
 };
 
 
-// FUNCION QUE CREA UN USER
-
-// FUNCION QUE TRAE INFO DE UN USUARIO POR ID
-
-export const getUserById = async (id: any) => {
-  try {
-    const infoDB = await Users.findById(id).exec();
-    if (infoDB === null) {
-      console.log(`No se encontró ningún usuario con ID ${id}`);
-    }
-    return infoDB;
-  } catch (error) {
-    console.error(error);
-    throw new Error(`Error al buscar el usuario con ID ${id}`);
-  }
-};
-
 // FUNCION QUE CREA UN  USER
 export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
-    const { nickname, password, email, firstname, lastname, image } = user;
-    if (!nickname || !password || !email || !firstname || !lastname || !image) {
+    const { nickname, email, firstname, lastname } = user;
+    if (!nickname || !email || !firstname || !lastname ) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
 
@@ -69,11 +52,8 @@ export const createUser = async (user: IUser,): Promise<IUser> => {
     if (existingUserByNickname) {
       throw new Error("Ya existe un usuario con el mismo nickname");
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
     const userWithTokens = {
-      ...user,
-      password: hashedPassword,
+      ...user, 
       token: '',
       refreshToken: '',
     };
@@ -156,23 +136,6 @@ export const addCoursesToUserController = async (
   );
   return response;
 };
-
-// export const logoutUser = async (req: Request, res: Response) => {
-//   const { userId } = req.body;
-//   try {
-//     const user = await Users.findById(userId);
-//     if (!user) {
-//       return res.status(400).json({ error: "Invalid user ID" });
-//     }
-//     user.token = null;
-//     await user.save();
-//     res.status(200).json({ message: "User logged out successfully" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Server error" });
-//   }
-// };
-
 
 export const refreshAccessToken = async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
