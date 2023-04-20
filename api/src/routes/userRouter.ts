@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import {
   getUsersHandler,
+  updateUserById,
   postUser,
   deleteUsers,
   // handleLogin,
@@ -17,7 +18,8 @@ interface IUsersHandler {
 }
 // Usuarios
 usersRouter.get("/", getUsersHandler as IUsersHandler);
-usersRouter.get("/:id", getUserId as IUsersHandler)
+usersRouter.get("/:id", getUserId as IUsersHandler);
+usersRouter.put("/:id", updateUserById as IUsersHandler);
 usersRouter.post("/", postUser as IUsersHandler);
 usersRouter.get("/:id", getUserId as IUsersHandler)
 usersRouter.delete("/:id", deleteUsers as IUsersHandler);
