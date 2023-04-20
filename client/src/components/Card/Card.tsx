@@ -1,7 +1,7 @@
 import React, { MouseEvent } from "react";
 import { NavLink } from "react-router-dom";
 import img from "../../assets/pictures/img.jpeg";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addToCart } from "../../store/coursesSlices";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -23,12 +23,15 @@ const Card: React.FC<CardProps> = ({
   description,
   price
 }) => {
-
+  const cart = useAppSelector(state=>state.courses.cartItems)
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAuth0();
   const handleAddToCart = () => {
-    dispatch(addToCart({ id, name, image, price }))
-  }
+    const isItemAlreadyInCart = cart.some((item) => item.id === id);
+    if (!isItemAlreadyInCart) {
+      dispatch(addToCart({ id, name, image, price }));
+    }
+  };
 
   return (
     <div>
