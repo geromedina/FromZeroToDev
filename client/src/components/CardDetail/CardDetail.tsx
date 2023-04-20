@@ -191,12 +191,14 @@ const CardDetail: React.FC = (): JSX.Element => {
         </section>
       </div>
 
-      <section>
+
+      {isAuthenticated &&  <section>
         <div className="flex flex-col items-center mb-4 justify-center">
           <form onSubmit={submitHandler} className="w-full max-w-sm">
             <div className="flex flex-wrap -mx-3 mb-2">
               <div className="w-full px-3">
                 <textarea
+                  placeholder="Share your thoughts about this course"
                   className="border rounded-lg py-2 px-3 bg-gray-200 resize-none mb-2 w-full"
                   name="comment"
                   value={review.comment}
@@ -236,6 +238,7 @@ const CardDetail: React.FC = (): JSX.Element => {
           )}
         </div>
       </section>
+}
 
       <section className="py-0">
         <div className="container mx-auto px-8">
