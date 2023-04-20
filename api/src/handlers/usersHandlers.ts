@@ -7,14 +7,14 @@ import {
   getUserById,
   findUserController,
   addCoursesToUserController,
-  refreshAccessToken
+  refreshAccessToken,
 } from "../controllers/usersControllers";
-import { IUser} from "../utils/types";
+import { IUser } from "../utils/types";
 import Users from "../model/users";
 import dotenv from "dotenv";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import * as nodemailer from 'nodemailer';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import * as nodemailer from "nodemailer";
 dotenv.config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
@@ -28,18 +28,16 @@ export interface IObjEmail {
     pass: string | undefined;
   };
 }
-
-const ObjEmail:  IObjEmail = {
+// ajklashdkjasdkghjasd
+const ObjEmail: IObjEmail = {
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
   secure: process.env.SMTP_SECURE === "true",
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
-  }
+  },
 };
-
-
 
 export const getUsersHandler = async (
   req: Request,
@@ -56,10 +54,7 @@ export const getUsersHandler = async (
 
 // MANEJADOR QUE TRAE UN USUARIO POR ID
 
-export const getUserId = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getUserId = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
     const response = await getUserById(id);
@@ -69,9 +64,11 @@ export const getUserId = async (
   }
 };
 
-
 //  FUNCION QUE ACTUALIZA INFORMACION DEL USUARIO
-export const updateUserById = async (req: Request, res: Response): Promise<void> => {
+export const updateUserById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const { id } = req.params;
     const dataToUpdate = req.body;
@@ -82,15 +79,26 @@ export const updateUserById = async (req: Request, res: Response): Promise<void>
   }
 };
 
-
 //MANEJADOR QUE CREA LOS USUARIOS
 
 export const postUser = async (req: Request, res: Response): Promise<void> => {
+  const nombreRemitente: string = req.body.nombre;
+  const correoRemitente: string = req.body.correo;
+  const asunto: string = req.body.asunto || "Registro compleado.";
+  const mensaje: string =
+    req.body.mensaje ||
+    "Felicidades por formar parte de fromzerotodev, deseamos que disfrutes de esta nueva experiencia y seas el mejor programador.";
+
+  const smtpConfig = JSON.parse(process.env.SMTP_CONFIG || "{}");
+
+  const transporter = nodemailer.createTransport(smtpConfig || ObjEmail);
   try {
-    const { nickname, password, email, firstname, lastname, image } = req.body as IUser;
-//     if (!nickname || !password || !email || !firstname || !lastname || !image) {
-//       throw new Error("Faltan datos requeridos para crear un Usuario");
-//     }
+
+    const { nickname, email, firstname, lastname } = req.body as IUser;
+    if (!nickname || !email || !firstname || !lastname) {
+      throw new Error("Faltan datos requeridos para crear un Usuario");
+    }
+
 
     const existingUserByEmail = await Users.findOne({ email });
     if (existingUserByEmail) {
@@ -102,14 +110,19 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
       throw new Error("Ya existe un usuario con el mismo nickname");
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
     const userWithTokens = {
       ...req.body,
-      password: hashedPassword,
-      token: '',
-      refreshToken: '',
+
+      token: "",
+      refreshToken: "",
     };
     const createdUser = await Users.create(userWithTokens);
+    await transporter.sendMail({
+      from: `"${nombreRemitente}" <${correoRemitente}>`,
+      to: createdUser.email,
+      subject: asunto,
+      text: mensaje,
+    });
 
     const accessToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
       expiresIn: "3h",
@@ -126,11 +139,15 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
       refreshToken: refreshToken,
     });
   } catch (error: any) {
-    res.status(400).json({ error: `Ocurrió un error al crear el usuario: ${error.message}` });
+    res
+      .status(400)
+      .json({
+        error: `Ocurrió un error al crear el usuario: ${error.message}`,
+      });
   }
 };
 
-//MANEJA EL BORRADO DE USUARIOS 
+//MANEJA EL BORRADO DE USUARIOS
 
 export const deleteUsers = async (req: Request, res: Response) => {
   try {
@@ -147,7 +164,6 @@ export const deleteUsers = async (req: Request, res: Response) => {
   }
 };
 
-
 export const addCoursesById = async (req: Request, res: Response) => {
   const { coursesId, userEmail } = req.body;
   try {
@@ -158,12 +174,11 @@ export const addCoursesById = async (req: Request, res: Response) => {
   }
 };
 
-
 export const handleRefreshAccessToken = async (req: Request, res: Response) => {
   try {
     await refreshAccessToken(req, res);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 };
