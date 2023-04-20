@@ -1,79 +1,45 @@
 import { Request, Response } from "express";
-import {
-  getUsersController,
-  createUser,
-  deleteById,
-  getUserById,
-  findUserController,
-  addCoursesToUserController,
-  refreshAccessToken
-} from "../controllers/usersControllers";
-import { IUser} from "../utils/types";
-import Users from "../model/users";
+import jwt from "jsonwebtoken";
+import { IUser } from "../utils/types";
+const bcrypt = require("bcrypt");
 import dotenv from "dotenv";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import * as nodemailer from 'nodemailer';
+import Users from "../model/users";
 dotenv.config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
 
-export interface IObjEmail {
-  host: string | undefined;
-  port: string | undefined;
-  secure: boolean;
-  auth: {
-    user: string | undefined;
-    pass: string | undefined;
-  };
-}
-
-const ObjEmail:  IObjEmail = {
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE === "true",
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+//FUNCION QUE TRAE LOS USER
+export const getUsersController = async () => {
+  try {
+    const users = await Users.find();
+    return users;
+  } catch (error) {
+    throw new Error("Error al buscar los usuarios en la base de datos");
   }
 };
 
 
+// FUNCION QUE TRAE INFO DE UN USUARIO POR ID
 
-export const getUsersHandler = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getUserById = async (id: any) => {
   try {
-    const response = await getUsersController();
-    res.status(200).json(response);
-  } catch (error: any) {
-    console.log("hay una error");
-    res.status(400).json({ error });
+    const infoDB = await Users.findById(id).exec();
+    if (infoDB === null) {
+      console.log(`No se encontró ningún usuario con ID ${id}`);
+    }
+    return infoDB;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Error al buscar el usuario con ID ${id}`);
   }
 };
 
-// MANEJADOR QUE TRAE UN USUARIO POR ID
 
-export const getUserId = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+// FUNCION QUE CREA UN  USER
+export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
-    const id = req.params.id;
-    const response = await getUserById(id);
-    res.status(200).send(response);
-  } catch (error: any) {
-    res.status(500).send(error.message);
-  }
-};
-
-//MANEJADOR QUE CREA LOS USUARIOS
-
-export const postUser = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { nickname, password, email, firstname, lastname, image } = req.body as IUser;
-    if (!nickname || !password || !email || !firstname || !lastname || !image) {
+    const { nickname, email, firstname, lastname } = user;
+    if (!nickname || !email || !firstname || !lastname ) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
 
@@ -86,11 +52,8 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
     if (existingUserByNickname) {
       throw new Error("Ya existe un usuario con el mismo nickname");
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
     const userWithTokens = {
-      ...req.body,
-      password: hashedPassword,
+      ...user, 
       token: '',
       refreshToken: '',
     };
@@ -105,50 +68,92 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
 
     await Users.findByIdAndUpdate(createdUser._id, { refreshToken });
 
-    res.status(201).json({
+    return {
       ...createdUser.toJSON(),
       token: accessToken,
       refreshToken: refreshToken,
-    });
+    } as IUser;
   } catch (error: any) {
-    res.status(400).json({ error: `Ocurrió un error al crear el usuario: ${error.message}` });
+    throw new Error(`Ocurrió un error al crear el usuario: ${error.message}`);
   }
 };
 
-//MANEJA EL BORRADO DE USUARIOS 
-
-export const deleteUsers = async (req: Request, res: Response) => {
+export const deleteById = async (id: any) => {
   try {
-    const { id } = req.params;
-    const users = await Users.findById(id);
-    const deleteCourse = await deleteById(id);
-    if (!users) {
-      return res.status(400).json({ message: "el ID es invalido" });
+    const infoDB = await Users.findByIdAndDelete(id);
+    if (!infoDB) {
+      console.log(`No se encontró ningún users con ID ${id}`);
     }
-    return res.status(200).json(deleteCourse);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Server Error");
+    return infoDB;
+  } catch (error) {
+    throw new Error(`Ocurrió un error al eliminar usuario: ${error}`);
   }
 };
 
-
-export const addCoursesById = async (req: Request, res: Response) => {
-  const { coursesId, userEmail } = req.body;
+export const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
   try {
-    const response = await addCoursesToUserController(coursesId, userEmail);
-    res.status(201).json(response);
+    const user = await Users.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email" });
+    }
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      return res.status(400).json({ error: "Invalid password" });
+    }
+    const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
+    });
+    const refreshToken = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+    user.token = accessToken;
+    await user.save();
+    res.status(200).json({ accessToken, refreshToken, user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+export const findUserController = async (email: string) => {
+  try {
+    const user = await Users.findOne({ email: email });
+    console.log(user);
+    return user;
   } catch (error) {
     throw new Error(`${error}`);
   }
 };
 
+export const addCoursesToUserController = async (
+  coursesId: [],
+  userEmail: string
+) => {
+  const response = Users.updateOne(
+    { email: userEmail },
+    { $push: { courses: [...coursesId] } }
+  );
+  return response;
+};
 
-export const handleRefreshAccessToken = async (req: Request, res: Response) => {
+export const refreshAccessToken = async (req: Request, res: Response) => {
+  const { refreshToken } = req.body;
   try {
-    await refreshAccessToken(req, res);
+    const decoded = jwt.verify(refreshToken, JWT_SECRET_KEY) as {
+      userId: string;
+    };
+    const user = await Users.findById(decoded.userId);
+    // If user doesn't exist, return error
+    if (!user) {
+      return res.status(400).json({ error: "Invalid refresh token" });
+    }
+    const accessToken = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
+    });
+    res.status(200).json({ accessToken });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 };
