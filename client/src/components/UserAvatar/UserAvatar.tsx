@@ -19,7 +19,7 @@ const UserAvatar: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`${backURL}users`)
+        .get(`${backURL}/users`)
         .then((response) => {
           const userWithEmail = response.data.find(
             (userData: any) => userData.email === user?.email
@@ -31,6 +31,8 @@ const UserAvatar: React.FC = () => {
   }, [isAuthenticated, user, navigate]);
 
   const isAdmin = userData?.role === "admin";
+
+  console.log(`user:`, userData)
 
   return (
     <div className="relative inline-block text-left mr-4 z-10">
@@ -58,7 +60,7 @@ const UserAvatar: React.FC = () => {
               {user?.email}
             </div>
           </div>
-          {userData.role === "admin" &&
+          {isAdmin &&
             <Link
               to="/dashboard"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
