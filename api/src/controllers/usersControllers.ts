@@ -73,9 +73,9 @@ export const updateUser = async (id: any, updatedData: Partial<IUser>) => {
 export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
     const { nickname, email, firstname, lastname } = user;
-    if (!nickname || !email || !firstname || !lastname ) {
-      throw new Error("Faltan datos requeridos para crear un Usuario");
-    }
+//     if (!nickname || !email || !firstname || !lastname ) {
+//       throw new Error("Faltan datos requeridos para crear un Usuario");
+//     }
 
     const existingUserByEmail = await Users.findOne({ email });
     if (existingUserByEmail) {
