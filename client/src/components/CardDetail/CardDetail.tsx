@@ -192,7 +192,8 @@ const CardDetail: React.FC = (): JSX.Element => {
         </section>
       </div>
 
-      <section>
+
+      {isAuthenticated &&  <section>
         <div className="flex flex-col items-center mb-4 justify-center">
           <form onSubmit={submitHandler} className="w-full max-w-sm">
             <div className="flex flex-wrap -mx-3 mb-2">
@@ -237,6 +238,7 @@ const CardDetail: React.FC = (): JSX.Element => {
           )}
         </div>
       </section>
+}
 
       <section className="py-0">
         <div className="container mx-auto px-8">
