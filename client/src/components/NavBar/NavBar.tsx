@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../../assets/pictures/web-dev-icon.svg';
+import logo from '../../assets/pictures/fromzerotodev2.png';
 import { menuOutline } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -18,9 +18,8 @@ const Navbar: React.FC = () => {
     <nav className='bg-gray-800 py-6 relative'>
       <div className='container mx-auto flex px-8 xl:px-0'>
         <div className='flex flex-grow items-center'>
-          <NavLink to='/home' className='flex flex-grow items-center'>
-            <img src={logo} alt="logo" />
-            <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 px-2">FromZeroToDev</h1>
+          <NavLink to='/' className='flex flex-grow items-center'>
+            <img src={logo} alt="logo" className='h-30 w-40'/>
           </NavLink>
         </div>
         <div className='flex lg:hidden'>
@@ -28,23 +27,17 @@ const Navbar: React.FC = () => {
         </div>
         <div id='menu' className='lg:flex hidden flex-grow justify-between absolute lg:relative lg:top-0 top-20 left-0 bg-gray-800 w-full lg:w-auto items-center py-14 lg:py-0 px-8 sm:px-24 lg:px-0'>
           <div className='flex flex-col lg:flex-row mb-8 lg:mb-0'>
-            <NavLink to='/home' className='text-white lg:mr-7 mb-8 lg:mb-0'>
+            <NavLink to='/' className='text-white lg:mr-7 mb-8 lg:mb-0'>
             Home
             </NavLink>
             <NavLink to='/courses' className='text-white lg:mr-7 mb-8 lg:mb-0' >
             Courses
             </NavLink>
-            <NavLink to= "/create" className='text-white mb-8 lg:mb-0'>
-            Create
-            </NavLink>
-            <NavLink to= "/dashboard" className='text-white lg:mr-7 mb-8 lg:mb-0'>
-            Dashboard
-            </NavLink>
-            
+            {isAuthenticated && <NavLink to= "/create" className='text-white mb-8 lg:mb-0'>Create</NavLink>}
           </div>
           
           <div className='flex flex-col lg:flex-row items-center'>
-            <Cart/>
+          { isAuthenticated && <Cart/>}
           { isAuthenticated ? <UserAvatar /> : <LoginButton />}
           </div>
         </div>

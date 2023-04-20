@@ -1,23 +1,28 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
+import { backURL } from "../../main";
 
 const Register: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { user } = useAuth0();
   const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    username: "",
-    password: "",
-    country: "",
-    image: "",
+    firstname: user && user.given_name ? user.given_name : "",
+    lastname: user && user.family_name ? user.family_name : "",
+    email: user && user.email ? user.email : "",
+    nickname: user && user.nickname ? user.nickname : "",
+    password: user && user.password ? user.password : "",
+    country: user && user.country ? user.country : "",
+    image: user && user.picture ? user.picture : "",
   });
   const [errors, setErrors] = useState({
     firstname: "",
     lastname: "",
     email: "",
-    username: "",
+    nickname: "",
     password: "",
     country: "",
     image: "",
@@ -33,7 +38,7 @@ const Register: React.FC = (): JSX.Element => {
     const nameErr = form.firstname === "" ? "Please add a name" : "";
     const lastnameErr = form.lastname === "" ? "Please add a lastname" : "";
     const emailErr = form.email === "" ? "Please add an email" : "";
-    const usernameErr = form.username === "" ? "Please add an username" : "";
+    const nicknameErr = form.nickname === "" ? "Please add an nickname" : "";
     const passwordErr =
       form.password === "" || isNaN(form.password) || form.password.length < 6
         ? "Invalid password"
@@ -44,8 +49,8 @@ const Register: React.FC = (): JSX.Element => {
       firstname: nameErr,
       lastname: lastnameErr,
       email: emailErr,
-      username: usernameErr,
-      password: passwordErr,
+      nickname: nicknameErr,
+     password: passwordErr,
       country: countryErr,
       image: imageErr,
     });
@@ -53,7 +58,7 @@ const Register: React.FC = (): JSX.Element => {
       nameErr !== "" ||
       lastnameErr !== "" ||
       emailErr !== "" ||
-      usernameErr !== "" ||
+      nicknameErr !== "" ||
       passwordErr !== "" ||
       countryErr !== "" ||
       imageErr !== ""
@@ -70,14 +75,14 @@ const Register: React.FC = (): JSX.Element => {
 
     if (succesfull) {
       axios
-        .post("http://localhost:3001/users", form)
+        .post(`${backURL}/users`, form)
         .then((res) => alert("Succesfully created"))
         .catch((error) => alert(error.message));
       setForm({
         firstname: "",
         lastname: "",
         email: "",
-        username: "",
+        nickname: "",
         password: "",
         country: "",
         image: "",
@@ -121,13 +126,13 @@ const Register: React.FC = (): JSX.Element => {
           <label className="col-span-2">Username:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={form.username}
+            id="nickname"
+            name="nickname"
+            value={form.nickname}
             onChange={changeHandler}
             className="col-span-6 border border-gray-400 p-2 rounded-lg"
           />
-          <span className="col-span-8 text-red-600">{errors.username}</span>
+          <span className="col-span-8 text-red-600">{errors.nickname}</span>
 
           <label className="col-span-2">Password</label>
           <input

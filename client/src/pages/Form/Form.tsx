@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "../../components/Footer/Footer";
+import { UploadImage } from "../../components/ImageUploader/imageUploader";
+import { useAppSelector } from "../../store/hooks";
+import { backURL } from "../../main";
 
 const Form: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
@@ -22,6 +25,14 @@ const Form: React.FC = (): JSX.Element => {
     price: "",
     video: "",
   });
+  const imageURL = useAppSelector((state) => state.courses.courseIMG);
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      image: imageURL,
+    });
+  }, [imageURL]);
 
   const changeHandler = (e: any) => {
     const property = e.target.name;
@@ -70,7 +81,7 @@ const Form: React.FC = (): JSX.Element => {
 
     if (succesfull) {
       axios
-        .post("http://localhost:3001/courses", form)
+        .post(`${backURL}/courses`, form)
         .then((res) => alert("Succesfully created"))
         .catch((error) => alert(error.message));
       setForm({
@@ -84,6 +95,7 @@ const Form: React.FC = (): JSX.Element => {
       });
     } else return;
   };
+
   return (
     <div>
       <div className="max-w-md mx-auto my-20">
@@ -108,13 +120,14 @@ const Form: React.FC = (): JSX.Element => {
             className="col-span-6 border border-gray-400 p-2 rounded-lg"
           ></input>
           <span className="col-span-8 text-red-600">{errors.description}</span>
-          <label className="col-span-2">image</label>
+          {/* <label className="col-span-2">image</label>
           <input
-            value={form.image}
-            onChange={changeHandler}
+            type="file"
+            //value={form.image}
+            onChange={uploadHandler}
             name="image"
             className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          ></input>
+          ></input> */}
           <span className="col-span-8 text-red-600">{errors.image}</span>
 
           <label className="col-span-2">Difficulty</label>
@@ -173,8 +186,9 @@ const Form: React.FC = (): JSX.Element => {
             Create!{" "}
           </button>
         </form>
+        <UploadImage />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

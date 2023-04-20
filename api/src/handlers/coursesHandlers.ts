@@ -6,6 +6,7 @@ import {
   getCourseById,
   updateCourseById,
   deleteById,
+  getAllCourses
 } from "../controllers/coursesController";
 import { ICourse } from "../utils/types";
 import { Course } from "../model/courses";
@@ -33,6 +34,18 @@ export const getCoursesHandler = async (
     }
   }
 };
+
+export const getAllCoursesHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const response = await getAllCourses();
+    res.status(200).json(response);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+}
 // MANEJADOR QUE TRAE UN CURSO POR ID
 
 export const getCourseID = async (
@@ -91,3 +104,4 @@ export const deleteCourse = async (req: Request, res: Response) => {
     return res.status(500).send("Server Error");
   }
 };
+

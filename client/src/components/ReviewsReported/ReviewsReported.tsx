@@ -4,6 +4,7 @@ import { Course } from '../CardDetail/CardDetail';
 import { useAppDispatch } from "../../store/hooks";
 import axios from 'axios';
 import { deleteReport } from '../../store/coursesSlices';
+import { backURL } from '../../main';
 
 const ReviewsReported: React.FC = (): JSX.Element => {
   const reports = useAppSelector(state => state.courses.reviewsReported);
@@ -13,11 +14,11 @@ const ReviewsReported: React.FC = (): JSX.Element => {
     const courseId = (e.target as HTMLButtonElement).value;
     let comment = (e.target as HTMLButtonElement).getAttribute('data-comment');
     comment === null? comment='' : comment=comment
-    const url= `http://localhost:3001/courses/${courseId}`
+    const url= `${backURL}/courses/${courseId}`
     fetch(url)
       .then((response) => response.json())
       .then((c: Course) => 
-      axios.put(`http://localhost:3001/courses/${courseId}`,{...c, reviews: c.reviews.filter(r=>r.comment!==comment) }
+      axios.put(`${backURL}/courses/${courseId}`,{...c, reviews: c.reviews.filter(r=>r.comment!==comment) }
       ))
       .catch((err) => {
         window.alert(err);
