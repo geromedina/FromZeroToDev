@@ -1,10 +1,11 @@
-import React, {Fragment, useState}from "react";
+import React, { Fragment, useState } from "react";
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
 import { useAppSelector } from "../../store/hooks";
 import ReactDom from "react-dom";
 
-const Profile: React.FC = () => {
+const Profile: React.FC<any> = (props) => {
   const products = useAppSelector((state) => state.courses.cartItems);
+  const purchasedCourses = props.courses_purchased;
 
   return (
     <div className=" h-full lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 h-[100vh]">
@@ -29,6 +30,7 @@ const Profile: React.FC = () => {
         <div className="col-span-1 md:col-span-2 flex flex-col justify-between">
           <h1 className="text-2xl font-bold mb-8">Your projects</h1>
           <div className="bg-white p-8 rounded-xl shadow-2xl">
+            <p>{purchasedCourses}</p>
             <div className="flex items-center gap-4 mb-4 overflow-y-scroll">
               <div className="w-14 h-36 object-cover rounded-full "></div>
             </div>
@@ -100,26 +102,26 @@ const Profile: React.FC = () => {
           <h1 className="text-2xl font-bold mb-8">Recommended project</h1>
           <div className="bg-white p-10 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
             <div>
-                <div className="flex flex-wrap gap-4 mb-4 overflow-y-scroll">
-                  {products?.map((p) => (
-                    <div key={p.id} className="w-1/3 max-w-xs">
-                      <div className="h-36 object-cover rounded-full ">
-                        <div className="h-24 w-full rounded-md border border-gray-200">
-                          <img
-                            src={p.image}
-                            alt="img"
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="mt-2">
-                          <div className="text-base font-medium text-gray-900">
-                            <a href="">{p.name}</a>
-                          </div>
+              <div className="flex flex-wrap gap-4 mb-4 overflow-y-scroll">
+                {products?.map((p) => (
+                  <div key={p.id} className="w-1/3 max-w-xs">
+                    <div className="h-36 object-cover rounded-full ">
+                      <div className="h-24 w-full rounded-md border border-gray-200">
+                        <img
+                          src={p.image}
+                          alt="img"
+                          className="h-full w-full object-cover object-center"
+                        />
+                      </div>
+                      <div className="mt-2">
+                        <div className="text-base font-medium text-gray-900">
+                          <a href="">{p.name}</a>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

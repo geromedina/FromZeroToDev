@@ -24,8 +24,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  courses_pay: {
-    type: Array,
+  courses_purchased: {
+    type: String,
     defaultValue: [],
   },
   courses_sale: {

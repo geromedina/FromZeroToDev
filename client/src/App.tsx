@@ -52,7 +52,7 @@ const App: React.FC = (): JSX.Element => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Profile" element={<Profile userData={userData} />} />
         <Route path="/dashboard" element={isAdmin && <Dashboard />} />
         <Route path="/create" element={<Form />} />
         <Route path="/register" element={<Register />} />
