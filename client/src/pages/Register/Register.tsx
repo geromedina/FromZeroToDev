@@ -60,7 +60,8 @@ const Register: React.FC = (): JSX.Element => {
         .post(`${backURL}/users`, form)
         .then((res) => {
           // Reemplazar alert con una notificación
-          console.log("Succesfully created");
+         alert("Succesfully created");
+         navigate('/');
         })
         .catch((error) => {
           // Reemplazar alert con una notificación
