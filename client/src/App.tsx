@@ -55,14 +55,14 @@ const App: React.FC = (): JSX.Element => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Profile" element={<Profile />} />
-        <Route path="/dashboard" element={isAdmin ? <Dashboard /> : null} />
+        <Route path="/dashboard" element={isAdmin && <Dashboard/>} />
         <Route path="/create" element={<Form />} />
         <Route path="/register" element={<Register />} />
         <Route path="/detail/:id" element={<CardDetail />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/success" element={<Succesful />} />
-        <Route path="/reported" element={isAdmin ? <ReviewsReported /> : null} />
-        <Route path="/admincourses" element={isAdmin ? <DeleteCourses /> : null} />
+        <Route path="/reported" element={isAdmin && <ReviewsReported />} />
+        <Route path="/admincourses" element={isAdmin && <DeleteCourses />} />
       </Routes>
     </div>
   );
