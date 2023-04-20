@@ -34,7 +34,6 @@ export const getUserById = async (id: any) => {
   }
 };
 
-
 // FUNCION QUE CREA UN  USER
 export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
@@ -136,6 +135,7 @@ export const addCoursesToUserController = async (
   );
   return response;
 };
+
 
 export const refreshAccessToken = async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
