@@ -199,6 +199,7 @@ const CardDetail: React.FC = (): JSX.Element => {
             <div className="flex flex-wrap -mx-3 mb-2">
               <div className="w-full px-3">
                 <textarea
+                  placeholder="Share your thoughts about this course"
                   className="border rounded-lg py-2 px-3 bg-gray-200 resize-none mb-2 w-full"
                   name="comment"
                   value={review.comment}
