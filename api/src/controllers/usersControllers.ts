@@ -19,7 +19,6 @@ export const getUsersController = async () => {
 };
 
 
-// FUNCION QUE CREA UN USER
 // FUNCION QUE TRAE INFO DE UN USUARIO POR ID
 
 export const getUserById = async (id: any) => {
@@ -38,8 +37,8 @@ export const getUserById = async (id: any) => {
 // FUNCION QUE CREA UN  USER
 export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
-    const { nickname, password, email, firstname, lastname, image } = user;
-    if (!nickname || !password || !email || !firstname || !lastname || !image) {
+    const { nickname, email, firstname, lastname } = user;
+    if (!nickname || !email || !firstname || !lastname ) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
 
@@ -52,11 +51,8 @@ export const createUser = async (user: IUser,): Promise<IUser> => {
     if (existingUserByNickname) {
       throw new Error("Ya existe un usuario con el mismo nickname");
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
     const userWithTokens = {
-      ...user,
-      password: hashedPassword,
+      ...user, 
       token: '',
       refreshToken: '',
     };
