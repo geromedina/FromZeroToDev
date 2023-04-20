@@ -45,8 +45,7 @@ const Register: React.FC = (): JSX.Element => {
       lastnameErr !== "" ||
       emailErr !== "" ||
       nicknameErr !== ""
-    ) {
-      return false;
+    ) {return false;
     } else {
       return true;
     }
@@ -60,10 +59,12 @@ const Register: React.FC = (): JSX.Element => {
       axios
         .post(`${backURL}/users`, form)
         .then((res) => {
-          alert("Succesfully created");
-          navigate("/");
+          // Reemplazar alert con una notificación
+         alert("Succesfully created");
+         navigate('/');
         })
         .catch((error) => {
+          // Reemplazar alert con una notificación
           console.error(error.message);
         });
       setForm({
