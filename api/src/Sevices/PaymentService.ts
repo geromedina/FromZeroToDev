@@ -43,7 +43,7 @@ class PaymentService {
         },
       },
       back_urls: {
-        success: "https://from-zero-to-dev-posta.vercel.app/",
+        success: "https://presentacion-alpha.vercel.app/",
         failure: "http://www.failure.com",
         pending: "http://www.pending.com",
       },
