@@ -28,7 +28,7 @@ export interface IObjEmail {
     pass: string | undefined;
   };
 }
-
+// ajklashdkjasdkghjasd
 const ObjEmail: IObjEmail = {
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
