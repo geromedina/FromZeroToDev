@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import Auth0ProviderWithRedirectUri from "./components/Auth0Provider/auth0Provider"; 
 
-export const frontURL= `https://presentacion-alpha.vercel.app`;
+export const frontURL= `https://presentacion-alpha.vercel.app/`;
 export const backURL= `https://fromzerotodev-production.up.railway.app`
 
 /* export const frontLOCAL= `http://localhost:3000` */
