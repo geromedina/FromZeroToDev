@@ -12,7 +12,7 @@ import FiltersAndSorters from "../../components/Filters/FiltersAndSorters";
 const Courses: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const coursesPerPage = 4;
+  const coursesPerPage = 8;
   const courses = useAppSelector((state) => state.courses.filteredCourses);
 
   useEffect(() => {
