@@ -61,7 +61,8 @@ const CardDetail: React.FC = (): JSX.Element => {
     courseId: courseId,
     courseName: ''
   })
-  
+
+  const { isAuthenticated } = useAuth0();
 
   const handleAddToCart = () => {
     const isItemAlreadyInCart = cart.some((item) => item.id === course.id);
@@ -165,9 +166,9 @@ const CardDetail: React.FC = (): JSX.Element => {
             <p className="text-rose-700">This offer ends in 2 days!</p>
           </div>
           <div className="flex justify-center px-6 py-4">
-            <button  onClick={(e) => {e.preventDefault(); handleAddToCart()}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">
+            {isAuthenticated && <button  onClick={(e) => {e.preventDefault(); handleAddToCart()}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">
               Add to Cart
-            </button>
+            </button>}
           </div>
         </div>
       </section>
