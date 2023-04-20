@@ -7,8 +7,6 @@ import {
   findUserController,
   addCoursesToUserController,
   refreshAccessToken
-  // loginUser,
-  // logoutUser,
 } from "../controllers/usersControllers";
 import { IUser} from "../utils/types";
 import Users from "../model/users";
@@ -117,71 +115,6 @@ export const postUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// export const postUser = async (req: Request, res: Response): Promise<void> => {
-//   const nombreRemitente: string = req.body.nombre;
-//   const correoRemitente: string = req.body.correo;
-//   const asunto: string = req.body.asunto || "Registro completado."
-//   const mensaje: string = req.body.mensaje || "Felicidades por formar parte de fromzerotodev."
-
-//   const smtpConfig = JSON.parse(process.env.SMTP_CONFIG || '{}');
-
-//   const transporter = nodemailer.createTransport(smtpConfig || ObjEmail);
-
-//   try {
-//     const user = req.body as IUser;
-//     const createdUser = await createUser(req.body);
-//     await transporter.sendMail({
-//       from: `"${nombreRemitente}" <${correoRemitente}>`,
-//       to: user.email,
-//       subject: asunto,
-//       text: mensaje,
-//     });
-//     res.status(200).json(createdUser);
-//   } catch (error: any) {
-//     try {
-//       const user = await createUser(req.body);
-//       await transporter.sendMail({
-//         from: `"${nombreRemitente}" <${correoRemitente}>`,
-//         to: user.email,
-//         subject: asunto,
-//         text: mensaje,
-//       });
-//       res.status(201).json(user);
-//     } catch (error: any) {
-//       const message = error.message.toLowerCase();
-//       if (message.includes("email")) {
-//         res.status(409).json({ error: "Ya existe un usuario con el mismo email" });
-//       } else if (message.includes("nickname")) {
-//         res.status(409).json({ error: "Ya existe un usuario con el mismo nickname" });
-//       } else {
-//         res.status(400).json({ error: "Ocurrió un error al crear el usuario" });
-//       }
-//     }
-//   }
-// };
-
-// export const postUser = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const user = req.body as IUser;
-//     const createdUser = await createUser(user);
-//     res.status(200).json(createdUser);
-//   } catch (error) {
-//     res.status(400).json({ error });
-//   }
-// };
-
-
-// export const createUserHandler = async (req: Request, res: Response) => {
-//   try {
-//     const user = await createUser(req.body, req, res);
-//     res.status(201).json(user);
-//   } catch (error: any) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
-
-
-
 //MANEJA EL BORRADO DE USUARIOS 
 
 export const deleteUsers = async (req: Request, res: Response) => {
@@ -199,24 +132,6 @@ export const deleteUsers = async (req: Request, res: Response) => {
   }
 };
 
-// export const handleLogin = async (req: Request, res: Response) => {
-//   try {
-//     await loginUser(req, res);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Server error" });
-//   }
-// };
-
-// export const getUserByEmail = async (req: Request, res: Response) => {
-//   const { email } = req.params;
-//   try {
-//     const user = await findUserController(email);
-//     res.status(200).json(user);
-//   } catch (error) {
-//     throw new Error(`${error}`);
-//   }
-// };
 
 export const addCoursesById = async (req: Request, res: Response) => {
   const { coursesId, userEmail } = req.body;
@@ -227,15 +142,6 @@ export const addCoursesById = async (req: Request, res: Response) => {
     throw new Error(`${error}`);
   }
 };
-
-// export const handleLogout = async (req: Request, res: Response) => {
-//   try {
-//     await logoutUser(req, res);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Server error" });
-//   }
-// };
 
 
 export const handleRefreshAccessToken = async (req: Request, res: Response) => {
