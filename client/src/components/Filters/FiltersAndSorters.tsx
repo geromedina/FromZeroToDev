@@ -23,8 +23,8 @@ export const FiltersAndSorters: React.FC = (): JSX.Element => {
     const filteredCourses = courses.filter((course) => {
       return difficulty !== ""
         ? course.difficulty === difficulty &&
-            course.name.toLowerCase().includes(search)
-        : course.name.toLowerCase().includes(search);
+            course.name.toLowerCase().includes(search.toLowerCase())
+        : course.name.toLowerCase().includes(search.toLowerCase());
     });
     const sorting = (sorter: string) => {
       switch (sorter) {
