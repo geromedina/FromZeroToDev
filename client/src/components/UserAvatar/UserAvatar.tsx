@@ -19,7 +19,7 @@ const UserAvatar: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get(`${backURL}users`)
+        .get(`${backURL}/users`)
         .then((response) => {
           const userWithEmail = response.data.find(
             (userData: any) => userData.email === user?.email
