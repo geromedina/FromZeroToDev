@@ -1,62 +1,3 @@
-/* Como estaba el develop antes de cambios
-import React from 'react'
-import { useAppSelector } from '../../store/hooks'
-import { ICourse } from "../../store/coursesSlices";
-import axios from 'axios';
-import { backURL } from '../../main';
-
-const DeleteCourses = () => {
-  let courses = useAppSelector(state => state.courses.courses)
-  
-  const handleDelete = async (id:string) => {
-    let response =(await axios.get(`${backURL}/courses/${id}`)).data
-    console.log('course delete', response)
-    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:1})
-    
-    // Implementa la lógica para eliminar el curso con el id especificado
-  }
-  
-const handleRestore= async (id:string) =>{
-  let response =(await axios.get(`${backURL}/courses/${id}`)).data
-    console.log('course delete', response)
-    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:0})
-}
-  return (
-    <div>
-      <h2>Lista de cursos</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Active</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courses.map((course: ICourse) => (
-            <tr key={course._id}>
-              <td>{course.name}</td>
-              <td>{course.description}</td>
-              <td>{course.price}</td>
-              <td>{course.deleted === 1 ? "No" : "Yes"}</td>
-              
-              <td>
-                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Eliminar</button>}
-                
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-
- 
-}
-
-export default DeleteCourses */
 
 import { backURL } from '../../main';
 import React, { useState } from 'react';
@@ -80,217 +21,45 @@ const DeleteCourses = () => {
     await axios.put(`${backURL}/courses/${id}`, { ...response, deleted: 1 });
     setCourses(courses.map(course => course._id === id ? { ...course, deleted: 1 } : course));
   };
-  const handleRestore= async (id:string) =>{
-    let response =(await axios.get(`${backURL}/courses/${id}`)).data
+  const handleRestore = async (id: string) => {
+    let response = (await axios.get(`${backURL}/courses/${id}`)).data
     console.log('course restore', response)
-    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:0})
+    await axios.put(`${backURL}/courses/${id}`, { ...response, deleted: 0 })
     setCourses(courses.map(course => course._id === id ? { ...course, deleted: 0 } : course));
   }
   return (
-    <div>
-      <h2>Lista de cursos</h2>
-      <table>
+    <div className="bg-gray-100 p-6">
+      <h2 className="text-2xl font-bold mb-4">Course List</h2>
+      <table className="w-full border border-gray-300">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Active</th>
-            <th>Action</th>
+          <tr className="bg-gray-200">
+            <th className="p-3 text-left font-bold">Name</th>
+            <th className="p-3 text-left font-bold">Description</th>
+            <th className="p-3 text-left font-bold">Price</th>
+            <th className="p-3 text-left font-bold">Active</th>
+            <th className="p-3 text-left font-bold">Action</th>
           </tr>
         </thead>
         <tbody>
           {courses.map((course: ICourse) => (
-            <tr key={course._id}>
-              <td>{course.name}</td>
-              <td>{course.description}</td>
-              <td>{course.price}</td>
-              <td>{course.deleted === 1 ? "No" : "Yes"}</td>
-              
-              <td>
-                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Delete</button>}
-                
+            <tr key={course._id} className="border-b border-gray-300">
+              <td className="p-3">{course.name}</td>
+              <td className="p-3">{course.description}</td>
+              <td className="p-3">{course.price}</td>
+              <td className="p-3">{course.deleted === 1 ? "No" : "Yes"}</td>
+              <td className="p-3">
+                {course.deleted === 1 ? (
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleRestore(course._id)}>Restore</button>
+                ) : (
+                  <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => handleDelete(course._id)}>Delete</button>
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 };
 
 export default DeleteCourses; 
-
-/* import React from 'react'
-import { useAppSelector } from '../../store/hooks'
-import { ICourse } from "../../store/coursesSlices";
-import axios from 'axios';
-import { backURL } from '../../main';
-
-const DeleteCourses = () => {
-  let courses = useAppSelector(state => state.courses.courses)
-  
-  const handleDelete = async (id:string) => {
-    let response =(await axios.get(`${backURL}/courses/${id}`)).data
-    console.log('course delete', response)
-    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:1})
-    courses= courses.filter(course=>course._id!==id)
-    // Implementa la lógica para eliminar el curso con el id especificado
-  }
-  
-const handleRestore= async (id:string) =>{
-  let response =(await axios.get(`${backURL}/courses/${id}`)).data
-    console.log('course delete', response)
-    await axios.put(`${backURL}/courses/${id}`, {...response, deleted:0})
-}
-  return (
-    <div>
-      <h2>Lista de cursos</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Active</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courses.map((course: ICourse) => (
-            <tr key={course._id}>
-              <td>{course.name}</td>
-              <td>{course.description}</td>
-              <td>{course.price}</td>
-              <td>{course.deleted === 1 ? "No" : "Yes"}</td>
-              
-              <td>
-                {course.deleted === 1? <button onClick={() => handleRestore(course._id)}>Restore</button> : <button onClick={() => handleDelete(course._id)}>Eliminar</button>}
-                
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-
- 
-}
-
-export default DeleteCourses */
-
-/* 
-
-
-
-
-
-CoursesController
-import { Course } from "../model/courses";
-import { ICourse } from "../utils/types";
-
-// FUNCION QUE TRAE TODOS LOS CURSOS
-export const getCourses = async () => {
-  try {
-    const courses = await Course.find({
-      $or: [
-        { deleted: {$ne: 1} },
-        { deleted: {$exists: false} }
-      ]
-    });
-    return courses;
-  } catch (error) {
-    throw new Error("Error al buscar los cursos en la base de datos");
-  }
-};
-
-export const getAllCourses= async () => {
-  try {
-    const courses = await Course.find();
-    return courses;
-  } catch (error) {
-    throw new Error("Error al buscar los cursos en la base de datos");
-  }
-};
-
-//FUNCION QUE TRAE CURSOS POR NOMBRE
-
-export const getCoursesByName = async (name: string) => {
-  try {
-    const courses = await Course.find({
-      name: { $regex: name, $options: "i" },
-    });
-    return courses;
-  } catch (error) {
-    throw new Error("Error al buscar los cursos por nombre");
-  }
-};
-
-// FUNCION QUE TRAE INFO DE UN CURSO POR ID
-
-export const getCourseById = async (id: any) => {
-  try {
-    const infoDB = await Course.findById(id).exec();
-    if (infoDB === null) {
-      console.log(`No se encontró ningún curso con ID ${id}`);
-    }
-    return infoDB;
-  } catch (error) {
-    console.error(error);
-    throw new Error(`Error al buscar el curso con ID ${id}`);
-  }
-};
-
-// FUNCION QUE ACTUALIZA UN CURSO POR ID
-export const updateCourseById = async (id: any, courseUpdates: ICourse) => {
-  try {
-    const infoDB = await Course.findByIdAndUpdate(id, courseUpdates, {
-      new: true,
-    }).exec();
-    if (infoDB === null) {
-      console.log(`No se encontró ningún curso con ID ${id}`);
-    }
-    return infoDB;
-  } catch (error) {
-    console.error(error);
-    throw new Error(`Error al actualizar el curso con ID ${id}`);
-  }
-};
-
-// FUNCION QUE CREA UN CURSO
-export const createCourse = async (course: ICourse): Promise<ICourse> => {
-  try {
-    const { name, description, image, difficulty, duration, price, video } =
-      course;
-    if (
-      !name ||
-      !description ||
-      !image ||
-      !difficulty ||
-      !duration ||
-      !price ||
-      !video
-    ) {
-      throw new Error("Faltan datos requeridos para crear un curso");
-    }
-    const createdCourse = await Course.create(course);
-    return createdCourse.toJSON() as ICourse;
-  } catch (error) {
-    throw new Error(`Ocurrió un error al crear el curso: ${error}`);
-  }
-};
-
-export const deleteById = async (id: any) => {
-  try {
-    const infoDB = await Course.findByIdAndDelete(id);
-    if (!infoDB) {
-      console.log(`No se encontró ningún curso con ID ${id}`);
-    }
-    return infoDB;
-  } catch (error) {
-    throw new Error(`Ocurrió un error al eliminar el curso: ${error}`);
-  }
-};
-
-*/
