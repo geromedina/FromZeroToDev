@@ -32,6 +32,8 @@ const UserAvatar: React.FC = () => {
 
   const isAdmin = userData?.role === "admin";
 
+  console.log(`user:`, userData)
+
   return (
     <div className="relative inline-block text-left mr-4 z-10">
       <div>
@@ -58,7 +60,7 @@ const UserAvatar: React.FC = () => {
               {user?.email}
             </div>
           </div>
-          {userData.role === "admin" &&
+          {isAdmin &&
             <Link
               to="/dashboard"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
