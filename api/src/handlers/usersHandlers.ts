@@ -4,15 +4,42 @@ import {
   updateUser,
   createUser,
   deleteById,
-  loginUser,
+  getUserById,
   findUserController,
   addCoursesToUserController,
-  // logoutUser,
-  refreshAccessToken,
-  getUserById
+  refreshAccessToken
 } from "../controllers/usersControllers";
-import { IUser } from "../utils/types";
+import { IUser} from "../utils/types";
 import Users from "../model/users";
+import dotenv from "dotenv";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import * as nodemailer from 'nodemailer';
+dotenv.config();
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
+
+export interface IObjEmail {
+  host: string | undefined;
+  port: string | undefined;
+  secure: boolean;
+  auth: {
+    user: string | undefined;
+    pass: string | undefined;
+  };
+}
+
+const ObjEmail:  IObjEmail = {
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE === "true",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  }
+};
+
+
 
 export const getUsersHandler = async (
   req: Request,
@@ -42,6 +69,7 @@ export const getUserId = async (
   }
 };
 
+
 //  FUNCION QUE ACTUALIZA INFORMACION DEL USUARIO
 export const updateUserById = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -56,22 +84,53 @@ export const updateUserById = async (req: Request, res: Response): Promise<void>
 
 
 //MANEJADOR QUE CREA LOS USUARIOS
+
 export const postUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const user = req.body as IUser;
-    const createdUser = await createUser(user);
-    res.status(200).json(createdUser);
-  } catch (error: any) {
-    const message = error.message.toLowerCase();
-    if (message.includes("email")) {
-      res.status(409).json({ error: "Ya existe un usuario con el mismo email" });
-    } else if (message.includes("nickname")) {
-      res.status(409).json({ error: "Ya existe un usuario con el mismo nickname" });
-    } else {
-      res.status(400).json({ error: "Ocurrió un error al crear el usuario" });
+    const { nickname, password, email, firstname, lastname, image } = req.body as IUser;
+    if (!nickname || !password || !email || !firstname || !lastname || !image) {
+      throw new Error("Faltan datos requeridos para crear un Usuario");
     }
+
+    const existingUserByEmail = await Users.findOne({ email });
+    if (existingUserByEmail) {
+      throw new Error("Ya existe un usuario con el mismo email");
+    }
+
+    const existingUserByNickname = await Users.findOne({ nickname });
+    if (existingUserByNickname) {
+      throw new Error("Ya existe un usuario con el mismo nickname");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const userWithTokens = {
+      ...req.body,
+      password: hashedPassword,
+      token: '',
+      refreshToken: '',
+    };
+    const createdUser = await Users.create(userWithTokens);
+
+    const accessToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
+    });
+    const refreshToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+
+    await Users.findByIdAndUpdate(createdUser._id, { refreshToken });
+
+    res.status(201).json({
+      ...createdUser.toJSON(),
+      token: accessToken,
+      refreshToken: refreshToken,
+    });
+  } catch (error: any) {
+    res.status(400).json({ error: `Ocurrió un error al crear el usuario: ${error.message}` });
   }
 };
+
+//MANEJA EL BORRADO DE USUARIOS 
 
 export const deleteUsers = async (req: Request, res: Response) => {
   try {
@@ -88,24 +147,6 @@ export const deleteUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const handleLogin = async (req: Request, res: Response) => {
-  try {
-    await loginUser(req, res);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Server error" });
-  }
-};
-
-// export const getUserByEmail = async (req: Request, res: Response) => {
-//   const { email } = req.params;
-//   try {
-//     const user = await findUserController(email);
-//     res.status(200).json(user);
-//   } catch (error) {
-//     throw new Error(`${error}`);
-//   }
-// };
 
 export const addCoursesById = async (req: Request, res: Response) => {
   const { coursesId, userEmail } = req.body;
@@ -116,15 +157,6 @@ export const addCoursesById = async (req: Request, res: Response) => {
     throw new Error(`${error}`);
   }
 };
-
-// export const handleLogout = async (req: Request, res: Response) => {
-//   try {
-//     await logoutUser(req, res);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Server error" });
-//   }
-// };
 
 
 export const handleRefreshAccessToken = async (req: Request, res: Response) => {

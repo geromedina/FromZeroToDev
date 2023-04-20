@@ -18,6 +18,7 @@ export const getUsersController = async () => {
   }
 };
 
+
 // FUNCION QUE TRAE INFO DE UN USUARIO POR ID
 
 export const getUserById = async (id: any) => {
@@ -68,12 +69,11 @@ export const updateUser = async (id: any, updatedData: Partial<IUser>) => {
 };
 
 
-// FUNCION QUE CREA UN USER
-
-export const createUser = async (user: IUser): Promise<IUser> => {
+// FUNCION QUE CREA UN  USER
+export const createUser = async (user: IUser,): Promise<IUser> => {
   try {
-    const { nickname, password, email, firstname, lastname, image } = user;
-    if (!nickname || !password || !email || !firstname || !lastname || !image) {
+    const { nickname, email, firstname, lastname } = user;
+    if (!nickname || !email || !firstname || !lastname ) {
       throw new Error("Faltan datos requeridos para crear un Usuario");
     }
 
@@ -86,13 +86,27 @@ export const createUser = async (user: IUser): Promise<IUser> => {
     if (existingUserByNickname) {
       throw new Error("Ya existe un usuario con el mismo nickname");
     }
+    const userWithTokens = {
+      ...user, 
+      token: '',
+      refreshToken: '',
+    };
+    const createdUser = await Users.create(userWithTokens);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const createdUser = await Users.create({
-      ...user,
-      password: hashedPassword,
+    const accessToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "3h",
     });
-    return createdUser.toJSON() as IUser;
+    const refreshToken = jwt.sign({ userId: createdUser.id }, JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+
+    await Users.findByIdAndUpdate(createdUser._id, { refreshToken });
+
+    return {
+      ...createdUser.toJSON(),
+      token: accessToken,
+      refreshToken: refreshToken,
+    } as IUser;
   } catch (error: any) {
     throw new Error(`Ocurrió un error al crear el usuario: ${error.message}`);
   }
@@ -157,23 +171,6 @@ export const addCoursesToUserController = async (
   return response;
 };
 
-// export const logoutUser = async (req: Request, res: Response) => {
-//   const { userId } = req.body;
-//   try {
-//     const user = await Users.findById(userId);
-//     if (!user) {
-//       return res.status(400).json({ error: "Invalid user ID" });
-//     }
-//     user.token = null;
-//     await user.save();
-//     res.status(200).json({ message: "User logged out successfully" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Server error" });
-//   }
-// };
-
-
 export const refreshAccessToken = async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
   try {
@@ -194,4 +191,3 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-

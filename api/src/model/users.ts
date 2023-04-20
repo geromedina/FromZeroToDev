@@ -24,13 +24,17 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  courses: {
+  courses_pay: {
+    type: Array,
+    defaultValue: [],
+  },
+  courses_sale: {
     type: Array,
     defaultValue: [],
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   country: {
     type: String,

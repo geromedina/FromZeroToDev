@@ -1,30 +1,29 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 import { backURL } from "../../main";
 
 const Register: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { user } = useAuth0();
   const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    username: "",
-    password: "",
-    country: "",
-    image: "",
+    firstname: user && user.given_name ? user.given_name : "",
+    lastname: user && user.family_name ? user.family_name : "",
+    email: user && user.email ? user.email : "",
+    nickname: user && user.nickname ? user.nickname : "",
+    image: user && user.picture ? user.picture : "",
   });
   const [errors, setErrors] = useState({
     firstname: "",
     lastname: "",
     email: "",
-    username: "",
-    password: "",
-    country: "",
-    image: "",
+    nickname: "",
   });
 
-  const changeHandler = (e: any) => {
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const property = e.target.name;
     const value = e.target.value;
     setForm({ ...form, [property]: value });
@@ -34,32 +33,19 @@ const Register: React.FC = (): JSX.Element => {
     const nameErr = form.firstname === "" ? "Please add a name" : "";
     const lastnameErr = form.lastname === "" ? "Please add a lastname" : "";
     const emailErr = form.email === "" ? "Please add an email" : "";
-    const usernameErr = form.username === "" ? "Please add an username" : "";
-    const passwordErr =
-      form.password === "" || isNaN(form.password) || form.password.length < 6
-        ? "Invalid password"
-        : "";
-    const countryErr = form.country === "" ? "Please add a country" : "";
-    const imageErr = form.image === "" ? "Please add an image" : "";
+    const nicknameErr = form.nickname === "" ? "Please add a nickname" : "";
     setErrors({
       firstname: nameErr,
       lastname: lastnameErr,
       email: emailErr,
-      username: usernameErr,
-      password: passwordErr,
-      country: countryErr,
-      image: imageErr,
+      nickname: nicknameErr,
     });
     if (
       nameErr !== "" ||
       lastnameErr !== "" ||
       emailErr !== "" ||
-      usernameErr !== "" ||
-      passwordErr !== "" ||
-      countryErr !== "" ||
-      imageErr !== ""
-    ) {
-      return false;
+      nicknameErr !== ""
+    ) {return false;
     } else {
       return true;
     }
@@ -72,15 +58,19 @@ const Register: React.FC = (): JSX.Element => {
     if (succesfull) {
       axios
         .post(`${backURL}/users`, form)
-        .then((res) => alert("Succesfully created"))
-        .catch((error) => alert(error.message));
+        .then((res) => {
+          // Reemplazar alert con una notificación
+          console.log("Succesfully created");
+        })
+        .catch((error) => {
+          // Reemplazar alert con una notificación
+          console.error(error.message);
+        });
       setForm({
         firstname: "",
         lastname: "",
         email: "",
-        username: "",
-        password: "",
-        country: "",
+        nickname: "",
         image: "",
       });
     } else return;
@@ -119,44 +109,16 @@ const Register: React.FC = (): JSX.Element => {
           />
           <span className="col-span-8 text-red-600">{errors.email}</span>
 
-          <label className="col-span-2">Username:</label>
+          <label className="col-span-2">Nickname:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={form.username}
+            id="nickname"
+            name="nickname"
+            value={form.nickname}
             onChange={changeHandler}
             className="col-span-6 border border-gray-400 p-2 rounded-lg"
           />
-          <span className="col-span-8 text-red-600">{errors.username}</span>
-
-          <label className="col-span-2">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={changeHandler}
-            className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          />
-          <span className="col-span-8 text-red-600">{errors.password}</span>
-
-          <label className="col-span-2">Country</label>
-          <input
-            className="col-span-6 border border-gray-400 p-2 rounded-lg"
-            value={form.country}
-            onChange={changeHandler}
-            name="country"
-          />
-          <span className="col-span-8 text-red-600">{errors.country}</span>
-
-          <label className="col-span-2">Image</label>
-          <input
-            value={form.image}
-            onChange={changeHandler}
-            name="image"
-            className="col-span-6 border border-gray-400 p-2 rounded-lg"
-          />
-          <span className="col-span-8 text-red-600">{errors.image}</span>
+          <span className="col-span-8 text-red-600">{errors.nickname}</span>
 
           <button
             type="submit"

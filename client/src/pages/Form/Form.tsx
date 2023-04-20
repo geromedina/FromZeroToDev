@@ -6,7 +6,6 @@ import { UploadImage } from "../../components/ImageUploader/imageUploader";
 import { useAppSelector } from "../../store/hooks";
 import { backURL } from "../../main";
 
-
 const Form: React.FC = (): JSX.Element => {
   const [form, setForm] = useState({
     name: "",
@@ -96,13 +95,6 @@ const Form: React.FC = (): JSX.Element => {
       });
     } else return;
   };
-  // const uploadHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log(e.target.value);
-
-  //   const response = await axios
-  //     .post("http://localhost:3001/cloudinary", { path: e.target.value })
-  //     .then((res) => console.log(res.data));
-  // };
 
   return (
     <div>
@@ -194,8 +186,8 @@ const Form: React.FC = (): JSX.Element => {
             Create!{" "}
           </button>
         </form>
+        <UploadImage />
       </div>
-      <UploadImage />
       <Footer />
     </div>
   );
